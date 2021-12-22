@@ -1,3 +1,4 @@
 module.exports = {
-  userRepo: require("./user.repo")
+  studentRepo: require("./student.repo"),
+  adminRepo: require("./admin.repo")
 };

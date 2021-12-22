@@ -1,26 +1,55 @@
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 
-const { userRepo } = require("../repositories");
+const { studentRepo, adminRepo } = require("../repositories");
 
 module.exports = passport => {
   passport.use(
+    "student-local",
     new LocalStrategy(
       { usernameField: "email" },
       async (email, password, done) => {
         try {
-          const user = await userRepo.getUserByEmail(email);
-          if (!user) {
+          const student = await studentRepo.getStudentByEmail(email);
+          if (!student) {
             return done(null, false, {
               message: "This email is not registered"
             });
           }
 
-          const passMatch = await bcrypt.compare(password, user.password);
+          const passMatch = await bcrypt.compare(password, student.password);
 
           if (passMatch) {
-            delete user.password;
-            return done(null, user);
+            delete student.password;
+            return done(null, student);
+          } else {
+            return done(null, false, { message: "Password Incorrect" });
+          }
+        } catch (err) {
+          return done(null, false, { message: "This email is not registered" });
+        }
+      }
+    )
+  );
+
+  passport.use(
+    "admin-local",
+    new LocalStrategy(
+      { usernameField: "email" },
+      async (email, password, done) => {
+        try {
+          const admin = await adminRepo.getAdminByEmail(email);
+          if (!student) {
+            return done(null, false, {
+              message: "This email is not registered"
+            });
+          }
+
+          const passMatch = await bcrypt.compare(password, student.password);
+
+          if (passMatch) {
+            delete student.password;
+            return done(null, student);
           } else {
             return done(null, false, { message: "Password Incorrect" });
           }
@@ -32,13 +61,18 @@ module.exports = passport => {
   );
 
   passport.serializeUser((user, done) => {
-    done(null, user._id);
+    done(null, { id: user._id, type: user.role || "student" });
   });
 
-  passport.deserializeUser(async (id, done) => {
+  passport.deserializeUser(async ({ id, role }, done) => {
     try {
-      const user = await userRepo.getUserById(id, false);
-      done(null, user);
+      if (role === "student") {
+         const student = await studentRepo.getStudentById(id);
+        done(null, student);
+      } else {
+        const admin = await adminRepo.getAdminById(id, false);
+        done(null, admin);
+      }
     } catch (err) {
       done(err, false);
     }

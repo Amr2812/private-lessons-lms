@@ -9,15 +9,15 @@ const boom = require("@hapi/boom");
  * @param  {Object} res - Express response object
  * @param  {Function} next - Express next middleware
  */
-module.exports.signup = async (req, res, next) => {
-  const user = await authService.signup(req.body);
+module.exports.studentSignup = async (req, res, next) => {
+  const student = await authService.signup(req.body);
 
-  req.logIn(user, err => {
+  req.logIn(student, err => {
     if (err) {
       return next(err);
     }
   });
-  res.status(201).json(user);
+  res.status(201).json(student);
 };
 
 /**
@@ -27,22 +27,48 @@ module.exports.signup = async (req, res, next) => {
  * @param  {Object} res - Express response object
  * @param  {Function} next - Express next middleware
  */
-module.exports.login = async (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
+module.exports.studentLogin = async (req, res, next) => {
+  passport.authenticate("student-local", (err, student, info) => {
     if (err) {
       return next(err);
     }
 
-    if (!user) {
+    if (!student) {
       next(boom.badRequest("Incorrect email or password"));
     }
 
-    req.logIn(user, err => {
+    req.logIn(student, err => {
       if (err) {
         return next(err);
       }
     });
-    return res.send(user);
+    return res.send(student);
+  })(req, res, next);
+};
+
+/**
+ * @async
+ * @description Login a user
+ * @param  {Object} req - Express request object
+ * @param  {Object} res - Express response object
+ * @param  {Function} next - Express next middleware
+ */
+module.exports.adminLogin = async (req, res, next) => {
+  passport.authenticate("admin-local", (err, admin, info) => {
+    if (err) {
+      return next(err);
+    }
+
+    if (!admin) {
+      next(boom.badRequest("Incorrect email or password"));
+    }
+
+    req.logIn(admin, err => {
+      if (err) {
+        return next(err);
+      }
+    });
+    return res.send(admin);
   })(req, res, next);
 };
 

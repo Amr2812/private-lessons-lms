@@ -1,8 +1,8 @@
 module.exports = {
-  Student: require("./Student"),
-  Admin: require("./Admin"),
-  Grade: require("./Grade"),
-  Lesson: require("./Lesson"),
-  AccessCode: require("./AccessCode"),
-  Action: require("./Action")
+  Student: require("./Student.model"),
+  Admin: require("./Admin.model"),
+  Grade: require("./Grade.model"),
+  Lesson: require("./Lesson.model"),
+  AccessCode: require("./AccessCode.model"),
+  Action: require("./Action.model")
 };
