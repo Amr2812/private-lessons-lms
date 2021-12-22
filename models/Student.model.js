@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const uniqueValidator = require("mongoose-unique-validator");
 
-const userSchema = mongoose.Schema({
+const studentSchema = mongoose.Schema({
   email: {
     type: String,
     unique: true
@@ -10,15 +10,22 @@ const userSchema = mongoose.Schema({
   password: {
     type: String
   },
-  username: {
+  name: {
     type: String,
     unique: true
   },
   image_url: {
     type: String
   },
-  bio: {
-    type: String
+  phone: {
+    type: Number
+  },
+  parentPhone: {
+    type: Number
+  },
+  grade: {
+    type: mongoose.Types.ObjectId,
+    ref: "Grade"
   },
   date: {
     type: Date,
@@ -26,7 +33,9 @@ const userSchema = mongoose.Schema({
   }
 });
 
-userSchema.pre("save", async function (next) {
+studentSchema.index({ email: 1, name: "text" });
+
+studentSchema.pre("save", async function (next) {
   try {
     const salt = await bcrypt.genSalt(10);
     bcrypt.hash(this.password, salt);
@@ -37,9 +46,9 @@ userSchema.pre("save", async function (next) {
   }
 });
 
-userSchema.plugin(uniqueValidator, {
-  message: "There is already a user with that {PATH}"
+studentSchema.plugin(uniqueValidator, {
+  message: "There is already a student with that {PATH}"
 });
-const User = mongoose.model("User", userSchema);
+const Student = mongoose.model("Student", studentSchema);
 
-module.exports = User;
+module.exports = Student;
