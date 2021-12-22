@@ -27,6 +27,12 @@ const studentSchema = mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "Grade"
   },
+  lessonsAttended: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Lesson"
+    }
+  ],
   date: {
     type: Date,
     default: Date.now()

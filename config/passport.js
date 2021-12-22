@@ -39,7 +39,7 @@ module.exports = passport => {
       async (email, password, done) => {
         try {
           const admin = await adminRepo.getAdminByEmail(email);
-          if (!student) {
+          if (!admin) {
             return done(null, false, {
               message: "This email is not registered"
             });
@@ -48,8 +48,8 @@ module.exports = passport => {
           const passMatch = await bcrypt.compare(password, student.password);
 
           if (passMatch) {
-            delete student.password;
-            return done(null, student);
+            delete admin.password;
+            return done(null, admin);
           } else {
             return done(null, false, { message: "Password Incorrect" });
           }
@@ -61,13 +61,13 @@ module.exports = passport => {
   );
 
   passport.serializeUser((user, done) => {
-    done(null, { id: user._id, type: user.role || "student" });
+    done(null, { id: user._id, role: user.role || "student" });
   });
 
   passport.deserializeUser(async ({ id, role }, done) => {
     try {
       if (role === "student") {
-         const student = await studentRepo.getStudentById(id);
+        const student = await studentRepo.getStudentById(id, false);
         done(null, student);
       } else {
         const admin = await adminRepo.getAdminById(id, false);

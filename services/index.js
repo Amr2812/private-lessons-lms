@@ -1,5 +1,5 @@
 module.exports = {
-  userService: require("./user.service"),
+  studentService: require("./student.service"),
   authService: require("./auth.service"),
   storageService: require("./storage.service")
-}
+};

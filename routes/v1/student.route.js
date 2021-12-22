@@ -6,24 +6,24 @@ const validate = require("../../middlewares/validator");
 const { requireAuth } = require("../../middlewares/auth");
 const formidable = require("express-formidable");
 
-const { userController } = require("../../controllers");
+const { studentController } = require("../../controllers");
 const { userValidator } = require("../../validations");
 
-router.route("/").get(asyncMiddleware(userController.getUsers));
+router.route("/").get(requireAuth, asyncMiddleware(studentController.getProfile));
 
 router
   .route("/profile-image")
   .put(
     requireAuth,
     formidable(),
-    asyncMiddleware(userController.updateProfileImage)
+    asyncMiddleware(studentController.updateProfileImage)
   );
 
 router
   .route("/:id")
   .get(
     validate(userValidator.getUser),
-    asyncMiddleware(userController.getUser)
+    asyncMiddleware(studentController.getUser)
   );
 
 module.exports = router;

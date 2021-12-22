@@ -18,7 +18,13 @@ module.exports.getStudents = async () =>
 module.exports.getStudentById = async (id, withPassword = true) => {
   if (withPassword) return await Student.findById(id).lean();
 
-  return await Student.findById(id, { password: 0 }).lean();
+  return await Student.findById(id, { password: 0 })
+    .populate("grade")
+    .populate({
+      path: "lessonsAttended",
+      select: "title"
+    })
+    .lean();
 };
 
 /**
@@ -36,15 +42,7 @@ module.exports.getStudentByEmail = async email =>
  * @param {object} student - The student object
  * @returns {Promise<Object>} - The student object
  */
-module.exports.createStudent = async student => {
-  try {
-    console.log(student);
-    const s = await Student.create(student);
-    console.log(s);
-  } catch (error) {
-    console.log(error);
-  }
-};
+module.exports.createStudent = async student => await Student.create(student);
 
 /**
  * @async
