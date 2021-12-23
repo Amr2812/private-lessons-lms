@@ -19,7 +19,7 @@ const adminSchema = mongoose.Schema({
     enum: ["assistant", "instructor"],
     default: "assistant"
   },
-  image_url: {
+  imageUrl: {
     type: String
   },
   date: {

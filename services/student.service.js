@@ -33,12 +33,12 @@ module.exports.getStudent = async id => {
  * @description Upload student profile image
  * @param {Object} student - Student object
  * @param {Object} file - File object
- * @returns {Promise<String>} - Updated Student
+ * @returns {Promise<Object>} student - Updated Student
  */
 module.exports.updateProfileImage = async (student, file) => {
   const studentId = student._id.toString();
   const imgLink = await upload(file, studentId, "students");
-  console.log(imgLink);
-  student.image_url = imgLink;
+
+  student.imageUrl = imgLink;
   return await studentRepo.updateStudent(studentId, user);
 };

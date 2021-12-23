@@ -52,6 +52,13 @@ module.exports.getStudent = async (req, res, next) => {
   res.send(student);
 };
 
+/**
+ * @async
+ * @description put/update a student's profile picture
+ * @param  {Object} req - Express request object
+ * @param  {Object} res - Express response object
+ * @param  {Function} next - Express next middleware
+ */
 module.exports.updateProfileImage = async (req, res, next) => {
   const file = req.files.file;
   if (!file) return next(boom.badRequest("No file uploaded"));

@@ -14,7 +14,7 @@ const studentSchema = mongoose.Schema({
     type: String,
     unique: true
   },
-  image_url: {
+  imageUrl: {
     type: String
   },
   phone: {

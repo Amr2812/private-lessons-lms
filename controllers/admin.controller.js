@@ -12,3 +12,23 @@ module.exports.createAssistant = async (req, res, next) => {
   const assistant = await adminService.createAssistant(req.body);
   res.status(201).json(assistant);
 };
+
+/**
+ * @async
+ * @description put/update an admin's profile picture
+ * @param  {Object} req - Express request object
+ * @param  {Object} res - Express response object
+ * @param  {Function} next - Express next middleware
+ */
+module.exports.updateProfileImage = async (req, res, next) => {
+  const file = req.files.file;
+  if (!file) return next(boom.badRequest("No file uploaded"));
+
+  if (!file.type.include("image/"))
+    return next(boom.badRequest("Invalid file type"));
+
+  const admin = await adminService.updateProfileImage(req.user, file);
+
+  res.send(admin);
+};
+
