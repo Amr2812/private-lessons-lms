@@ -48,7 +48,7 @@ module.exports.studentLogin = async (req, res, next) => {
 
 /**
  * @async
- * @description Login a user
+ * @description Login an admin
  * @param  {Object} req - Express request object
  * @param  {Object} res - Express response object
  * @param  {Function} next - Express next middleware

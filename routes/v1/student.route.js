@@ -7,7 +7,7 @@ const { requireAuth } = require("../../middlewares/auth");
 const formidable = require("express-formidable");
 
 const { studentController } = require("../../controllers");
-const { userValidator } = require("../../validations");
+const { studentValidator } = require("../../validations");
 
 router.route("/").get(requireAuth, asyncMiddleware(studentController.getProfile));
 
@@ -22,8 +22,8 @@ router
 router
   .route("/:id")
   .get(
-    validate(userValidator.getUser),
-    asyncMiddleware(studentController.getUser)
+    validate(studentValidator.getStudent),
+    asyncMiddleware(studentController.getStudent)
   );
 
 module.exports = router;

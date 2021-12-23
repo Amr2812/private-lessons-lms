@@ -1,5 +1,6 @@
 module.exports = {
-  studentService: require("./student.service"),
   authService: require("./auth.service"),
+  studentService: require("./student.service"),
+  adminService: require("./admin.service"),
   storageService: require("./storage.service")
 };

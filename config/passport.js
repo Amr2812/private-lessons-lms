@@ -45,7 +45,7 @@ module.exports = passport => {
             });
           }
 
-          const passMatch = await bcrypt.compare(password, student.password);
+          const passMatch = await bcrypt.compare(password, admin.password);
 
           if (passMatch) {
             delete admin.password;
