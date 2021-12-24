@@ -1,3 +1,3 @@
 const { param } = require("express-validator");
 
-module.exports.getStudent = [param("id").notEmpty().withMessage("Id is required")];
+module.exports.getStudent = [param("id").isMongoId().withMessage("Invalid id")];
