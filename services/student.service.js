@@ -1,5 +1,5 @@
 const { upload } = require("./storage.service");
-const { studentRepo } = require("../repositories");
+const { Student } = require("../models");
 
 /**
  * @async
@@ -8,7 +8,13 @@ const { studentRepo } = require("../repositories");
  * @returns {Promise<Object[]>}
  */
 module.exports.getProfile = async id =>
-  await studentRepo.getStudentById(id, false);
+  await Student.findById(id, "-password")
+    .populate("grade")
+    .populate({
+      path: "lessonsAttended",
+      select: "title"
+    })
+    .lean();
 
 /**
  * @async
@@ -16,7 +22,7 @@ module.exports.getProfile = async id =>
  * @returns {Promise<Object[]>}
  */
 module.exports.getStudents = async () => {
-  return await studentRepo.getStudents();
+  return await Student.find({}, "-password").lean();
 };
 
 /**
@@ -25,7 +31,7 @@ module.exports.getStudents = async () => {
  * @returns {Promise<Object>}
  */
 module.exports.getStudent = async id => {
-  return await studentRepo.getStudentById(id, false);
+  return await Student.findById(id, "-password").lean();
 };
 
 /**
@@ -40,5 +46,7 @@ module.exports.updateProfileImage = async (student, file) => {
   const imgLink = await upload(file, studentId, "students");
 
   student.imageUrl = imgLink;
-  return await studentRepo.updateStudent(studentId, user);
+  return await Student.findByIdAndUpdate(id, student, { new: true })
+    .select("-password")
+    .lean();
 };

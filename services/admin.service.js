@@ -1,4 +1,4 @@
-const { adminRepo } = require("../repositories");
+const { Admin } = require("../models");
 const { upload } = require("./storage.service");
 
 /**
@@ -8,12 +8,12 @@ const { upload } = require("./storage.service");
  * @returns {Promise<Object>} - The assistant object
  */
 module.exports.createAssistant = async assistant =>
-  await adminRepo.createAdmin(assistant);
+  await Admin.create(assistant);
 
 /**
  * @async
  * @description Upload admin's profile image
- * @param {Object} admin - Student object
+ * @param {Object} admin - Admin object
  * @param {Object} file - File object
  * @returns {Promise<Object>} admin - Updated Admin
  */
@@ -22,5 +22,7 @@ module.exports.updateProfileImage = async (admin, file) => {
   const imgLink = await upload(file, adminId, "students");
 
   admin.imageUrl = imgLink;
-  return await studentRepo.updateStudent(adminId, user);
+  return await Admin.findByIdAndUpdate(id, admin, { new: true })
+    .select("-password")
+    .lean();
 };

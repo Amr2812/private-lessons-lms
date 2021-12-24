@@ -1,7 +1,7 @@
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 
-const { studentRepo, adminRepo } = require("../repositories");
+const { Admin, Student } = require("../models");
 
 module.exports = passport => {
   passport.use(
@@ -10,7 +10,7 @@ module.exports = passport => {
       { usernameField: "email" },
       async (email, password, done) => {
         try {
-          const student = await studentRepo.getStudentByEmail(email);
+          const student = await Student.findOne({ email }).lean();
           if (!student) {
             return done(null, false, {
               message: "This email is not registered"
@@ -38,7 +38,7 @@ module.exports = passport => {
       { usernameField: "email" },
       async (email, password, done) => {
         try {
-          const admin = await adminRepo.getAdminByEmail(email);
+          const admin = await Admin.findOne({ email }).lean();
           if (!admin) {
             return done(null, false, {
               message: "This email is not registered"
@@ -67,10 +67,10 @@ module.exports = passport => {
   passport.deserializeUser(async ({ id, role }, done) => {
     try {
       if (role === "student") {
-        const student = await studentRepo.getStudentById(id, false);
+        const student = await Student.findById(id).lean();
         done(null, student);
       } else {
-        const admin = await adminRepo.getAdminById(id, false);
+        const admin = await Admin.findById(id).lean();
         done(null, admin);
       }
     } catch (err) {

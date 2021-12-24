@@ -7,4 +7,8 @@ const client = new Redis({
   password: process.env.REDIS_PASSWORD
 });
 
+client.on("error", err => {
+  console.error(err);
+});
+
 module.exports = client;

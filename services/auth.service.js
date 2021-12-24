@@ -1,4 +1,4 @@
-const { studentRepo } = require("../repositories");
+const { Student } = require('../models');
 
 /**
  * @async
@@ -7,7 +7,7 @@ const { studentRepo } = require("../repositories");
  * @returns {Promise<Object>}
  */
 module.exports.signup = async student => {
-  const createdStudent = await studentRepo.createStudent(student);
+  const createdStudent = await Student.create(student);
   createdStudent.password = undefined;
 
   return createdStudent;
