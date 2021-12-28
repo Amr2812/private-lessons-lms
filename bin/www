@@ -6,7 +6,7 @@
 
 const app = require("../app");
 const http = require("http");
-const mongoose = require("mongoose");
+const mongodbInit = require("../config/mongodb");
 
 /**
  * Get port from environment and store in Express.
@@ -32,17 +32,7 @@ server.on("listening", onListening);
 /**
  * Connect to MongoDB
  */
-
-mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(console.log("Connected to MongoDB"))
-  .catch(err => {
-    console.log(err);
-    process.exit(1);
-  });
+mongodbInit();
 
 /**
  * Normalize a port into a number, string, or false.

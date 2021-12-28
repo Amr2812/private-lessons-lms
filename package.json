@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "pm2 start ./bin/www -i 0",
-    "start:dev": "nodemon ./bin/www"
+    "dev": "nodemon ./bin/www",
+    "seed": "node ./seeders"
   },
   "dependencies": {
     "@hapi/boom": "^9.1.4",
