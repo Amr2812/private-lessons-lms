@@ -10,7 +10,7 @@ const { gradeController } = require("../../controllers");
 
 router
   .route("/")
-  .get(requireAuth, asyncMiddleware(gradeController.getGrades))
+  .get(asyncMiddleware(gradeController.getGrades))
   .post(
     requireInstructor,
     validate(gradeValidator.createGrade),
