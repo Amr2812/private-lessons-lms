@@ -80,5 +80,5 @@ module.exports.adminLogin = async (req, res, next) => {
  */
 module.exports.logout = (req, res, next) => {
   req.logout();
-  res.send();
+  res.sendStatus(204);
 };

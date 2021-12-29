@@ -10,7 +10,7 @@ const boom = require("@hapi/boom");
  */
 module.exports.createAssistant = async (req, res, next) => {
   const assistant = await adminService.createAssistant(req.body);
-  res.status(201).json(assistant);
+  res.status(201).send(assistant);
 };
 
 /**
