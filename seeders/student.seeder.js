@@ -1,7 +1,7 @@
 const { Student } = require("../models");
 
 module.exports = async grades =>
-  await Student.insertMany([
+  await Student.create([
     {
       name: "Student 1",
       email: "student1@gmail.com",

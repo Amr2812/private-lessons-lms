@@ -13,7 +13,7 @@ const accessCodeSchema = mongoose.Schema({
   consumed: {
     type: Boolean,
     default: false
-  },
+  }
 });
 
 accessCodeSchema.index({ code: 1 });

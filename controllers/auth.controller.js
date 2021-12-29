@@ -34,7 +34,7 @@ module.exports.studentLogin = async (req, res, next) => {
     }
 
     if (!student) {
-      return next(boom.badRequest("Incorrect email or password"));
+      return next(boom.badRequest(info.message));
     }
 
     req.logIn(student, err => {
@@ -60,7 +60,7 @@ module.exports.adminLogin = async (req, res, next) => {
     }
 
     if (!admin) {
-      return next(boom.badRequest("Incorrect email or password"));
+      return next(boom.badRequest(info.message));
     }
 
     req.logIn(admin, err => {

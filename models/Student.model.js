@@ -18,10 +18,10 @@ const studentSchema = mongoose.Schema({
     type: String
   },
   phone: {
-    type: Number
+    type: String
   },
   parentPhone: {
-    type: Number
+    type: String
   },
   grade: {
     type: mongoose.Types.ObjectId,
@@ -44,8 +44,7 @@ studentSchema.index({ email: 1, name: "text" });
 studentSchema.pre("save", async function (next) {
   try {
     const salt = await bcrypt.genSalt(10);
-    bcrypt.hash(this.password, salt);
-    this.password = await bcrypt.hash(this.password, 10);
+    this.password = await bcrypt.hash(this.password, salt);
     next();
   } catch (err) {
     next(err);

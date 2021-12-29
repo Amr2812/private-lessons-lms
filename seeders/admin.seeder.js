@@ -1,7 +1,7 @@
 const { Admin } = require("../models");
 
 module.exports = async () =>
-  await Admin.insertMany([
+  await Admin.create([
     {
       email: "instructor@gmail.com",
       name: "instructor",
