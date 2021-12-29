@@ -63,7 +63,7 @@ module.exports.updateProfileImage = async (req, res, next) => {
   const file = req.files.file;
   if (!file) return next(boom.badRequest("No file uploaded"));
 
-  if (!file.type.include("image/"))
+  if (!file.type.includes("image/"))
     return next(boom.badRequest("Invalid file type"));
 
   const student = await studentService.updateProfileImage(req.user, file);

@@ -18,8 +18,8 @@ module.exports.createAssistant = async assistant =>
  * @returns {Promise<Object>} admin - Updated Admin
  */
 module.exports.updateProfileImage = async (admin, file) => {
-  const adminId = admin._id.toString();
-  const imgLink = await upload(file, adminId, "students");
+  const id = admin._id.toString();
+  const imgLink = await upload(file, id, "students");
 
   admin.imageUrl = imgLink;
   return await Admin.findByIdAndUpdate(id, admin, { new: true })

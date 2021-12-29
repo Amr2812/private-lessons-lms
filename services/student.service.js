@@ -42,8 +42,8 @@ module.exports.getStudent = async id => {
  * @returns {Promise<Object>} student - Updated Student
  */
 module.exports.updateProfileImage = async (student, file) => {
-  const studentId = student._id.toString();
-  const imgLink = await upload(file, studentId, "students");
+  const id = student._id.toString();
+  const imgLink = await upload(file, id, "students");
 
   student.imageUrl = imgLink;
   return await Student.findByIdAndUpdate(id, student, { new: true })

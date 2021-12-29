@@ -20,7 +20,7 @@ router
 router
   .route("/:id")
   .patch(
-    // requireInstructor,
+    requireInstructor,
     validate(gradeValidator.updateGrade),
     asyncMiddleware(gradeController.updateGrade)
   );
