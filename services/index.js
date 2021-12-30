@@ -3,5 +3,6 @@ module.exports = {
   studentService: require("./student.service"),
   adminService: require("./admin.service"),
   storageService: require("./storage.service"),
-  gradeService: require("./grade.service")
+  gradeService: require("./grade.service"),
+  lessonService: require("./lesson.service")
 };

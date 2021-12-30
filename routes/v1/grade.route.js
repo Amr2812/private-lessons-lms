@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const asyncMiddleware = require("../../middlewares/asyncErrors");
-const { requireInstructor, requireAuth } = require("../../middlewares/auth");
+const { requireInstructor } = require("../../middlewares/auth");
 const validate = require("../../middlewares/validator");
 
 const { gradeValidator } = require("../../validations");
