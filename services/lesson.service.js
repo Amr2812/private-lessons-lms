@@ -25,3 +25,18 @@ module.exports.updateVideo = async (id, file) => {
     { new: true }
   ).lean();
 };
+
+/**
+ * @async
+ * @description get lessons
+ * @param {String} grade - Grade id
+ * @param {Object} query - Query object
+ * @returns {Promise<Object[]>} - Array of lessons
+ */
+module.exports.getLessons = async (grade, query) =>
+  await Lesson.find({ grade })
+    .skip(query.skip || 0)
+    .limit(query.limit || 10)
+    .sort({ date: 1 })
+    .select("title")
+    .lean();

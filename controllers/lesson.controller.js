@@ -1,4 +1,5 @@
 const { lessonService } = require("../services");
+const { boom } = require("@hapi/boom");
 
 /**
  * @async
@@ -28,4 +29,22 @@ module.exports.updateVideo = async (req, res, next) => {
 
   const lesson = await lessonService.updateVideo(req.params.id, req.files.file);
   res.send(lesson);
+};
+
+/**
+ * @async
+ * @description Get Lessons
+ * @param  {Object} req - Express request object
+ * @param  {Object} res - Express response object
+ * @param  {Function} next - Express next middleware
+ */
+module.exports.getLessons = async (req, res, next) => {
+  const lessons = await lessonService.getLessons(req.query.grade, {
+    skip: req.query.skip,
+    limit: req.query.limit
+  });
+
+  if (!lessons) return next(boom.notFound("Grade not found"));
+
+  res.send(lessons);
 };

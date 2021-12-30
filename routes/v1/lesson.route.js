@@ -15,6 +15,11 @@ router
     requireInstructor,
     validate(lessonValidator.createLesson),
     asyncMiddleware(lessonController.createLesson)
+  )
+  .get(
+    requireAuth,
+    validate(lessonValidator.getLessons),
+    asyncMiddleware(lessonController.getLessons)
   );
 
 router
