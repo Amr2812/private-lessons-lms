@@ -48,3 +48,18 @@ module.exports.getLessons = async (req, res, next) => {
 
   res.send(lessons);
 };
+
+/**
+ * @async
+ * @description Get Lesson
+ * @param  {Object} req - Express request object
+ * @param  {Object} res - Express response object
+ * @param  {Function} next - Express next middleware
+ */
+module.exports.getLesson = async (req, res, next) => {
+  const lesson = await lessonService.getLesson(req.params.id);
+
+  if (!lesson) return next(boom.notFound("Lesson not found"));
+
+  res.send(lesson);
+};

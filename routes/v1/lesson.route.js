@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const asyncMiddleware = require("../../middlewares/asyncErrors");
-const { requireAuth, requireInstructor } = require("../../middlewares/auth");
+const { requireAuth, requireInstructor, requireAdmin } = require("../../middlewares/auth");
 const validate = require("../../middlewares/validator");
 const formidable = require("express-formidable");
 
@@ -20,6 +20,14 @@ router
     requireAuth,
     validate(lessonValidator.getLessons),
     asyncMiddleware(lessonController.getLessons)
+  );
+
+router
+  .route("/:id")
+  .get(
+    requireAdmin,
+    validate(lessonValidator.getLesson),
+    asyncMiddleware(lessonController.getLesson)
   );
 
 router

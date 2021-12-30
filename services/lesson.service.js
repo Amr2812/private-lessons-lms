@@ -40,3 +40,12 @@ module.exports.getLessons = async (grade, query) =>
     .sort({ date: 1 })
     .select("title")
     .lean();
+
+/**
+ * @async
+ * @description Get lesson by id
+ * @param {String} id - Lesson id
+ * @returns {Promise<Object>} - Lesson
+ */
+module.exports.getLesson = async id =>
+  await Lesson.findById(id).populate("grade").lean();
