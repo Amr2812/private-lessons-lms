@@ -18,7 +18,7 @@ router
   );
 
 router
-  .route("/assistant")
+    .route("/assistant")
   .post(
     requireInstructor,
     validate(adminValidator.createAssistant),

@@ -8,9 +8,9 @@ const gradeRouter = require("./grade.route");
 const lessonRouter = require("./lesson.route");
 
 router.use("/auth", authRouter);
-router.use("/student", studentRouter);
-router.use("/admin", adminRouter);
-router.use("/grade", gradeRouter);
-router.use("/lesson", lessonRouter);
+router.use("/students", studentRouter);
+router.use("/admins", adminRouter);
+router.use("/grades", gradeRouter);
+router.use("/lessons", lessonRouter);
 
 module.exports = router;
