@@ -7,6 +7,10 @@ const client = new Redis({
   password: process.env.REDIS_PASSWORD
 });
 
+client.on("connect", () => {
+  console.log("Redis connected");
+});
+
 client.on("error", err => {
   console.error(err);
 });
