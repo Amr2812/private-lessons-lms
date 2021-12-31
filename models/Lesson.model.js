@@ -22,7 +22,8 @@ const lessonSchema = mongoose.Schema({
   }
 });
 
-lessonSchema.index({ grade: 1, title: "text" });
+lessonSchema.index({ grade: 1});
+lessonSchema.index({ title: "text" });
 
 lessonSchema.plugin(uniqueValidator, {
   message: "There is already a lesson with that {PATH}"

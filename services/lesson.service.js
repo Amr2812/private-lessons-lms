@@ -1,5 +1,6 @@
-const { Lesson } = require("../models");
+const { Lesson, AccessCode, Student } = require("../models");
 const { upload } = require("./storage.service");
+const boom = require("@hapi/boom");
 
 /**
  * @async
@@ -49,3 +50,41 @@ module.exports.getLessons = async (grade, query) =>
  */
 module.exports.getLesson = async id =>
   await Lesson.findById(id).populate("grade").lean();
+
+/**
+ * @async
+ * @description Attend lesson
+ * @param {String} userId - User id
+ * @param {String} lessonId - Lesson id
+ * @param {String} code - Access code
+ * @returns {Promise<Object>} - Lesson
+ */
+module.exports.attendLesson = async (userId, lessonId, code) => {
+  const lesson = await Lesson.findById(lessonId).select("-videoLink").lean();
+  if (!lesson) return null;
+
+  const accessCode = await AccessCode.findOne({
+    code,
+    grade: lesson.grade
+  });
+
+  if (!accessCode) return boom.notFound("Access code not found");
+
+  if (accessCode.consumed) return boom.badRequest("Access code already used");
+
+  const student = await Student.findById(userId);
+
+  if (student.lessonsAttended.includes(lessonId)) {
+    return boom.badRequest(
+      "You already attended this lesson you can access it"
+    );
+  }
+
+  student.lessonsAttended.push(lessonId);
+  await student.save({ validateBeforeSave: false });
+
+  accessCode.consumed = true;
+  await accessCode.save({ validateBeforeSave: false });
+
+  return lesson;
+};

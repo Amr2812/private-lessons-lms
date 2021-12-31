@@ -67,7 +67,11 @@ module.exports = passport => {
   passport.deserializeUser(async ({ id, role }, done) => {
     try {
       if (role === "student") {
-        const student = await Student.findById(id).lean();
+        const student = await Student.findById(id)
+          .select("-lessonsAttended")
+          .lean();
+        student.role = "student";
+
         done(null, student);
       } else {
         const admin = await Admin.findById(id).lean();

@@ -63,3 +63,30 @@ module.exports.getLesson = async (req, res, next) => {
 
   res.send(lesson);
 };
+
+/**
+ * @async
+ * @description Attend Lesson
+ * @param  {Object} req - Express request object
+ * @param  {Object} res - Express response object
+ * @param  {Function} next - Express next middleware
+ */
+module.exports.attendLesson = async (req, res, next) => {
+  if (!(req.user.role === "student")) {
+    return next(
+      boom.unauthorized("You have to be a student to attend a lesson")
+    );
+  }
+
+  const lesson = await lessonService.attendLesson(
+    req.user._id,
+    req.params.id,
+    req.body.code
+  );
+
+  if (!lesson) return next(boom.notFound("Lesson not found"));
+
+  if (lesson instanceof Error) return next(lesson);
+
+  res.send(lesson);
+};
