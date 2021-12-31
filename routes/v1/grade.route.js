@@ -25,4 +25,12 @@ router
     asyncMiddleware(gradeController.updateGrade)
   );
 
+router
+  .route("/:id/access-codes")
+  .get(
+    requireInstructor,
+    validate(gradeValidator.generateAccessCodes),
+    asyncMiddleware(gradeController.generateAccessCodes)
+  );
+
 module.exports = router;

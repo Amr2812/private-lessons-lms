@@ -5,7 +5,13 @@ const gradeSchema = mongoose.Schema({
   name: {
     type: String,
     unique: true
-  }
+  },
+  accessCodes: [
+    {
+      type: String,
+      unique: true
+    }
+  ]
 });
 
 gradeSchema.plugin(uniqueValidator, {

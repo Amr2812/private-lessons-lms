@@ -1,5 +1,5 @@
 const { lessonService } = require("../services");
-const { boom } = require("@hapi/boom");
+const boom = require("@hapi/boom");
 
 /**
  * @async

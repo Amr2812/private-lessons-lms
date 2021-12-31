@@ -24,6 +24,7 @@
     "mongoose": "^6.1.1",
     "mongoose-unique-validator": "^3.0.0",
     "morgan": "~1.9.1",
+    "nanoid": "^3.1.30",
     "passport": "^0.5.0",
     "passport-local": "^1.0.0",
     "rate-limiter-flexible": "^2.3.6"
