@@ -1,4 +1,4 @@
-const { adminService } = require("../services");
+const { adminService, actionService } = require("../services");
 const boom = require("@hapi/boom");
 
 /**
@@ -27,8 +27,19 @@ module.exports.updateProfileImage = async (req, res, next) => {
   if (!file.type.includes("image/"))
     return next(boom.badRequest("Invalid file type"));
 
-    const admin = await adminService.updateProfileImage(req.user, file);
+  const admin = await adminService.updateProfileImage(req.user, file);
 
   res.send(admin);
 };
 
+/**
+ * @async
+ * @description get all actions
+ * @param  {Object} req - Express request object
+ * @param  {Object} res - Express response object
+ * @param  {Function} next - Express next middleware
+ */
+module.exports.getActions = async (req, res, next) => {
+  const actions = await actionService.getActions(req.query);
+  res.send(actions);
+};

@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const uniqueValidator = require("mongoose-unique-validator");
 
 const actionSchema = mongoose.Schema({
   admin: {
@@ -10,10 +9,6 @@ const actionSchema = mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "Grade"
   },
-  lesson: {
-    type: mongoose.Types.ObjectId,
-    ref: "Lesson"
-  },
   count: {
     type: Number
   },
@@ -23,9 +18,6 @@ const actionSchema = mongoose.Schema({
   }
 });
 
-actionSchema.plugin(uniqueValidator, {
-  message: "There is already a student with that {PATH}"
-});
 const Action = mongoose.model("Action", actionSchema);
 
 module.exports = Action;

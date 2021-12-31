@@ -18,11 +18,13 @@ router
   );
 
 router
-    .route("/assistant")
+  .route("/assistant")
   .post(
     requireInstructor,
     validate(adminValidator.createAssistant),
     asyncMiddleware(adminController.createAssistant)
   );
+
+router.route("/actions").get(requireInstructor, asyncMiddleware(adminController.getActions));
 
 module.exports = router;

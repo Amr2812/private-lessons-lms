@@ -40,7 +40,7 @@ module.exports.updateVideo = async (req, res, next) => {
  */
 module.exports.getLessons = async (req, res, next) => {
   const lessons = await lessonService.getLessons(req.query.grade, {
-    skip: req.query.skip,
+    p: req.query.skip,
     limit: req.query.limit
   });
 

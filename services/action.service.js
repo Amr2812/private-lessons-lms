@@ -14,3 +14,24 @@ module.exports.recordAction = async (admin, grade, count) =>
     grade,
     count
   });
+
+/**
+ * @async
+ * @description Get all actions
+ * @param {Object} query - Query object (skip, limit)
+ * @returns {Promise<Object[]>} actions
+ */
+module.exports.getActions = async query =>
+  await Action.find({})
+    .skip(query.skip || 0)
+    .limit(query.limit || 10)
+    .populate({
+      path: "admin",
+      select: "name"
+    })
+    .populate({
+      path: "grade",
+      select: "name"
+    })
+    .sort({ date: -1 })
+    .lean();
