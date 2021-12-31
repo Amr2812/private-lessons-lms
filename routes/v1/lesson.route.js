@@ -29,7 +29,7 @@ router
 router
   .route("/:id")
   .get(
-    requireAdmin,
+    requireAuth,
     validate(lessonValidator.getLesson),
     asyncMiddleware(lessonController.getLesson)
   );

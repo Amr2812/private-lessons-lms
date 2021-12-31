@@ -67,9 +67,8 @@ module.exports = passport => {
   passport.deserializeUser(async ({ id, role }, done) => {
     try {
       if (role === "student") {
-        const student = await Student.findById(id)
-          .select("-lessonsAttended")
-          .lean();
+        const student = await Student.findById(id).lean();
+        student.lessonsAttended = student.lessonsAttended.map(e => String(e));
         student.role = "student";
 
         done(null, student);

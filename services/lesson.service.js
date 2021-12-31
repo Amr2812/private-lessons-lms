@@ -49,17 +49,20 @@ module.exports.getLessons = async (grade, query) =>
  * @returns {Promise<Object>} - Lesson
  */
 module.exports.getLesson = async id =>
-  await Lesson.findById(id).populate("grade").lean();
+  await Lesson.findById(id)
+    .select("-videoLink")
+    .populate({ path: "grade", select: "name" })
+    .lean();
 
 /**
  * @async
  * @description Attend lesson
- * @param {String} userId - User id
+ * @param {String} student - student object
  * @param {String} lessonId - Lesson id
  * @param {String} code - Access code
  * @returns {Promise<Object>} - Lesson
  */
-module.exports.attendLesson = async (userId, lessonId, code) => {
+module.exports.attendLesson = async (student, lessonId, code) => {
   const lesson = await Lesson.findById(lessonId).select("-videoLink").lean();
   if (!lesson) return null;
 
@@ -72,16 +75,20 @@ module.exports.attendLesson = async (userId, lessonId, code) => {
 
   if (accessCode.consumed) return boom.badRequest("Access code already used");
 
-  const student = await Student.findById(userId);
-
   if (student.lessonsAttended.includes(lessonId)) {
     return boom.badRequest(
       "You already attended this lesson you can access it"
     );
   }
 
-  student.lessonsAttended.push(lessonId);
-  await student.save({ validateBeforeSave: false });
+  await Student.updateOne(
+    { _id: student._id },
+    {
+      $push: {
+        lessonsAttended: lessonId
+      }
+    }
+  );
 
   accessCode.consumed = true;
   await accessCode.save({ validateBeforeSave: false });

@@ -39,7 +39,8 @@ const studentSchema = mongoose.Schema({
   }
 });
 
-studentSchema.index({ email: 1, name: "text" });
+studentSchema.index({ email: 1 });
+studentSchema.index({ name: "text" });
 
 studentSchema.pre("save", async function (next) {
   try {

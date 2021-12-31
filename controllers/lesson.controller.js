@@ -57,6 +57,12 @@ module.exports.getLessons = async (req, res, next) => {
  * @param  {Function} next - Express next middleware
  */
 module.exports.getLesson = async (req, res, next) => {
+  if (req.user.role === "student") {
+    if (!req.user.lessonsAttended.includes(req.params.id)) {
+      return next(boom.badRequest("You have to attend this lesson to view it"));
+    }
+  }
+
   const lesson = await lessonService.getLesson(req.params.id);
 
   if (!lesson) return next(boom.notFound("Lesson not found"));
@@ -79,7 +85,7 @@ module.exports.attendLesson = async (req, res, next) => {
   }
 
   const lesson = await lessonService.attendLesson(
-    req.user._id,
+    req.user,
     req.params.id,
     req.body.code
   );
