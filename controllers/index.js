@@ -3,5 +3,6 @@ module.exports = {
   studentController: require("./student.controller"),
   adminController: require("./admin.controller"),
   gradeController: require("./grade.controller"),
-  lessonController: require("./lesson.controller")
+  lessonController: require("./lesson.controller"),
+  accessCodeController: require("./accessCode.controller")
 };

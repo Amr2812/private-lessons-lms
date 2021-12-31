@@ -3,5 +3,6 @@ module.exports = {
   studentValidator: require("./student.validator"),
   adminValidator: require("./admin.validator"),
   gradeValidator: require("./grade.validator"),
-  lessonValidator: require("./lesson.validator")
+  lessonValidator: require("./lesson.validator"),
+  accessCodeValidator: require("./accessCode.validator")
 };

@@ -4,5 +4,7 @@ module.exports = {
   adminService: require("./admin.service"),
   storageService: require("./storage.service"),
   gradeService: require("./grade.service"),
-  lessonService: require("./lesson.service")
+  lessonService: require("./lesson.service"),
+  accessCodeService: require("./accessCode.service"),
+  actionService: require("./action.service")
 };
