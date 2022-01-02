@@ -19,10 +19,11 @@ module.exports.recordAction = async (admin, grade, count) =>
  * @async
  * @description Get all actions
  * @param {Object} query - Query object (skip, limit)
- * @returns {Promise<Object[]>} actions
+ * @returns {Promise<Object>} (actions, total)
  */
-module.exports.getActions = async query =>
-  await Action.find({})
+module.exports.getActions = async query => {
+  const actions = await Action.find({})
+    .sort({ date: -1 })
     .skip(query.skip || 0)
     .limit(query.limit || 10)
     .populate({
@@ -33,5 +34,9 @@ module.exports.getActions = async query =>
       path: "grade",
       select: "name"
     })
-    .sort({ date: -1 })
     .lean();
+
+  const total = await Action.countDocuments();
+
+  return { actions, total };
+};

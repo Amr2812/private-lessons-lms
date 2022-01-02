@@ -34,13 +34,18 @@ module.exports.updateVideo = async (id, file) => {
  * @param {Object} query - Query object
  * @returns {Promise<Object[]>} - Array of lessons
  */
-module.exports.getLessons = async (grade, query) =>
-  await Lesson.find({ grade })
+module.exports.getLessons = async (grade, query) => {
+  const lessons = await Lesson.find({ grade })
+    .sort({ date: 1 })
     .skip(query.skip || 0)
     .limit(query.limit || 10)
-    .sort({ date: 1 })
     .select("title")
     .lean();
+
+  const total = await Lesson.countDocuments({ grade });
+
+  return { lessons, total };
+};
 
 /**
  * @async
