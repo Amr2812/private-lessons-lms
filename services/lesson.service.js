@@ -1,6 +1,7 @@
 const { Lesson, AccessCode, Student } = require("../models");
 const { upload } = require("./storage.service");
 const boom = require("@hapi/boom");
+const { bucket } = require("../config/firebase");
 
 /**
  * @async
@@ -32,7 +33,7 @@ module.exports.updateVideo = async (id, file) => {
  * @description get lessons
  * @param {String} grade - Grade id
  * @param {Object} query - Query object
- * @returns {Promise<Object[]>} - Array of lessons
+ * @returns {Promise<Object>} - (lessons, total)
  */
 module.exports.getLessons = async (grade, query) => {
   const lessons = await Lesson.find({ grade })

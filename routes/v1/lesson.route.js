@@ -40,7 +40,8 @@ router
     requireInstructor,
     formidable(),
     asyncMiddleware(lessonController.updateVideo)
-  );
+  )
+  .get(requireAuth, asyncMiddleware(lessonController.streamVideo));
 
 router
   .route("/:id/attend")

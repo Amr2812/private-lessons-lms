@@ -61,7 +61,7 @@ app.use("/v1", v1Router);
 // 404 Handler
 app.use((req, res, next) => {
   next(boom.notFound());
-}); 
+});
 
 // Error Handler
 app.use((err, req, res, next) => {
