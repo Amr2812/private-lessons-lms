@@ -1,42 +1,48 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const mongooseLeanVirtuals = require("mongoose-lean-virtuals");
 const uniqueValidator = require("mongoose-unique-validator");
+const formatLink = require("../utils/formatLink.util");
 
-const studentSchema = mongoose.Schema({
-  email: {
-    type: String,
-    unique: true
-  },
-  password: {
-    type: String
-  },
-  name: {
-    type: String,
-    unique: true
-  },
-  imageUrl: {
-    type: String
-  },
-  phone: {
-    type: String
-  },
-  parentPhone: {
-    type: String
-  },
-  grade: {
-    type: mongoose.Types.ObjectId,
-    ref: "Grade"
-  },
-  lessonsAttended: [
-    {
+const studentSchema = mongoose.Schema(
+  {
+    email: {
+      type: String,
+      unique: true
+    },
+    password: {
+      type: String
+    },
+    name: {
+      type: String,
+      unique: true
+    },
+    phone: {
+      type: String
+    },
+    parentPhone: {
+      type: String
+    },
+    grade: {
       type: mongoose.Types.ObjectId,
-      ref: "Lesson"
+      ref: "Grade"
+    },
+    lessonsAttended: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Lesson"
+      }
+    ],
+    date: {
+      type: Date,
+      default: Date.now()
     }
-  ],
-  date: {
-    type: Date,
-    default: Date.now()
-  }
+  },
+  { toJSON: { virtuals: true } }
+);
+
+studentSchema.virtual("imageUrl").get(function () {
+  return formatLink("students", this._id);
 });
 
 studentSchema.index({ email: 1 });
@@ -51,6 +57,8 @@ studentSchema.pre("save", async function (next) {
     next(err);
   }
 });
+
+studentSchema.plugin(mongooseLeanVirtuals);
 
 studentSchema.plugin(uniqueValidator, {
   message: "There is already a student with that {PATH}"

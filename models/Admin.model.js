@@ -1,34 +1,41 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const mongooseLeanVirtuals = require("mongoose-lean-virtuals");
 const uniqueValidator = require("mongoose-unique-validator");
+const formatLink = require("../utils/formatLink.util");
 
-const adminSchema = mongoose.Schema({
-  email: {
-    type: String,
-    unique: true
+const adminSchema = mongoose.Schema(
+  {
+    email: {
+      type: String,
+      unique: true
+    },
+    password: {
+      type: String
+    },
+    name: {
+      type: String,
+      unique: true
+    },
+    role: {
+      type: String,
+      enum: ["assistant", "instructor"],
+      default: "assistant"
+    },
+    date: {
+      type: Date,
+      default: Date.now()
+    }
   },
-  password: {
-    type: String
-  },
-  name: {
-    type: String,
-    unique: true
-  },
-  role: {
-    type: String,
-    enum: ["assistant", "instructor"],
-    default: "assistant"
-  },
-  imageUrl: {
-    type: String
-  },
-  date: {
-    type: Date,
-    default: Date.now()
-  }
+  { toJSON: { virtuals: true } }
+);
+
+adminSchema.virtual("imageUrl").get(function () {
+  return formatLink("lessons", this._id);
 });
 
-adminSchema.index({ email: 1, name: "text" });
+adminSchema.index({ email: 1 });
+adminSchema.index({ name: "text" });
 
 adminSchema.pre("save", async function (next) {
   try {
@@ -39,6 +46,8 @@ adminSchema.pre("save", async function (next) {
     next(err);
   }
 });
+
+adminSchema.plugin(mongooseLeanVirtuals);
 
 adminSchema.plugin(uniqueValidator, {
   message: "There is already a user with that {PATH}"

@@ -14,7 +14,7 @@ module.exports.getProfile = async id =>
       path: "lessonsAttended",
       select: "title"
     })
-    .lean();
+    .lean({ virtuals: true });
 
 /**
  * @async
@@ -27,26 +27,10 @@ module.exports.getStudents = async () => {
 
 /**
  * @async
- * @description get a student
- * @returns {Promise<Object>}
- */
-module.exports.getStudent = async id => {
-  return await Student.findById(id, "-password").lean();
-};
-
-/**
- * @async
  * @description Upload student profile image
  * @param {Object} student - Student object
  * @param {Object} file - File object
- * @returns {Promise<Object>} student - Updated Student
+ * @returns {Promise<String>} - Profile image link
  */
-module.exports.updateProfileImage = async (student, file) => {
-  const id = student._id.toString();
-  const imgLink = await upload(file, id, "students");
-
-  student.imageUrl = imgLink;
-  return await Student.findByIdAndUpdate(id, student, { new: true })
-    .select("-password")
-    .lean();
-};
+module.exports.updateProfileImage = async (student, file) =>
+  await upload(file, student.id, "students");

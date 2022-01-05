@@ -1,7 +1,6 @@
 const { Lesson, AccessCode, Student } = require("../models");
-const { upload } = require("./storage.service");
+const { getSignedUrl } = require("./storage.service");
 const boom = require("@hapi/boom");
-const { bucket } = require("../config/firebase");
 
 /**
  * @async
@@ -9,23 +8,18 @@ const { bucket } = require("../config/firebase");
  * @param {Oject} lesson
  * @returns {Promise<Object>}
  */
-module.exports.createLesson = async lesson => await Lesson.create(lesson);
+module.exports.createLesson = async lesson => {
+  let createdLesson = await Lesson.create(lesson);
+  createdLesson = createdLesson.toJSON();
 
-/**
- * @async
- * @description update video
- * @param {String} id - Lesson id
- * @param {Object} file - File object
- * @returns {Promise<Object>}
- */
-module.exports.updateVideo = async (id, file) => {
-  const videoLink = await upload(file, id, "lessons");
+  createdLesson.uploadUrl = await getSignedUrl(
+    "lessons",
+    createdLesson._id,
+    24 * 60 * 60 * 1000 // 1 day
+  );
 
-  return await Lesson.findByIdAndUpdate(
-    id,
-    { videoLink },
-    { new: true }
-  ).lean();
+  createdLesson.password = undefined;
+  return createdLesson;
 };
 
 /**

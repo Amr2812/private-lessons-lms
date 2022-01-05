@@ -15,14 +15,7 @@ module.exports.createAssistant = async assistant =>
  * @description Upload admin's profile image
  * @param {Object} admin - Admin object
  * @param {Object} file - File object
- * @returns {Promise<Object>} admin - Updated Admin
+ * @returns {Promise<String>} - Profile image link
  */
-module.exports.updateProfileImage = async (admin, file) => {
-  const id = admin._id.toString();
-  const imgLink = await upload(file, id, "students");
-
-  admin.imageUrl = imgLink;
-  return await Admin.findByIdAndUpdate(id, admin, { new: true })
-    .select("-password")
-    .lean();
-};
+module.exports.updateProfileImage = async (admin, file) =>
+  await upload(file, admin.id, "students");

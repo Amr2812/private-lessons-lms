@@ -36,11 +36,6 @@ router
 
 router
   .route("/:id/video")
-  .put(
-    requireInstructor,
-    formidable(),
-    asyncMiddleware(lessonController.updateVideo)
-  )
   .get(requireAuth, asyncMiddleware(lessonController.streamVideo));
 
 router

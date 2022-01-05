@@ -10,7 +10,7 @@ const { studentController } = require("../../controllers");
 const { studentValidator } = require("../../validations");
 
 router
-  .route("/")
+  .route("/profile")
   .get(requireAuth, asyncMiddleware(studentController.getProfile));
 
 router

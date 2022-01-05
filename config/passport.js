@@ -10,7 +10,7 @@ module.exports = passport => {
       { usernameField: "email" },
       async (email, password, done) => {
         try {
-          const student = await Student.findOne({ email }).lean();
+          const student = await Student.findOne({ email }).lean({ virtuals: true });
           if (!student) {
             return done(null, false, {
               message: "This email is not registered"
@@ -38,7 +38,7 @@ module.exports = passport => {
       { usernameField: "email" },
       async (email, password, done) => {
         try {
-          const admin = await Admin.findOne({ email }).lean();
+          const admin = await Admin.findOne({ email }).lean({ virtuals: true });
           if (!admin) {
             return done(null, false, {
               message: "This email is not registered"
@@ -67,13 +67,13 @@ module.exports = passport => {
   passport.deserializeUser(async ({ id, role }, done) => {
     try {
       if (role === "student") {
-        const student = await Student.findById(id).lean();
+        const student = await Student.findById(id).lean({ virtuals: true });
         student.lessonsAttended = student.lessonsAttended.map(e => String(e));
         student.role = "student";
 
         done(null, student);
       } else {
-        const admin = await Admin.findById(id).lean();
+        const admin = await Admin.findById(id).lean({ virtuals: true });
         done(null, admin);
       }
     } catch (err) {

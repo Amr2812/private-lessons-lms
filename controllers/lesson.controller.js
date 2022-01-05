@@ -22,13 +22,15 @@ module.exports.createLesson = async (req, res, next) => {
  */
 module.exports.updateVideo = async (req, res, next) => {
   const file = req.files.file;
+  console.log(file);
   if (!file) return next(boom.badRequest("No file uploaded"));
-
+  
   if (!file.type.includes("video/"))
-    return next(boom.badRequest("Invalid file type"));
-
-  const lesson = await lessonService.updateVideo(req.params.id, req.files.file);
-  res.send(lesson);
+  return next(boom.badRequest("Invalid file type"));
+  
+  const videoLink = await lessonService.updateVideo(req.params.id, req.files.file);
+  console.log(videoLink);
+  res.send(videoLink);
 };
 
 /**

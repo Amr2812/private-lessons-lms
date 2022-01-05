@@ -43,7 +43,7 @@ module.exports.getStudents = async (req, res, next) => {
  * @param  {Function} next - Express next middleware
  */
 module.exports.getStudent = async (req, res, next) => {
-  const student = await studentService.getStudent(req.params.id);
+  const student = await studentService.getProfile(req.params.id);
 
   if (!student) {
     return next(boom.notFound("Student not found"));
@@ -63,10 +63,13 @@ module.exports.updateProfileImage = async (req, res, next) => {
   const file = req.files.file;
   if (!file) return next(boom.badRequest("No file uploaded"));
 
-  if (!file.type.includes("image/"))
+  if (!file.type?.includes("image/"))
     return next(boom.badRequest("Invalid file type"));
 
-  const student = await studentService.updateProfileImage(req.user, file);
+  // 5mb in bytes
+  if (file.size > 5242880) return next(boom.badRequest("File is too large (Max 5MB)"));
 
-  res.send(student);
+  const videoUrl = await studentService.updateProfileImage(req.user, file);
+
+  res.send({ videoUrl });
 };

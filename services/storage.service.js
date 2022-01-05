@@ -18,6 +18,29 @@ module.exports.upload = async (file, name, folder) => {
 
 /**
  * @async
+ * @description Get a v4 signed URL for uploading file
+ * @param {String} folder - Folder name
+ * @param {String} name - File name
+ * @param {Number} expires - Expiration duration in milliseconds
+ * @returns {Promise<String>} Signed URL
+ */
+module.exports.getSignedUrl = async (
+  folder,
+  name,
+  expires
+) => {
+  const [url] = await bucket.file(`${folder}/${name}`).getSignedUrl({
+    version: "v4",
+    action: "write",
+    expires: Date.now() + (expires || 15 * 60 * 1000) /* 15 minutes */,
+    contentType: "application/octet-stream"
+  });
+
+  return url;
+};
+
+/**
+ * @async
  * @description Gets file meta data
  * @param {String} folder - Folder name
  * @param {String} name - File name

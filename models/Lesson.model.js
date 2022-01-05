@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
+const mongooseLeanVirtuals = require("mongoose-lean-virtuals");
 const uniqueValidator = require("mongoose-unique-validator");
+const formatLink = require("../utils/formatLink.util");
 
 const lessonSchema = mongoose.Schema({
   grade: {
@@ -13,17 +15,20 @@ const lessonSchema = mongoose.Schema({
   notes: {
     type: String
   },
-  videoLink: {
-    type: String
-  },
   date: {
     type: Date,
     default: Date.now()
   }
+}, { toJSON: { virtuals: true } });
+
+lessonSchema.virtual("videoUrl").get(function () {
+  return formatLink("lessons", this._id);
 });
 
 lessonSchema.index({ grade: 1});
 lessonSchema.index({ title: "text" });
+
+lessonSchema.plugin(mongooseLeanVirtuals);
 
 lessonSchema.plugin(uniqueValidator, {
   message: "There is already a lesson with that {PATH}"
