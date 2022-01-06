@@ -50,7 +50,6 @@ module.exports.getLessons = async (grade, query) => {
  */
 module.exports.getLesson = async id =>
   await Lesson.findById(id)
-    .select("-videoLink")
     .populate({ path: "grade", select: "name" })
     .lean();
 
@@ -63,7 +62,7 @@ module.exports.getLesson = async id =>
  * @returns {Promise<Object>} - Lesson
  */
 module.exports.attendLesson = async (student, lessonId, code) => {
-  const lesson = await Lesson.findById(lessonId).select("-videoLink").lean();
+  const lesson = await Lesson.findById(lessonId).lean();
   if (!lesson) return null;
 
   const accessCode = await AccessCode.findOne({
