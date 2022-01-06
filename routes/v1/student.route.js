@@ -10,6 +10,14 @@ const { studentController } = require("../../controllers");
 const { studentValidator } = require("../../validations");
 
 router
+  .route("/")
+  .get(
+    requireAdmin,
+    validate(studentValidator.getStudents),
+    asyncMiddleware(studentController.getStudents)
+  );
+
+router
   .route("/profile")
   .get(requireAuth, asyncMiddleware(studentController.getProfile));
 

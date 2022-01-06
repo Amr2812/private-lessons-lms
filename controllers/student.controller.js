@@ -26,11 +26,12 @@ module.exports.getProfile = async (req, res, next) => {
  * @param  {Function} next - Express next middleware
  */
 module.exports.getStudents = async (req, res, next) => {
-  const students = await studentService.getStudents();
+  const students = await studentService.getStudents(req.query.grade, {
+    skip: req.query.skip,
+    limit: req.query.limit
+  });
 
-  if (!students) {
-    return next(boom.notFound("Students not found"));
-  }
+  if (!students) return next(boom.notFound("Grade not found"));
 
   res.send(students);
 };
@@ -67,7 +68,8 @@ module.exports.updateProfileImage = async (req, res, next) => {
     return next(boom.badRequest("Invalid file type"));
 
   // 5mb in bytes
-  if (file.size > 5242880) return next(boom.badRequest("File is too large (Max 5MB)"));
+  if (file.size > 5242880)
+    return next(boom.badRequest("File is too large (Max 5MB)"));
 
   const videoUrl = await studentService.updateProfileImage(req.user, file);
 
