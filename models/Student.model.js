@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const mongooseLeanVirtuals = require("mongoose-lean-virtuals");
 const uniqueValidator = require("mongoose-unique-validator");
+const mongooseLeanId = require("mongoose-lean-id");
 const formatLink = require("../utils/formatLink.util");
 
 const studentSchema = mongoose.Schema(
@@ -60,9 +61,12 @@ studentSchema.pre("save", async function (next) {
 
 studentSchema.plugin(mongooseLeanVirtuals);
 
+studentSchema.plugin(mongooseLeanId);
+
 studentSchema.plugin(uniqueValidator, {
   message: "There is already a student with that {PATH}"
 });
+
 const Student = mongoose.model("Student", studentSchema);
 
 module.exports = Student;

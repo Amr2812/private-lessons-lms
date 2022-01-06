@@ -9,7 +9,7 @@ const boom = require("@hapi/boom");
  * @param  {Function} next - Express next middleware
  */
 module.exports.getProfile = async (req, res, next) => {
-  const profile = await studentService.getProfile(req.user._id);
+  const profile = await studentService.getProfile(req.user.id);
 
   if (!profile) {
     return next(boom.notFound("Profile not found"));

@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const mongooseLeanVirtuals = require("mongoose-lean-virtuals");
 const uniqueValidator = require("mongoose-unique-validator");
+const mongooseLeanId = require("mongoose-lean-id");
 const formatLink = require("../utils/formatLink.util");
 
 const adminSchema = mongoose.Schema(
@@ -49,9 +50,12 @@ adminSchema.pre("save", async function (next) {
 
 adminSchema.plugin(mongooseLeanVirtuals);
 
+adminSchema.plugin(mongooseLeanId);
+
 adminSchema.plugin(uniqueValidator, {
   message: "There is already a user with that {PATH}"
 });
+
 const Admin = mongoose.model("Admin", adminSchema);
 
 module.exports = Admin;

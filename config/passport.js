@@ -61,7 +61,7 @@ module.exports = passport => {
   );
 
   passport.serializeUser((user, done) => {
-    done(null, { id: user._id, role: user.role || "student" });
+    done(null, { id: user.id, role: user.role || "student" });
   });
 
   passport.deserializeUser(async ({ id, role }, done) => {

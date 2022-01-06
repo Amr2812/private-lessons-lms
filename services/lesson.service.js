@@ -14,7 +14,7 @@ module.exports.createLesson = async lesson => {
 
   createdLesson.uploadUrl = await getSignedUrl(
     "lessons",
-    createdLesson._id,
+    createdLesson.id,
     24 * 60 * 60 * 1000 // 1 day
   );
 
@@ -82,7 +82,7 @@ module.exports.attendLesson = async (student, lessonId, code) => {
   }
 
   await Student.updateOne(
-    { _id: student._id },
+    { _id: student.id },
     {
       $push: {
         lessonsAttended: lessonId

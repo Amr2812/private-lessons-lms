@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const mongooseLeanVirtuals = require("mongoose-lean-virtuals");
 const uniqueValidator = require("mongoose-unique-validator");
+const mongooseLeanId = require("mongoose-lean-id");
 const formatLink = require("../utils/formatLink.util");
 
 const lessonSchema = mongoose.Schema({
@@ -30,9 +31,12 @@ lessonSchema.index({ title: "text" });
 
 lessonSchema.plugin(mongooseLeanVirtuals);
 
+lessonSchema.plugin(mongooseLeanId);
+
 lessonSchema.plugin(uniqueValidator, {
   message: "There is already a lesson with that {PATH}"
 });
+
 const Lesson = mongoose.model("Lesson", lessonSchema);
 
 module.exports = Lesson;
