@@ -7,8 +7,8 @@ module.exports.createLesson = [
 
 module.exports.getLessons = [
   query("grade").isMongoId().withMessage("Grade is required"),
-  query("skip").optional().isInt({ min: 0 }).withMessage("Invalid skip"),
-  query("limit").optional().isInt({ min: 0 }).withMessage("Invalid limit")
+  query("skip").optional().isInt({ min: 0 }).withMessage("Invalid skip").toInt(),
+  query("limit").optional().isInt({ min: 0 }).withMessage("Invalid limit").toInt()
 ];
 
 module.exports.getLesson = [

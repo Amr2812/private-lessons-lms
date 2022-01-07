@@ -19,19 +19,37 @@ module.exports.getProfile = async id =>
 /**
  * @async
  * @description get all students
- * @param {String} grade - Grade id
- * @param {Object} query - Query object
+ * @param {Object} query - Query object (grade, q, lessonNotAttended, skip, limit)
  * @returns {Promise<Object[]>}
  */
-module.exports.getStudents = async (grade, query) => {
-  const students = await Student.find({ grade })
-    .sort({ date: 1 })
-    .skip(query.skip || 0)
-    .limit(query.limit || 10)
-    .select("name phone parentPhone")
+module.exports.getStudents = async ({
+  grade,
+  q,
+  lessonNotAttended,
+  skip,
+  limit
+}) => {
+  const query = {};
+  const scoreSort = {};
+
+  if (grade) query.grade = grade;
+  if (lessonNotAttended)
+    query.lessonsAttended =  { $ne: lessonNotAttended  };
+
+  if (q) {
+    query.$text = { $search: q };
+    scoreSort.score = { $meta: "textScore" };
+  }
+
+  const students = await Student.find(query, scoreSort)
+    .sort(scoreSort)
+    .skip(skip || 0)
+    .limit(limit || 10)
+    .select("name phone parentPhone grade")
+    .populate({ path: "grade", select: "name" })
     .lean({ virtuals: true });
 
-  const total = await Student.countDocuments({ grade });
+  const total = await Student.countDocuments(query);
 
   return { students, total };
 };

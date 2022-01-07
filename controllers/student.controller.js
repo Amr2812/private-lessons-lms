@@ -26,12 +26,9 @@ module.exports.getProfile = async (req, res, next) => {
  * @param  {Function} next - Express next middleware
  */
 module.exports.getStudents = async (req, res, next) => {
-  const students = await studentService.getStudents(req.query.grade, {
-    skip: req.query.skip,
-    limit: req.query.limit
-  });
+  const students = await studentService.getStudents(req.query);
 
-  if (!students) return next(boom.notFound("Grade not found"));
+  if (!students) return next(boom.notFound("No Results Found"));
 
   res.send(students);
 };

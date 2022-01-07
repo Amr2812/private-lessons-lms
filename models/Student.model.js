@@ -15,8 +15,7 @@ const studentSchema = mongoose.Schema(
       type: String
     },
     name: {
-      type: String,
-      unique: true
+      type: String
     },
     phone: {
       type: String
@@ -48,6 +47,7 @@ studentSchema.virtual("imageUrl").get(function () {
 
 studentSchema.index({ email: 1 });
 studentSchema.index({ name: "text" });
+studentSchema.index({ grade: 1, lessonsAttended: 1 });
 
 studentSchema.pre("save", async function (next) {
   try {
