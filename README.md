@@ -1,5 +1,9 @@
-# Express Starter Clean Architecture
+# Private Lessons LMS API
 
-Starter Template for Express Apis with support for multiple layers illustrated below:
+A full techincal and features review and challenges faced will be written after finishing required features for the app to be functional.
 
-![Diagram](https://i.ibb.co/KjJyBjd/arch.png)
+### USES:
+- ExpressJS
+- MongoDB/Mongoose
+- Redis
+- Google Cloud Storage (Firebase Admin SDK)
