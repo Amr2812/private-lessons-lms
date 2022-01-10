@@ -4,7 +4,6 @@ const router = express.Router();
 const asyncMiddleware = require("../../middlewares/asyncErrors");
 const validate = require("../../middlewares/validator");
 const { requireAuth, requireAdmin } = require("../../middlewares/auth");
-const formidable = require("express-formidable");
 
 const { studentController } = require("../../controllers");
 const { studentValidator } = require("../../validations");
@@ -25,8 +24,8 @@ router
   .route("/profile-image")
   .put(
     requireAuth,
-    formidable(),
-    asyncMiddleware(studentController.updateProfileImage)
+    studentController.updateProfileImage.single("file"),
+    (req, res) => res.sendStatus(204)
   );
 
 router

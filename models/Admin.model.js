@@ -31,7 +31,7 @@ const adminSchema = mongoose.Schema(
 );
 
 adminSchema.virtual("imageUrl").get(function () {
-  return formatLink("lessons", this._id);
+  return formatLink("admins", this._id);
 });
 
 adminSchema.index({ email: 1 });

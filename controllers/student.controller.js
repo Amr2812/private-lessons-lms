@@ -1,5 +1,23 @@
 const { studentService } = require("../services");
 const boom = require("@hapi/boom");
+const multer = require("multer");
+
+const { createGCStorage } = require("../config/multer");
+
+module.exports.updateProfileImage = multer({
+  storage: createGCStorage({
+    destination: (req, file, cb) => {
+      cb(null, { name: req.user.id, folder: "students" });
+    }
+  }),
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    if (!file.mimetype.includes("image/"))
+      return cb(boom.badRequest("Invalid file type"));
+
+    cb(null, true);
+  }
+});
 
 /**
  * @async
@@ -48,27 +66,4 @@ module.exports.getStudent = async (req, res, next) => {
   }
 
   res.send(student);
-};
-
-/**
- * @async
- * @description put/update a student's profile picture
- * @param  {Object} req - Express request object
- * @param  {Object} res - Express response object
- * @param  {Function} next - Express next middleware
- */
-module.exports.updateProfileImage = async (req, res, next) => {
-  const file = req.files.file;
-  if (!file) return next(boom.badRequest("No file uploaded"));
-
-  if (!file.type?.includes("image/"))
-    return next(boom.badRequest("Invalid file type"));
-
-  // 5mb in bytes
-  if (file.size > 5242880)
-    return next(boom.badRequest("File is too large (Max 5MB)"));
-
-  const videoUrl = await studentService.updateProfileImage(req.user, file);
-
-  res.send({ videoUrl });
 };
