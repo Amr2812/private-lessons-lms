@@ -1,12 +1,10 @@
-const { studentService } = require("../services");
+const { studentService, storageService } = require("../services");
 const boom = require("@hapi/boom");
 const multer = require("multer");
 const { constants } = require("../config/constants");
 
-const { createGCStorage } = require("../config/multer");
-
 module.exports.updateProfileImage = multer({
-  storage: createGCStorage({
+  storage: storageService.createGCStorage({
     destination: (req, file, cb) => {
       cb(null, { name: req.user.id, folder: "students" });
     }
