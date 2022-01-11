@@ -1,5 +1,6 @@
 const { bucket } = require("../config/firebase");
 const boom = require("@hapi/boom");
+const { constants } = require("../config/constants");
 
 /**
  * @async
@@ -75,8 +76,9 @@ class GCStorage {
       file.stream
         .on("data", chunk => {
           totalSize += chunk.length;
-          if (totalSize > 5 * 1024 * 1024)
+          if (totalSize > constants.MAX_FILE_SIZE) {
             return cb(boom.entityTooLarge("File too large (Max: 5MB)"));
+          }
         })
         .pipe(bucket.file(`${folder}/${name}`).createWriteStream())
         .on("error", err => cb(boom.boomify(err)))
@@ -88,7 +90,7 @@ class GCStorage {
     this.getDestination(req, file, async (err, { folder, name }) => {
       if (err) return cb(err);
 
-      const res = await bucket.file(`${folder}/${name}`).delete();;
+      const res = await bucket.file(`${folder}/${name}`).delete();
       cb(null, res);
     });
   }
