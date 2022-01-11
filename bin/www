@@ -9,6 +9,11 @@ const http = require("http");
 const mongodbInit = require("../config/mongodb");
 
 /**
+ * Connect to MongoDB
+ */
+mongodbInit();
+
+/**
  * Get port from environment and store in Express.
  */
 
@@ -28,11 +33,6 @@ const server = http.createServer(app);
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
-
-/**
- * Connect to MongoDB
- */
-mongodbInit();
 
 /**
  * Normalize a port into a number, string, or false.
