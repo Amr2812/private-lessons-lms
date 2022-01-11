@@ -2,6 +2,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const boom = require("@hapi/boom");
+const helmet = require("helmet");
 
 const passport = require("passport");
 const session = require("express-session");
@@ -9,11 +10,9 @@ const RedisStore = require("connect-redis")(session);
 
 const redisClient = require("./config/redis");
 
-const helmet = require("helmet");
-
 const rateLimiterMiddleware = require("./middlewares/rateLimiter");
 
-require("dotenv").config();
+const { env, constants } = require("./config/constants");
 
 require("./config/passport")(passport);
 
@@ -26,15 +25,15 @@ app.set("trust proxy", 1);
 // express session
 app.use(
   session({
-    secret: process.env.SECRET,
+    secret: env.SECRET,
     saveUninitialized: false,
     rolling: true,
     resave: true,
     store: new RedisStore({ client: redisClient }),
     cookie: {
-      secure: process.env.NODE_ENV === "production" ? true : false,
+      secure: env.NODE_ENV === "production" ? true : false,
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 14 // 2 weeks
+      maxAge: constants.SESSION_COOKIE_MAX_AGE
     }
   })
 );

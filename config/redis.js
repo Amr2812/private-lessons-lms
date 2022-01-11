@@ -1,10 +1,10 @@
 const Redis = require("ioredis");
-require("dotenv").config();
+const { env } = require("./constants");
 
 const client = new Redis({
-  host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
-  password: process.env.REDIS_PASSWORD
+  host: env.REDIS_HOST,
+  port: env.REDIS_PORT,
+  password: env.REDIS_PASSWORD
 });
 
 client.on("connect", () => {

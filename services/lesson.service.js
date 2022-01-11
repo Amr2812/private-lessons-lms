@@ -1,6 +1,7 @@
 const { Lesson, AccessCode, Student } = require("../models");
 const { getSignedUrl } = require("./storage.service");
 const boom = require("@hapi/boom");
+const { constants } = require("../config/constants");
 
 /**
  * @async
@@ -15,7 +16,7 @@ module.exports.createLesson = async lesson => {
   createdLesson.uploadUrl = await getSignedUrl(
     "lessons",
     createdLesson.id,
-    24 * 60 * 60 * 1000 // 1 day
+    constants.MAX_SIGNED_URL_EXPIRATION
   );
 
   createdLesson.password = undefined;
@@ -49,9 +50,7 @@ module.exports.getLessons = async (grade, query) => {
  * @returns {Promise<Object>} - Lesson
  */
 module.exports.getLesson = async id =>
-  await Lesson.findById(id)
-    .populate({ path: "grade", select: "name" })
-    .lean();
+  await Lesson.findById(id).populate({ path: "grade", select: "name" }).lean();
 
 /**
  * @async

@@ -1,6 +1,7 @@
 const { adminService, actionService } = require("../services");
 const boom = require("@hapi/boom");
 const multer = require("multer");
+const { constants } = require("../config/constants");
 
 const { createGCStorage } = require("../config/multer");
 
@@ -10,7 +11,7 @@ module.exports.updateProfileImage = multer({
       cb(null, { name: req.user.id, folder: "admins" });
     }
   }),
-  limits: { fileSize: 5 * 1024 * 1024 },
+  limits: { fileSize: constants.MAX_FILE_SIZE },
   fileFilter: (req, file, cb) => {
     if (!file.mimetype.includes("image/"))
       return cb(boom.badRequest("Invalid file type"));

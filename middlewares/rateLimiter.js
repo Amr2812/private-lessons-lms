@@ -1,13 +1,14 @@
 const { RateLimiterRedis } = require("rate-limiter-flexible");
 const redisClient = require("../config/redis");
 const boom = require("@hapi/boom");
+const { constants } = require("../config/constants");
 
 const rateLimiter = new RateLimiterRedis({
   storeClient: redisClient,
-  keyPrefix: "RL",
-  points: 10, // 10 requests
-  duration: 1, // per 1 second by IP
-  blockDuration: 60 * 15 // 15 minutes
+  keyPrefix: constants.RATE_LIMITER_PERFIX,
+  points: constants.RATE_LIMITER_POINTS,
+  duration: 1,
+  blockDuration: constants.RATE_LIMITER_BLOCK_DURATION
 });
 
 /**

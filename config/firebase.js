@@ -1,9 +1,10 @@
 const { initializeApp, cert } = require("firebase-admin/app");
 const { getStorage } = require("firebase-admin/storage");
+const { env } = require("./constants");
 
 initializeApp({
-  credential: cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)),
-  storageBucket: "express-starter-38755.appspot.com"
+  credential: cert(env.FIREBASE_SERVICE_ACCOUNT),
+  storageBucket: env.GCS_BUCKET
 });
 
 const bucket = getStorage().bucket();

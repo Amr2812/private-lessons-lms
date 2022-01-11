@@ -1,4 +1,4 @@
-require("dotenv").config();
+const { env } = require("../config/constants");
 
 /**
  * 
@@ -7,5 +7,5 @@ require("dotenv").config();
  * @returns {String} File URL
  */
 module.exports = (folder, name) => {
-  return `https://storage.googleapis.com/download/storage/v1/b/${process.env.GCS_BUCKET}/o/${folder}%2F${name}?alt=media`;
+  return `https://storage.googleapis.com/download/storage/v1/b/${env.GCS_BUCKET}/o/${folder}%2F${name}?alt=media`;
 }
