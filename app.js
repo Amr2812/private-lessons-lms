@@ -64,7 +64,7 @@ app.use((req, res, next) => {
 
 // Error Handler
 app.use((err, req, res, next) => {
-  if (!err.output.payload || !err.output.statusCode) {
+  if (!err.output?.payload || !err.output?.statusCode) {
     console.error(err);
     const error = boom.badImplementation();
     error.output.payload.errors = err;

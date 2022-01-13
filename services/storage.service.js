@@ -64,13 +64,26 @@ class GCStorage {
     if (!opts.destination) {
       throw new Error("destination is required");
     }
-
     this.getDestination = opts.destination;
+
+    if (opts.fileType) {
+      this.fileType = opts.fileType;
+    }
   }
 
   _handleFile(req, file, cb) {
     this.getDestination(req, file, (err, { name, folder }) => {
       if (err) return cb(err);
+
+      if (this.fileType) {
+        if (!file.mimetype.includes(this.fileType)) {
+          return cb(boom.badRequest(`Invalid file type ${file.mimetype}`));
+        }
+      }
+
+      if (req.headers["content-length"] > constants.MAX_FILE_SIZE) {
+        return cb(boom.entityTooLarge("File size too large (max: 5MB)"));
+      }
 
       let totalSize = 0;
       file.stream
