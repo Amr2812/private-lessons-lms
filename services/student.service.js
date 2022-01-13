@@ -19,13 +19,14 @@ module.exports.getProfile = async id =>
 /**
  * @async
  * @description get all students
- * @param {Object} query - Query object (grade, q, lessonNotAttended, skip, limit)
+ * @param {Object} query - Query object (grade, q, lessonNotAttended, lessonAttended. skip, limit)
  * @returns {Promise<Object[]>}
  */
 module.exports.getStudents = async ({
   grade,
   q,
   lessonNotAttended,
+  lessonAttended,
   skip,
   limit
 }) => {
@@ -35,6 +36,8 @@ module.exports.getStudents = async ({
   if (grade) query.grade = grade;
   if (lessonNotAttended)
     query.lessonsAttended =  { $ne: lessonNotAttended  };
+
+  if (lessonAttended) query.lessonsAttended = lessonAttended;
 
   if (q) {
     query.$text = { $search: q };
@@ -53,13 +56,3 @@ module.exports.getStudents = async ({
 
   return { students, total };
 };
-
-/**
- * @async
- * @description Upload student profile image
- * @param {Object} student - Student object
- * @param {Object} file - File object
- * @returns {Promise<String>} - Profile image link
- */
-module.exports.updateProfileImage = async (student, file) =>
-  await upload(file, student.id, "students");
