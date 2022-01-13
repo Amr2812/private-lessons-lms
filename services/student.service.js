@@ -1,4 +1,3 @@
-const { upload } = require("./storage.service");
 const { Student } = require("../models");
 
 /**

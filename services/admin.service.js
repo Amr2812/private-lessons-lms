@@ -1,5 +1,4 @@
 const { Admin } = require("../models");
-const { upload } = require("./storage.service");
 
 /**
  * @async
