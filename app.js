@@ -64,6 +64,13 @@ app.use((req, res, next) => {
 
 // Error Handler
 app.use((err, req, res, next) => {
+  if (!err.output.payload || !err.output.statusCode) {
+    console.error(err);
+    const error = boom.badImplementation();
+    error.output.payload.errors = err;
+
+    return next(error);
+  }
   return res.status(err.output.statusCode).json(err.output.payload);
 });
 

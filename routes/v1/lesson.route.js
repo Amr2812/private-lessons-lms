@@ -8,7 +8,6 @@ const {
   requireAdmin
 } = require("../../middlewares/auth");
 const validate = require("../../middlewares/validator");
-const formidable = require("express-formidable");
 
 const { lessonValidator } = require("../../validations");
 const { lessonController } = require("../../controllers");

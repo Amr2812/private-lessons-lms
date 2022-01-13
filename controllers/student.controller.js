@@ -11,8 +11,14 @@ module.exports.updateProfileImage = multer({
   }),
   limits: { fileSize: constants.MAX_FILE_SIZE },
   fileFilter: (req, file, cb) => {
-    if (!file.mimetype.includes("image/"))
+    if (!file.mimetype.includes("image/")) {
       return cb(boom.badRequest("Invalid file type"));
+    }
+
+    if (req.headers["content-length"] > constants.MAX_FILE_SIZE) {
+      console.log("object");
+      return cb(boom.entityTooLarge("File size too large (max: 5MB)"));
+    }
 
     cb(null, true);
   }
