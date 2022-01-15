@@ -21,10 +21,10 @@ module.exports.recordAction = async (admin, grade, count) =>
  * @param {Object} query - Query object (skip, limit)
  * @returns {Promise<Object>} (actions, total)
  */
-module.exports.getActions = async query => {  
+module.exports.getActions = async query => {
   const total = await Student.countDocuments();
   if (total < 1) {
-    return { actions: [], total }
+    return { actions: [], total };
   }
 
   const actions = await Action.find({})

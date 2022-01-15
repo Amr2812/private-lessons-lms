@@ -1,4 +1,4 @@
-const { Student } = require('../models');
+const { Student } = require("../models");
 
 /**
  * @async

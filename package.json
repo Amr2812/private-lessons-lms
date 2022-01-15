@@ -2,10 +2,14 @@
   "name": "private-lessons-lms",
   "version": "0.0.0",
   "private": true,
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  },
   "scripts": {
     "start": "pm2 start ./bin/www -i 0",
     "dev": "nodemon ./bin/www",
-    "seed": "node ./seeders"
+    "seed": "node ./seeders",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@hapi/boom": "^9.1.4",
@@ -33,6 +37,9 @@
     "rate-limiter-flexible": "^2.3.6"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.7",
+    "nodemon": "^2.0.15",
+    "prettier": "2.5.1"
   }
 }

@@ -31,9 +31,9 @@ module.exports.createLesson = async lesson => {
  * @returns {Promise<Object>} - (lessons, total)
  */
 module.exports.getLessons = async (grade, query) => {
-  const total = await Student.countDocuments({grade});
+  const total = await Student.countDocuments({ grade });
   if (total < 1) {
-    return { lessons: [], total }
+    return { lessons: [], total };
   }
 
   const lessons = await Lesson.find({ grade })

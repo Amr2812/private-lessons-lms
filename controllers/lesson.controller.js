@@ -26,8 +26,6 @@ module.exports.getLessons = async (req, res, next) => {
     limit: req.query.limit
   });
 
-  if (!lessons) return next(boom.notFound("Grade not found"));
-
   res.send(lessons);
 };
 

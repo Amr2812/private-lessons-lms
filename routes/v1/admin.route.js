@@ -24,6 +24,8 @@ router
     asyncMiddleware(adminController.createAssistant)
   );
 
-router.route("/actions").get(requireInstructor, asyncMiddleware(adminController.getActions));
+router
+  .route("/actions")
+  .get(requireInstructor, asyncMiddleware(adminController.getActions));
 
 module.exports = router;

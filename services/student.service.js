@@ -33,8 +33,7 @@ module.exports.getStudents = async ({
   const scoreSort = {};
 
   if (grade) query.grade = grade;
-  if (lessonNotAttended)
-    query.lessonsAttended =  { $ne: lessonNotAttended  };
+  if (lessonNotAttended) query.lessonsAttended = { $ne: lessonNotAttended };
 
   if (lessonAttended) query.lessonsAttended = lessonAttended;
 
@@ -45,7 +44,7 @@ module.exports.getStudents = async ({
 
   const total = await Student.countDocuments(query);
   if (total < 1) {
-    return { students: [], total }
+    return { students: [], total };
   }
 
   const students = await Student.find(query, scoreSort)

@@ -10,7 +10,9 @@ module.exports = passport => {
       { usernameField: "email" },
       async (email, password, done) => {
         try {
-          const student = await Student.findOne({ email }).lean({ virtuals: true });
+          const student = await Student.findOne({ email }).lean({
+            virtuals: true
+          });
           if (!student) {
             return done(null, false, {
               message: "This email is not registered"

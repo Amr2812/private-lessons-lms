@@ -4,29 +4,32 @@ const uniqueValidator = require("mongoose-unique-validator");
 const mongooseLeanId = require("mongoose-lean-id");
 const formatLink = require("../utils/formatLink.util");
 
-const lessonSchema = mongoose.Schema({
-  grade: {
-    type: mongoose.Types.ObjectId,
-    ref: "Grade"
+const lessonSchema = mongoose.Schema(
+  {
+    grade: {
+      type: mongoose.Types.ObjectId,
+      ref: "Grade"
+    },
+    title: {
+      type: String,
+      unique: true
+    },
+    notes: {
+      type: String
+    },
+    date: {
+      type: Date,
+      default: Date.now()
+    }
   },
-  title: {
-    type: String,
-    unique: true
-  },
-  notes: {
-    type: String
-  },
-  date: {
-    type: Date,
-    default: Date.now()
-  }
-}, { toJSON: { virtuals: true } });
+  { toJSON: { virtuals: true } }
+);
 
 lessonSchema.virtual("videoUrl").get(function () {
   return formatLink("lessons", this._id);
 });
 
-lessonSchema.index({ grade: 1});
+lessonSchema.index({ grade: 1 });
 lessonSchema.index({ title: "text" });
 
 lessonSchema.plugin(mongooseLeanVirtuals);
