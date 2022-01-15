@@ -14,6 +14,7 @@ router
     validate(authValidator.studentSignup),
     asyncMiddleware(authController.studentSignup)
   );
+
 router
   .route("/login/student")
   .post(
