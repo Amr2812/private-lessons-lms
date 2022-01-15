@@ -14,14 +14,19 @@ router
     validate(authValidator.studentSignup),
     asyncMiddleware(authController.studentSignup)
   );
-
 router
   .route("/login/student")
-  .post(validate(authValidator.studentLogin), asyncMiddleware(authController.studentLogin));
+  .post(
+    validate(authValidator.studentLogin),
+    asyncMiddleware(authController.studentLogin)
+  );
 
 router
   .route("/login/admin")
-  .post(validate(authValidator.adminLogin), asyncMiddleware(authController.adminLogin));
+  .post(
+    validate(authValidator.adminLogin),
+    asyncMiddleware(authController.adminLogin)
+  );
 
 router
   .route("/logout")
