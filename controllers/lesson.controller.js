@@ -15,26 +15,6 @@ module.exports.createLesson = async (req, res, next) => {
 
 /**
  * @async
- * @description Update Video
- * @param  {Object} req - Express request object
- * @param  {Object} res - Express response object
- * @param  {Function} next - Express next middleware
- */
-module.exports.updateVideo = async (req, res, next) => {
-  const file = req.files.file;
-  console.log(file);
-  if (!file) return next(boom.badRequest("No file uploaded"));
-  
-  if (!file.type.includes("video/"))
-  return next(boom.badRequest("Invalid file type"));
-  
-  const videoLink = await lessonService.updateVideo(req.params.id, req.files.file);
-  console.log(videoLink);
-  res.send(videoLink);
-};
-
-/**
- * @async
  * @description Get Lessons
  * @param  {Object} req - Express request object
  * @param  {Object} res - Express response object

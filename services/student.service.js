@@ -43,6 +43,11 @@ module.exports.getStudents = async ({
     scoreSort.score = { $meta: "textScore" };
   }
 
+  const total = await Student.countDocuments(query);
+  if (total < 1) {
+    return { students: [], total }
+  }
+
   const students = await Student.find(query, scoreSort)
     .sort(scoreSort)
     .skip(skip || 0)
@@ -50,8 +55,6 @@ module.exports.getStudents = async ({
     .select("name phone parentPhone grade")
     .populate({ path: "grade", select: "name" })
     .lean({ virtuals: true });
-
-  const total = await Student.countDocuments(query);
 
   return { students, total };
 };

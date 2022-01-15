@@ -31,14 +31,17 @@ module.exports.createLesson = async lesson => {
  * @returns {Promise<Object>} - (lessons, total)
  */
 module.exports.getLessons = async (grade, query) => {
+  const total = await Student.countDocuments({grade});
+  if (total < 1) {
+    return { lessons: [], total }
+  }
+
   const lessons = await Lesson.find({ grade })
     .sort({ date: 1 })
     .skip(query.skip || 0)
     .limit(query.limit || 10)
     .select("title")
     .lean();
-
-  const total = await Lesson.countDocuments({ grade });
 
   return { lessons, total };
 };

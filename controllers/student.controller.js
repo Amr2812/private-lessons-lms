@@ -40,8 +40,6 @@ module.exports.getProfile = async (req, res, next) => {
 module.exports.getStudents = async (req, res, next) => {
   const students = await studentService.getStudents(req.query);
 
-  if (!students) return next(boom.notFound("No Results Found"));
-
   res.send(students);
 };
 
