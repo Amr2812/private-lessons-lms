@@ -78,7 +78,6 @@ module.exports.unpublishLesson = async (req, res, next) => {
   res.sendStatus(204);
 };
 
-
 /**
  * @async
  * @description Attend Lesson
