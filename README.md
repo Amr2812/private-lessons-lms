@@ -7,4 +7,5 @@ A full techincal and features review and challenges faced will be written after 
 - ExpressJS
 - MongoDB/Mongoose
 - Redis
+- Firebase Cloud Messaging (FCM)
 - Google Cloud Storage (Firebase Admin SDK)

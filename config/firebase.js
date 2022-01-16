@@ -1,5 +1,6 @@
 const { initializeApp, cert } = require("firebase-admin/app");
 const { getStorage } = require("firebase-admin/storage");
+const { getMessaging } = require("firebase-admin/messaging");
 const { env } = require("./constants");
 
 initializeApp({
@@ -9,4 +10,6 @@ initializeApp({
 
 const bucket = getStorage().bucket();
 
-module.exports = { bucket };
+const fcm = getMessaging();
+
+module.exports = { bucket, fcm };
