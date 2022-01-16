@@ -42,8 +42,14 @@ router
   );
 
 router
-  .route("/:id/video")
-  .get(requireAuth, asyncMiddleware(lessonController.streamVideo));
+  .route("/:id/unpublish")
+  .put(
+    requireInstructor,
+    validate(lessonValidator.unpublishLesson),
+    asyncMiddleware(lessonController.unpublishLesson)
+  );
+
+router.route("/:id/video").get(asyncMiddleware(lessonController.streamVideo));
 
 router
   .route("/:id/attend")

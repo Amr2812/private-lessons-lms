@@ -27,20 +27,33 @@ module.exports.createLesson = async lesson => {
  * @async
  * @description get lessons
  * @param {String} grade - Grade id
- * @param {Object} query - Query object
+ * @param {String} userRole - User role
+ * @param {Object} options - Options object (skip, limit)
  * @returns {Promise<Object>} - (lessons, total)
  */
-module.exports.getLessons = async (grade, query) => {
-  const total = await Lesson.countDocuments({ grade });
+module.exports.getLessons = async (grade, userRole, { skip, limit }) => {
+  let query = {};
+  if (!(userRole === "instructor")) {
+    query = {
+      isPublished: true,
+      grade
+    };
+  } else {
+    query = {
+      grade
+    };
+  }
+
+  const total = await Lesson.countDocuments(query);
   if (total < 1) {
     return { lessons: [], total };
   }
 
-  const lessons = await Lesson.find({ grade })
+  const lessons = await Lesson.find(query)
     .sort({ date: 1 })
-    .skip(query.skip || 0)
-    .limit(query.limit || 10)
-    // .select("title")
+    .skip(skip || 0)
+    .limit(limit || 10)
+    .select("title")
     .lean();
 
   return { lessons, total };
@@ -50,10 +63,26 @@ module.exports.getLessons = async (grade, query) => {
  * @async
  * @description Get lesson by id
  * @param {String} id - Lesson id
+ * @param {String} userRole - User role
  * @returns {Promise<Object>} - Lesson
  */
-module.exports.getLesson = async id =>
-  await Lesson.findById(id).populate({ path: "grade", select: "name" }).lean();
+module.exports.getLesson = async (id, userRole) => {
+  let query = {};
+  if (!(userRole === "instructor")) {
+    query = {
+      isPublished: true,
+      _id: id
+    };
+  } else {
+    query = {
+      _id: id
+    };
+  }
+
+  await Lesson.findOne(query)
+    .populate({ path: "grade", select: "name" })
+    .lean();
+};
 
 /**
  * @async
@@ -70,6 +99,19 @@ module.exports.publishLesson = async id =>
 
 /**
  * @async
+ * @description Un Publish lesson
+ * @param {String} id - Lesson id
+ * @returns {Promise<Object>} - Lesson
+ */
+module.exports.unpublishLesson = async id =>
+  await Lesson.findByIdAndUpdate(
+    id,
+    { isPublished: false },
+    { new: true }
+  ).lean();
+
+/**
+ * @async
  * @description Attend lesson
  * @param {String} student - student object
  * @param {String} lessonId - Lesson id
@@ -77,7 +119,10 @@ module.exports.publishLesson = async id =>
  * @returns {Promise<Object>} - Lesson
  */
 module.exports.attendLesson = async (student, lessonId, code) => {
-  const lesson = await Lesson.findById(lessonId).lean();
+  const lesson = await Lesson.findOne({
+    isPublished: true,
+    _id: lessonId
+  }).lean();
   if (!lesson) return null;
 
   const accessCode = await AccessCode.findOne({
@@ -108,4 +153,16 @@ module.exports.attendLesson = async (student, lessonId, code) => {
   await accessCode.save({ validateBeforeSave: false });
 
   return lesson;
+};
+
+/**
+ * @async
+ * @description Check if lesson is isPublished
+ * @param {String} id - Lesson id
+ * @returns {Promise<Boolean>}
+ */
+module.exports.isLessonPublished = async id => {
+  const lesson = await Lesson.findById(id).lean();
+  if (!lesson) return false;
+  return lesson.isPublished;
 };
