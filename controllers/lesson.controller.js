@@ -52,6 +52,18 @@ module.exports.getLesson = async (req, res, next) => {
 
 /**
  * @async
+ * @description Publish Lesson
+ * @param  {Object} req - Express request object
+ * @param  {Object} res - Express response object
+ * @param  {Function} next - Express next middleware
+ */
+module.exports.publishLesson = async (req, res, next) => {
+  await lessonService.publishLesson(req.params.id);
+  res.sendStatus(204);
+};
+
+/**
+ * @async
  * @description Attend Lesson
  * @param  {Object} req - Express request object
  * @param  {Object} res - Express response object

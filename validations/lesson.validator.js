@@ -23,6 +23,10 @@ module.exports.getLesson = [
   param("id").isMongoId().withMessage("Id is required")
 ];
 
+module.exports.publishLesson = [
+  param("id").isMongoId().withMessage("Id is required")
+];
+
 module.exports.attendLesson = [
   param("id").isMongoId().withMessage("Id is required"),
   body("code").isLength({ min: 8 }).withMessage("Code is required")

@@ -34,6 +34,14 @@ router
   );
 
 router
+  .route("/:id/publish")
+  .put(
+    requireInstructor,
+    validate(lessonValidator.publishLesson),
+    asyncMiddleware(lessonController.publishLesson)
+  );
+
+router
   .route("/:id/video")
   .get(requireAuth, asyncMiddleware(lessonController.streamVideo));
 

@@ -17,6 +17,10 @@ const lessonSchema = mongoose.Schema(
     notes: {
       type: String
     },
+    isPublished: {
+      type: Boolean,
+      default: false
+    },
     date: {
       type: Date,
       default: Date.now()
@@ -30,7 +34,7 @@ lessonSchema.virtual("videoUrl").get(function () {
 });
 
 lessonSchema.index({ grade: 1 });
-lessonSchema.index({ title: "text" });
+lessonSchema.index({ isPublished: 1, title: "text" });
 
 lessonSchema.plugin(mongooseLeanVirtuals);
 

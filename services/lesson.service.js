@@ -31,7 +31,7 @@ module.exports.createLesson = async lesson => {
  * @returns {Promise<Object>} - (lessons, total)
  */
 module.exports.getLessons = async (grade, query) => {
-  const total = await Student.countDocuments({ grade });
+  const total = await Lesson.countDocuments({ grade });
   if (total < 1) {
     return { lessons: [], total };
   }
@@ -40,7 +40,7 @@ module.exports.getLessons = async (grade, query) => {
     .sort({ date: 1 })
     .skip(query.skip || 0)
     .limit(query.limit || 10)
-    .select("title")
+    // .select("title")
     .lean();
 
   return { lessons, total };
@@ -54,6 +54,19 @@ module.exports.getLessons = async (grade, query) => {
  */
 module.exports.getLesson = async id =>
   await Lesson.findById(id).populate({ path: "grade", select: "name" }).lean();
+
+/**
+ * @async
+ * @description Publish lesson
+ * @param {String} id - Lesson id
+ * @returns {Promise<Object>} - Lesson
+ */
+module.exports.publishLesson = async id =>
+  await Lesson.findByIdAndUpdate(
+    id,
+    { isPublished: true },
+    { new: true }
+  ).lean();
 
 /**
  * @async
