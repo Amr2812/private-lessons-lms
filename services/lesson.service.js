@@ -67,21 +67,17 @@ module.exports.getLessons = async (grade, userRole, { skip, limit }) => {
  * @returns {Promise<Object>} - Lesson
  */
 module.exports.getLesson = async (id, userRole) => {
-  let query = {};
-  if (!(userRole === "instructor")) {
-    query = {
-      isPublished: true,
-      _id: id
-    };
-  } else {
-    query = {
-      _id: id
-    };
-  }
-
-  await Lesson.findOne(query)
+  const lesson = await Lesson.findById(id)
     .populate({ path: "grade", select: "name" })
     .lean();
+
+  if (!lesson.isPublished) {
+    if (userRole !== "instructor") {
+      return boom.notFound("Lesson not published");
+    }
+  }
+
+  return lesson;
 };
 
 /**
