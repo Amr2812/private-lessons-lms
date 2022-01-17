@@ -19,6 +19,7 @@ module.exports.generateAccessCodes = async (grade, count) => {
     }
 
     await AccessCode.insertMany(accessCodes);
+
     return accessCodes.map(code => code.code);
   } catch (err) {
     if (err.code === 11000) {

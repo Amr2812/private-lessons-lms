@@ -41,16 +41,9 @@ module.exports.getLessons = async (req, res, next) => {
  * @param  {Function} next - Express next middleware
  */
 module.exports.getLesson = async (req, res, next) => {
-  if (req.user.role === "student") {
-    if (!req.user.lessonsAttended.includes(req.params.id)) {
-      return next(boom.badRequest("You have to attend this lesson to view it"));
-    }
-  }
+  const lesson = await lessonService.getLesson(req.params.id, req.user);
 
-  const lesson = await lessonService.getLesson(req.params.id, req.user.role);
-
-  if (!lesson)
-    return next(boom.notFound("Lesson not found or no longer published"));
+  if (lesson instanceof Error) return next(lesson);
 
   res.send(lesson);
 };
@@ -63,7 +56,9 @@ module.exports.getLesson = async (req, res, next) => {
  * @param  {Function} next - Express next middleware
  */
 module.exports.publishLesson = async (req, res, next) => {
-  await lessonService.publishLesson(req.params.id);
+  const lesson = await lessonService.publishLesson(req.params.id);
+  if (!lesson) return next(boom.notFound("Lesson not found"));
+
   res.sendStatus(204);
 };
 /**
@@ -74,7 +69,9 @@ module.exports.publishLesson = async (req, res, next) => {
  * @param  {Function} next - Express next middleware
  */
 module.exports.unpublishLesson = async (req, res, next) => {
-  await lessonService.unpublishLesson(req.params.id);
+  const lesson = await lessonService.unpublishLesson(req.params.id);
+  if (!lesson) return next(boom.notFound("Lesson not found"));
+
   res.sendStatus(204);
 };
 
@@ -86,19 +83,11 @@ module.exports.unpublishLesson = async (req, res, next) => {
  * @param  {Function} next - Express next middleware
  */
 module.exports.attendLesson = async (req, res, next) => {
-  if (!(req.user.role === "student")) {
-    return next(
-      boom.unauthorized("You have to be a student to attend a lesson")
-    );
-  }
-
   const lesson = await lessonService.attendLesson(
     req.user,
     req.params.id,
     req.body.code
   );
-
-  if (!lesson) return next(boom.notFound("Lesson not found"));
 
   if (lesson instanceof Error) return next(lesson);
 
@@ -118,18 +107,8 @@ module.exports.streamVideo = async (req, res, next) => {
     return next(boom.badRequest("Range header is required"));
   }
 
-  if (req.user.role === "student") {
-    if (!req.user.lessonsAttended.includes(req.params.id)) {
-      return next(boom.badRequest("You have to attend this lesson to view it"));
-    }
-  }
-
-  if (!(req.user.role === "instructor")) {
-    const isPublished = await lessonService.isLessonPublished(req.params.id);
-    if (!isPublished) {
-      return next(boom.badRequest("Lesson is not published"));
-    }
-  }
+  const lesson = await lessonService.getLesson(req.params.id, req.user);
+  if (lesson instanceof Error) return next(lesson);
 
   const [metadata] = await storageService.getFileMetaData(
     "lessons",

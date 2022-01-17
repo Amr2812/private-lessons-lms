@@ -14,8 +14,6 @@ module.exports.generateAccessCodes = async (req, res, next) => {
     req.query.count
   );
 
-  if (!codes) return next(boom.notFound("Grade not found"));
-
   await actionService.recordAction(
     req.user.id,
     req.params.gradeId,

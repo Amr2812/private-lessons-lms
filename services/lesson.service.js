@@ -63,13 +63,21 @@ module.exports.getLessons = async (grade, userRole, { skip, limit }) => {
  * @async
  * @description Get lesson by id
  * @param {String} id - Lesson id
- * @param {String} userRole - User role
+ * @param {Object} user - User
  * @returns {Promise<Object>} - Lesson
  */
-module.exports.getLesson = async (id, userRole) => {
+module.exports.getLesson = async (id, user) => {
+  if (user.role === "student") {
+    if (!user.lessonsAttended.includes(req.params.id)) {
+      return next(boom.badRequest("You have to attend this lesson to view it"));
+    }
+  }
+
   const lesson = await Lesson.findById(id)
     .populate({ path: "grade", select: "name" })
     .lean();
+
+  if (!lesson) return boom.notFound("Lesson not found");
 
   if (!lesson.isPublished) {
     if (userRole !== "instructor") {
@@ -109,17 +117,24 @@ module.exports.unpublishLesson = async id =>
 /**
  * @async
  * @description Attend lesson
- * @param {String} student - student object
+ * @param {String} user - user object
  * @param {String} lessonId - Lesson id
  * @param {String} code - Access code
  * @returns {Promise<Object>} - Lesson
  */
-module.exports.attendLesson = async (student, lessonId, code) => {
+module.exports.attendLesson = async (user, lessonId, code) => {
+  if (!(user.role === "student")) {
+    return next(
+      boom.unauthorized("You have to be a student to attend a lesson")
+    );
+  }
+
   const lesson = await Lesson.findOne({
     isPublished: true,
     _id: lessonId
   }).lean();
-  if (!lesson) return null;
+
+  if (!lesson) return next(boom.notFound("Lesson not found"));
 
   const accessCode = await AccessCode.findOne({
     code,
@@ -130,7 +145,7 @@ module.exports.attendLesson = async (student, lessonId, code) => {
 
   if (accessCode.consumed) return boom.badRequest("Access code already used");
 
-  if (student.lessonsAttended.includes(lessonId)) {
+  if (user.lessonsAttended.includes(lessonId)) {
     return boom.badRequest(
       "You already attended this lesson you can access it"
     );
@@ -149,16 +164,4 @@ module.exports.attendLesson = async (student, lessonId, code) => {
   await accessCode.save({ validateBeforeSave: false });
 
   return lesson;
-};
-
-/**
- * @async
- * @description Check if lesson is isPublished
- * @param {String} id - Lesson id
- * @returns {Promise<Boolean>}
- */
-module.exports.isLessonPublished = async id => {
-  const lesson = await Lesson.findById(id).lean();
-  if (!lesson) return false;
-  return lesson.isPublished;
 };

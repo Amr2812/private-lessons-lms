@@ -2,18 +2,25 @@ const { Student } = require("../models");
 
 /**
  * @async
- * @description get all students
+ * @description get student profile
  * @param {String} id - Student id
  * @returns {Promise<Object[]>}
  */
-module.exports.getProfile = async id =>
-  await Student.findById(id, "-password")
+module.exports.getProfile = async id => {
+  const profile = await Student.findById(id, "-password")
     .populate("grade")
     .populate({
       path: "lessonsAttended",
       select: "title"
     })
     .lean({ virtuals: true });
+
+  if (!profile) {
+    return next(boom.notFound("Profile not found"));
+  }
+
+  return profile;
+};
 
 /**
  * @async

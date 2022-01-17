@@ -22,10 +22,7 @@ module.exports.updateProfileImage = multer({
  */
 module.exports.getProfile = async (req, res, next) => {
   const profile = await studentService.getProfile(req.user.id);
-
-  if (!profile) {
-    return next(boom.notFound("Profile not found"));
-  }
+  if (profile instanceof Error) return next(profile);
 
   res.send(profile);
 };
@@ -52,10 +49,7 @@ module.exports.getStudents = async (req, res, next) => {
  */
 module.exports.getStudent = async (req, res, next) => {
   const student = await studentService.getProfile(req.params.id);
-
-  if (!student) {
-    return next(boom.notFound("Student not found"));
-  }
+  if (student instanceof Error) return next(student);
 
   res.send(student);
 };
