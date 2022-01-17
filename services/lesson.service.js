@@ -1,7 +1,9 @@
 const { Lesson, AccessCode, Student } = require("../models");
 const { getSignedUrl } = require("./storage.service");
-const boom = require("@hapi/boom");
+const { sendToTopic } = require("./notification.service");
 const { constants } = require("../config/constants");
+const boom = require("@hapi/boom");
+const { EventEmitter } = require("events");
 
 /**
  * @async
@@ -152,7 +154,7 @@ module.exports.attendLesson = async (user, lessonId, code) => {
   }
 
   await Student.updateOne(
-    { _id: student.id },
+    { _id: user.id },
     {
       $push: {
         lessonsAttended: lessonId
@@ -165,3 +167,26 @@ module.exports.attendLesson = async (user, lessonId, code) => {
 
   return lesson;
 };
+
+const eventEmitter = new EventEmitter();
+
+eventEmitter.on("LESSON_PUBLISHED", async lesson => {
+  try {
+    const payload = {
+      notification: {
+        title: "New Lesson Published",
+        body: `${lesson.title} is now available for students to attend.`
+      },
+      data: {
+        type: "lesson",
+        id: lesson.id
+      }
+    };
+
+    await sendToTopic(String(lesson.grade), payload);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+module.exports.eventEmitter = eventEmitter;

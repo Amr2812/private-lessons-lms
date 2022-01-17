@@ -59,8 +59,11 @@ module.exports.publishLesson = async (req, res, next) => {
   const lesson = await lessonService.publishLesson(req.params.id);
   if (!lesson) return next(boom.notFound("Lesson not found"));
 
+  lessonService.eventEmitter.emit("LESSON_PUBLISHED", lesson);
+
   res.sendStatus(204);
 };
+
 /**
  * @async
  * @description Un Publish Lesson
