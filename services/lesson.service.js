@@ -29,22 +29,43 @@ module.exports.createLesson = async lesson => {
 /**
  * @async
  * @description get lessons
- * @param {String} grade - Grade id
+ * @param {String} queryParams - (Grade id, q)
  * @param {String} userRole - User role
- * @param {Object} options - Options object (skip, limit)
  * @returns {Promise<Object>} - (lessons, total)
  */
-module.exports.getLessons = async (grade, userRole, { skip, limit }) => {
+module.exports.getLessons = async (
+  { grade, isPublished, q, skip, limit },
+  userRole
+) => {
   let query = {};
+  let sort = { date: 1 };
+
   if (!(userRole === "instructor")) {
     query = {
-      isPublished: true,
-      grade
+      grade,
+      isPublished: true
     };
+
+    if (q) {
+      query.$text = { $search: q };
+      sort = { score: { $meta: "textScore" } };
+    }
   } else {
     query = {
-      grade
+      grade,
+      isPublished: true
     };
+
+    if (isPublished) {
+      query.isPublished = true;
+    } else if (isPublished == false) {
+      query.isPublished = false;
+    }
+
+    if (q) {
+      query.$text = { $search: q };
+      sort = { score: { $meta: "textScore" } };
+    }
   }
 
   const total = await Lesson.countDocuments(query);
@@ -53,7 +74,7 @@ module.exports.getLessons = async (grade, userRole, { skip, limit }) => {
   }
 
   const lessons = await Lesson.find(query)
-    .sort({ date: 1 })
+    .sort(sort)
     .skip(skip || 0)
     .limit(limit || 10)
     .select("title")

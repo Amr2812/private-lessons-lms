@@ -33,8 +33,7 @@ lessonSchema.virtual("videoUrl").get(function () {
   return formatLink("lessons", this._id);
 });
 
-lessonSchema.index({ grade: 1 });
-lessonSchema.index({ isPublished: 1, title: "text" });
+lessonSchema.index({ grade: 1, isPublished: 1, title: "text" });
 
 lessonSchema.plugin(mongooseLeanVirtuals);
 

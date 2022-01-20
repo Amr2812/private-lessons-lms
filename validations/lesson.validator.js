@@ -7,6 +7,11 @@ module.exports.createLesson = [
 
 module.exports.getLessons = [
   query("grade").isMongoId().withMessage("Grade is required"),
+  query("isPublished")
+    .optional()
+    .isBoolean()
+    .withMessage("Is Published is boolean"),
+  query("q").optional().isString().withMessage("Query is string"),
   query("skip")
     .optional()
     .isInt({ min: 0 })
