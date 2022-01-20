@@ -2,6 +2,7 @@ const { mg } = require("../config/mailgun");
 const { env } = require("../config/constants");
 
 /**
+ * @async
  * @description Send email by template
  * @param {Array} to - Array of recipients
  * @param {String} subject - Email subject
