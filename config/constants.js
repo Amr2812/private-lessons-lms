@@ -9,7 +9,11 @@ module.exports.env = {
   REDIS_PORT: process.env.REDIS_PORT,
   REDIS_PASSWORD: process.env.REDIS_PASSWORD,
   FIREBASE_SERVICE_ACCOUNT: JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT),
-  GCS_BUCKET: process.env.GCS_BUCKET
+  GCS_BUCKET: process.env.GCS_BUCKET,
+  MAILGUN_API_KEY: process.env.MAILGUN_API_KEY,
+  MAILGUN_DOMAIN: process.env.MAILGUN_DOMAIN,
+  MAILGUN_FROM: process.env.MAILGUN_FROM,
+  MAILGUN_USER: process.env.MAILGUN_USER
 };
 
 module.exports.constants = {
