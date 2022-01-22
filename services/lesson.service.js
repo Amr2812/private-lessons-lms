@@ -1,10 +1,12 @@
 const { Lesson, AccessCode, Student } = require("../models");
 const { getSignedUrl } = require("./storage.service");
 const { sendToTopic } = require("./notification.service");
+const { sendEmail } = require("./mail.service");
+const { templates } = require("../config/sendGrid");
 const { constants, env } = require("../config/constants");
+
 const boom = require("@hapi/boom");
 const { EventEmitter } = require("events");
-const { sendEmail } = require("./mail.service");
 
 /**
  * @async
@@ -214,7 +216,7 @@ eventEmitter.on("LESSON_PUBLISHED", async lesson => {
 
     const emails = students.map(student => student.email);
 
-    await sendEmail(emails, "New Lesson Published", "new_lesson_alert", {
+    await sendEmail(emails, templates.NEW_LESSON_ALERT, {
       title: lesson.title,
       url: `${env.FRONTEND_URL}/lessons/${lesson.id}`
     });

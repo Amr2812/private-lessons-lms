@@ -1,20 +1,19 @@
-const { mg } = require("../config/mailgun");
+const { sgMail } = require("../config/sendGrid");
 const { env } = require("../config/constants");
 
 /**
  * @async
  * @description Send email by template
  * @param {Array} to - Array of recipients
- * @param {String} subject - Email subject
- * @param {String} template - Email template
+ * @param {String} templateId - Email template ID
  * @param {Object} data - Data to be passed to template
  * @returns {Promise<Object>} - Message ID
  */
-module.exports.sendEmail = async (to, subject, template, data) =>
-  await mg.messages.create(env.MAILGUN_DOMAIN, {
-    from: `${env.MAILGUN_USER} <${env.MAILGUN_FROM}>`,
+module.exports.sendEmail = async (to, templateId, data) =>
+  await sgMail.send({
+    from: `${env.EMAIL_USERNAME} <${env.EMAIL_FROM}>`,
     to,
-    subject,
-    template,
-    "h:X-Mailgun-Variables": JSON.stringify(data)
+    templateId,
+    dynamic_template_data: data,
+    isMultiple: true
   });
