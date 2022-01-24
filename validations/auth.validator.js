@@ -1,4 +1,4 @@
-const { body, param } = require("express-validator");
+const { body, param, query } = require("express-validator");
 const { constants } = require("../config/constants");
 
 module.exports.studentSignup = [
@@ -18,14 +18,8 @@ module.exports.studentSignup = [
   body("grade").isMongoId().withMessage("Grade ID is required")
 ];
 
-module.exports.studentLogin = [
-  body("email").isEmail().withMessage("Email is not valid"),
-  body("password")
-    .isLength({ min: 6 })
-    .withMessage("Password must be at least 6 characters long")
-];
-
-module.exports.adminLogin = [
+module.exports.login = [
+  query("role").isIn(constants.ROLES).withMessage("Role is required"),
   body("email").isEmail().withMessage("Email is not valid"),
   body("password")
     .isLength({ min: 6 })
@@ -35,7 +29,7 @@ module.exports.adminLogin = [
 module.exports.forgotPassword = [
   body("email").isEmail().withMessage("Email is not valid"),
   body("accountRole")
-    .isIn(["student", "admin"])
+    .isIn(constants.roles)
     .withMessage("Account role is not valid")
 ];
 
@@ -44,7 +38,7 @@ module.exports.resetPassword = [
     .isLength({ min: constants.RESET_PASSWORD_TOKEN_LENGTH })
     .withMessage("Reset password token is not valid"),
   body("accountRole")
-    .isIn(["student", "admin"])
+    .isIn(constants.ROLES)
     .withMessage("Account role is not valid"),
   body("password")
     .isLength({ min: 6 })

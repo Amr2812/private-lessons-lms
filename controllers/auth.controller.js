@@ -27,48 +27,22 @@ module.exports.studentSignup = async (req, res, next) => {
  * @param  {Object} res - Express response object
  * @param  {Function} next - Express next middleware
  */
-module.exports.studentLogin = async (req, res, next) => {
-  passport.authenticate("student-local", (err, student, info) => {
+module.exports.login = async (req, res, next) => {
+  passport.authenticate(`${req.query.role}-local`, (err, user, info) => {
     if (err) {
       return next(err);
     }
 
-    if (!student) {
+    if (!user) {
       return next(boom.badRequest(info.message));
     }
 
-    req.logIn(student, err => {
+    req.logIn(user, err => {
       if (err) {
         return next(err);
       }
     });
-    return res.send(student);
-  })(req, res, next);
-};
-
-/**
- * @async
- * @description Login an admin
- * @param  {Object} req - Express request object
- * @param  {Object} res - Express response object
- * @param  {Function} next - Express next middleware
- */
-module.exports.adminLogin = async (req, res, next) => {
-  passport.authenticate("admin-local", (err, admin, info) => {
-    if (err) {
-      return next(err);
-    }
-
-    if (!admin) {
-      return next(boom.badRequest(info.message));
-    }
-
-    req.logIn(admin, err => {
-      if (err) {
-        return next(err);
-      }
-    });
-    return res.send(admin);
+    return res.send(user);
   })(req, res, next);
 };
 

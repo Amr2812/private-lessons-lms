@@ -16,18 +16,8 @@ router
   );
 
 router
-  .route("/login/student")
-  .post(
-    validate(authValidator.studentLogin),
-    asyncMiddleware(authController.studentLogin)
-  );
-
-router
-  .route("/login/admin")
-  .post(
-    validate(authValidator.adminLogin),
-    asyncMiddleware(authController.adminLogin)
-  );
+  .route("/login")
+  .post(validate(authValidator.login), asyncMiddleware(authController.login));
 
 router
   .route("/logout")
