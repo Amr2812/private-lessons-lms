@@ -21,12 +21,12 @@ module.exports.signup = async student => {
 /**
  * @async
  * @description Forgot password check email and send reset password link
- * @param {String} body - (email, accountRole)
+ * @param {String} body - (email, role)
  * @returns {Promise<Object>}
  */
-module.exports.forgotPassword = async ({ email, accountRole }) => {
+module.exports.forgotPassword = async ({ email, role }) => {
   let User;
-  if (accountRole === "student") {
+  if (role === "student") {
     User = Student;
   } else {
     User = Admin;
@@ -48,7 +48,7 @@ module.exports.forgotPassword = async ({ email, accountRole }) => {
   await User.updateOne({ _id: user.id }, user);
 
   return await sendEmail([email], templates.RESET_PASSWORD, {
-    url: `${env.FRONTEND_URL}/auth/${accountRole}/reset-password/${resetPasswordToken}`
+    url: `${env.FRONTEND_URL}/auth/${role}/reset-password/${resetPasswordToken}`
   });
 };
 
@@ -56,12 +56,12 @@ module.exports.forgotPassword = async ({ email, accountRole }) => {
  * @async
  * @description Reset password
  * @param {String} token - Reset password token
- * @param {String} body - (accountRole, password)
+ * @param {String} body - (role, password)
  * @returns {Promise<Object>}
  */
-module.exports.resetPassword = async (token, { accountRole, password }) => {
+module.exports.resetPassword = async (token, { role, password }) => {
   let User;
-  if (accountRole === "student") {
+  if (role === "student") {
     User = Student;
   } else {
     User = Admin;

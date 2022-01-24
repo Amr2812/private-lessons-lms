@@ -28,18 +28,14 @@ module.exports.login = [
 
 module.exports.forgotPassword = [
   body("email").isEmail().withMessage("Email is not valid"),
-  body("accountRole")
-    .isIn(constants.roles)
-    .withMessage("Account role is not valid")
+  body("role").isIn(constants.ROLES).withMessage("Account role is not valid")
 ];
 
 module.exports.resetPassword = [
   param("resetPasswordToken")
     .isLength({ min: constants.RESET_PASSWORD_TOKEN_LENGTH })
     .withMessage("Reset password token is not valid"),
-  body("accountRole")
-    .isIn(constants.ROLES)
-    .withMessage("Account role is not valid"),
+  body("role").isIn(constants.ROLES).withMessage("Account role is not valid"),
   body("password")
     .isLength({ min: 6 })
     .withMessage("Password must be at least 6 characters long")
