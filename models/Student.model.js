@@ -33,6 +33,12 @@ const studentSchema = mongoose.Schema(
         ref: "Lesson"
       }
     ],
+    passwordResetToken: {
+      type: String
+    },
+    passwordResetExpire: {
+      type: Date
+    },
     date: {
       type: Date,
       default: Date.now()

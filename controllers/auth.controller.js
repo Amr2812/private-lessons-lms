@@ -82,3 +82,33 @@ module.exports.logout = (req, res, next) => {
   req.logout();
   res.sendStatus(204);
 };
+
+/**
+ * @async
+ * @description Forgot password
+ * @param  {Object} req - Express request object
+ * @param  {Object} res - Express response object
+ * @param  {Function} next - Express next middleware
+ */
+module.exports.forgotPassword = async (req, res, next) => {
+  await authService.forgotPassword(req.body);
+
+  res.sendStatus(204);
+};
+
+/**
+ * @async
+ * @description Reset password
+ * @param  {Object} req - Express request object
+ * @param  {Object} res - Express response object
+ * @param  {Function} next - Express next middleware
+ */
+module.exports.resetPassword = async (req, res, next) => {
+  const user = await authService.resetPassword(
+    req.params.resetPasswordToken,
+    req.body
+  );
+  if (user instanceof Error) next(user);
+
+  res.sendStatus(204);
+};

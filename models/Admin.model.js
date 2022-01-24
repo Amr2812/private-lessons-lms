@@ -22,6 +22,12 @@ const adminSchema = mongoose.Schema(
       enum: ["assistant", "instructor"],
       default: "assistant"
     },
+    passwordResetToken: {
+      type: String
+    },
+    passwordResetExpire: {
+      type: Date
+    },
     date: {
       type: Date,
       default: Date.now()

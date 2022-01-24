@@ -33,4 +33,18 @@ router
   .route("/logout")
   .delete(requireAuth, asyncMiddleware(authController.logout));
 
+router
+  .route("/forgot-password")
+  .post(
+    validate(authValidator.forgotPassword),
+    asyncMiddleware(authController.forgotPassword)
+  );
+
+router
+  .route("/reset-password/:resetPasswordToken")
+  .post(
+    validate(authValidator.resetPassword),
+    asyncMiddleware(authController.resetPassword)
+  );
+
 module.exports = router;
