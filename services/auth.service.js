@@ -75,8 +75,8 @@ module.exports.resetPassword = async (token, { role, password }) => {
   if (!user) return boom.badRequest("Invalid token");
 
   user.password = password;
-  user.resetPasswordToken = undefined;
-  user.resetPasswordExpires = undefined;
+  user.resetPasswordToken = null;
+  user.resetPasswordExpire = null;
 
   return await User.updateOne({ _id: user.id }, user);
 };
