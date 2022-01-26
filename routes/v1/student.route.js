@@ -18,7 +18,12 @@ router
 
 router
   .route("/profile")
-  .get(requireAuth, asyncMiddleware(studentController.getProfile));
+  .get(requireAuth, asyncMiddleware(studentController.getProfile))
+  .patch(
+    requireAuth,
+    validate(studentValidator.updateProfile),
+    asyncMiddleware(studentController.updateProfile)
+  );
 
 router
   .route("/profile-image")

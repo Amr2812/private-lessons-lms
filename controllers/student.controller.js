@@ -22,6 +22,19 @@ module.exports.updateProfileImage = multer({
  */
 module.exports.getProfile = async (req, res, next) => {
   const profile = await studentService.getProfile(req.user.id);
+
+  res.send(profile);
+};
+
+/**
+ * @async
+ * @description update student profile
+ * @param  {Object} req - Express request object
+ * @param  {Object} res - Express response object
+ * @param  {Function} next - Express next middleware
+ */
+module.exports.updateProfile = async (req, res, next) => {
+  const profile = await studentService.updateProfile(req.user.id, req.body);
   if (profile instanceof Error) return next(profile);
 
   res.send(profile);

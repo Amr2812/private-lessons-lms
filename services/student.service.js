@@ -24,6 +24,20 @@ module.exports.getProfile = async id => {
 
 /**
  * @async
+ * @description update student profile
+ * @param {String} id - Student id
+ * @param {Object} body - Student profile
+ * @returns {Promise<Object>} Updated student profile
+ */
+module.exports.updateProfile = async (id, body) =>
+  await Student.findByIdAndUpdate(id, body, {
+    new: true,
+    runValidators: true,
+    context: "query"
+  }).lean({ virtuals: true });
+
+/**
+ * @async
  * @description get all students
  * @param {Object} query - Query object (grade, q, lessonNotAttended, lessonAttended. skip, limit)
  * @returns {Promise<Object[]>}

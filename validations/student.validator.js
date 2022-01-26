@@ -1,4 +1,4 @@
-const { param, query } = require("express-validator");
+const { param, query, body } = require("express-validator");
 
 module.exports.getStudent = [param("id").isMongoId().withMessage("Invalid id")];
 
@@ -23,4 +23,25 @@ module.exports.getStudents = [
     .isInt({ min: 0 })
     .withMessage("Invalid limit")
     .toInt()
+];
+
+module.exports.updateProfile = [
+  body("email").optional().isEmail().withMessage("Email is not valid"),
+  body("password")
+    .optional()
+    .isLength({ min: 6 })
+    .withMessage("Password must be at least 6 characters long"),
+  body("name")
+    .optional()
+    .isLength({ min: 3 })
+    .withMessage("Username must be at least 3 characters long"),
+  body("phone")
+    .optional()
+    .isLength({ min: 6 })
+    .withMessage("Phone must be at least 6 characters long"),
+  body("parentPhone")
+    .optional()
+    .isLength({ min: 6 })
+    .withMessage("Phone must be at least 6 characters long"),
+  body("grade").optional().isMongoId().withMessage("Grade ID is not valid")
 ];
