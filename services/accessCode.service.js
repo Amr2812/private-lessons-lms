@@ -9,14 +9,16 @@ const { nanoid } = require("nanoid/async");
  * @returns {Promise<String[]>} access codes
  */
 module.exports.generateAccessCodes = async (grade, count) => {
-  let accessCodes = [];
+  let accessCodes;
   try {
-    for (let i = 0; i < count; i++) {
-      accessCodes.push({
-        code: await nanoid(8),
-        grade
-      });
-    }
+    accessCodes = await Promise.all(
+      Array.from({ length: count }, async () => {
+        return {
+          code: await nanoid(8),
+          grade
+        };
+      })
+    );
 
     await AccessCode.insertMany(accessCodes);
 

@@ -5,4 +5,5 @@ module.exports.generateAccessCodes = [
   query("count")
     .isInt({ min: 1 })
     .withMessage("Count must be a positive integer")
+    .toInt()
 ];
