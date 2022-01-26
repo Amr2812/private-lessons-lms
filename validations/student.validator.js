@@ -42,6 +42,5 @@ module.exports.updateProfile = [
   body("parentPhone")
     .optional()
     .isLength({ min: 6 })
-    .withMessage("Phone must be at least 6 characters long"),
-  body("grade").optional().isMongoId().withMessage("Grade ID is not valid")
+    .withMessage("Phone must be at least 6 characters long")
 ];
