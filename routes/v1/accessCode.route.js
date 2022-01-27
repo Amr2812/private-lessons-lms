@@ -9,8 +9,8 @@ const { accessCodeValidator } = require("../../validations");
 const { accessCodeController } = require("../../controllers");
 
 router
-  .route("/grade/:gradeId")
-  .get(
+  .route("/grade/:gradeId/generate")
+  .post(
     requireAdmin,
     validate(accessCodeValidator.generateAccessCodes),
     asyncMiddleware(accessCodeController.generateAccessCodes)

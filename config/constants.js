@@ -25,5 +25,6 @@ module.exports.constants = {
   RATE_LIMITER_POINTS: 5,
   RATE_LIMITER_BLOCK_DURATION: 60 * 15, // 15 Minutes
   RATE_LIMITER_PERFIX: "RL",
-  ROLES: ["student", "admin"]
+  ROLES: ["student", "admin"],
+  MAX_ACCESS_CODES_PER_REQUEST: 1000
 };
