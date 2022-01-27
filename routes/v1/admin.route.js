@@ -9,6 +9,10 @@ const { adminValidator } = require("../../validations");
 const { adminController } = require("../../controllers");
 
 router
+  .route("/profile")
+  .get(requireAdmin, asyncMiddleware(adminController.getProfile));
+
+router
   .route("/profile-image")
   .put(
     requireAdmin,

@@ -68,16 +68,24 @@ module.exports = passport => {
 
   passport.deserializeUser(async ({ id, role }, done) => {
     try {
+      let User;
       if (role === "student") {
-        const student = await Student.findById(id).lean({ virtuals: true });
-        student.lessonsAttended = student.lessonsAttended.map(e => String(e));
-        student.role = "student";
-
-        done(null, student);
+        User = Student;
       } else {
-        const admin = await Admin.findById(id).lean({ virtuals: true });
-        done(null, admin);
+        User = Admin;
       }
+
+      const user = await User.findById(id).lean({ virtuals: true });
+      delete user.password;
+      delete user.resetPasswordToken;
+      delete user.resetPasswordExpire;
+
+      if (role === "student") {
+        user.lessonsAttended = user.lessonsAttended.map(e => String(e));
+        user.role = "student";
+      }
+
+      done(null, user);
     } catch (err) {
       done(err, false);
     }

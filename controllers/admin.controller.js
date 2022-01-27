@@ -14,6 +14,15 @@ module.exports.updateProfileImage = multer({
 
 /**
  * @async
+ * @description get profile of admin
+ * @param  {Object} req - Express request object
+ * @param  {Object} res - Express response object
+ * @param  {Function} next - Express next middleware
+ */
+module.exports.getProfile = async (req, res, next) => res.send(req.user);
+
+/**
+ * @async
  * @description create a new assistant
  * @param  {Object} req - Express request object
  * @param  {Object} res - Express response object
