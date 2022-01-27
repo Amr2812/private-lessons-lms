@@ -34,7 +34,7 @@ module.exports.getProfile = async (req, res, next) => {
  * @param  {Function} next - Express next middleware
  */
 module.exports.updateProfile = async (req, res, next) => {
-  const profile = await studentService.updateProfile(req.user.id, req.body);
+  const profile = await studentService.updateProfile(req.user, req.body);
   if (profile instanceof Error) return next(profile);
 
   res.send(profile);

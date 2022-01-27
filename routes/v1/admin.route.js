@@ -10,7 +10,12 @@ const { adminController } = require("../../controllers");
 
 router
   .route("/profile")
-  .get(requireAdmin, asyncMiddleware(adminController.getProfile));
+  .get(requireAdmin, asyncMiddleware(adminController.getProfile))
+  .patch(
+    requireAdmin,
+    validate(adminValidator.updateProfile),
+    asyncMiddleware(adminController.updateProfile)
+  );
 
 router
   .route("/profile-image")

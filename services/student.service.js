@@ -1,4 +1,5 @@
 const { Student } = require("../models");
+const boom = require("@hapi/boom");
 
 /**
  * @async
@@ -25,17 +26,23 @@ module.exports.getProfile = async id => {
 /**
  * @async
  * @description update student profile
- * @param {String} id - Student id
- * @param {Object} body - Student profile
+ * @param {Object} user - Student profile
+ * @param {Object} body - Student body
  * @returns {Promise<Object>} Updated student profile
  */
-module.exports.updateProfile = async (id, body) =>
-  await Student.findByIdAndUpdate(id, body, {
+module.exports.updateProfile = async (user, body) => {
+  if (user.role !== "student") {
+    return boom.unauthorized("You are not authorized to update this profile");
+  }
+
+  const student = await Student.findByIdAndUpdate(id, body, {
     new: true,
     runValidators: true,
     context: "query"
   }).lean({ virtuals: true });
 
+  return student;
+};
 /**
  * @async
  * @description get all students

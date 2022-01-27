@@ -23,6 +23,19 @@ module.exports.getProfile = async (req, res, next) => res.send(req.user);
 
 /**
  * @async
+ * @description update profile of admin
+ * @param  {Object} req - Express request object
+ * @param  {Object} res - Express response object
+ * @param  {Function} next - Express next middleware
+ */
+module.exports.updateProfile = async (req, res, next) => {
+  const profile = await adminService.updateProfile(req.user.id, req.body);
+
+  res.send(profile);
+};
+
+/**
+ * @async
  * @description create a new assistant
  * @param  {Object} req - Express request object
  * @param  {Object} res - Express response object

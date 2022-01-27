@@ -149,7 +149,7 @@ module.exports.unpublishLesson = async id =>
  * @returns {Promise<Object>} - Lesson
  */
 module.exports.attendLesson = async (user, lessonId, code) => {
-  if (!(user.role === "student")) {
+  if (user.role !== "student") {
     return next(
       boom.unauthorized("You have to be a student to attend a lesson")
     );
