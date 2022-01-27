@@ -12,7 +12,7 @@ const actionSchema = mongoose.Schema({
   count: {
     type: Number
   },
-  date: {
+  createdAt: {
     type: Date,
     default: Date.now()
   }

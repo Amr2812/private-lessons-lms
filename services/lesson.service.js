@@ -40,7 +40,7 @@ module.exports.getLessons = async (
   userRole
 ) => {
   let query = {};
-  let sort = { date: 1 };
+  let sort = { createdAt: 1 };
 
   if (!(userRole === "instructor")) {
     query = {

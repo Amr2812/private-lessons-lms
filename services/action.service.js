@@ -28,7 +28,7 @@ module.exports.getActions = async query => {
   }
 
   const actions = await Action.find({})
-    .sort({ date: -1 })
+    .sort({ createdAt: -1 })
     .skip(query.skip || 0)
     .limit(query.limit || 10)
     .populate({

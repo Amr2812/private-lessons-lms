@@ -39,7 +39,7 @@ const studentSchema = mongoose.Schema(
     passwordResetExpire: {
       type: Date
     },
-    date: {
+    createdAt: {
       type: Date,
       default: Date.now()
     }
