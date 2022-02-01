@@ -10,11 +10,16 @@ module.exports.studentSignup = [
     .isLength({ min: 3 })
     .withMessage("Username must be at least 3 characters long"),
   body("phone")
-    .isLength({ min: 6 })
-    .withMessage("Phone must be at least 6 characters long"),
+    .isLength({ min: 9 })
+    .withMessage("Phone must be at least 9 characters long"),
   body("parentPhone")
-    .isLength({ min: 6 })
-    .withMessage("Phone must be at least 6 characters long"),
+    .isLength({ min: 9 })
+    .withMessage("Parent Phone must be at least 9 characters long")
+    .custom((value, { req }) => {
+      if (value === req.body.phone) {
+        throw new Error("Phone number and parent phone number cannot be same");
+      }
+    }),
   body("grade").isMongoId().withMessage("Grade ID is required")
 ];
 
