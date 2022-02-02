@@ -13,3 +13,15 @@ module.exports.sendToTopic = async (topic, payload) => {
 
   return await fcm.send(payload);
 };
+
+/**
+ * @async
+ * @function subscribeToTopic
+ * @description Subscribe user to a topic
+ * @param {string} fcmToken
+ * @param {string} topic
+ * @returns {Promise<String>} - Message ID
+ */
+module.exports.subscribeToTopic = async (fcmToken, topic) => {
+  return await fcm.subscribeToTopic(fcmToken, topic);
+};

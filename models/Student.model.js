@@ -23,6 +23,9 @@ const studentSchema = mongoose.Schema(
     parentPhone: {
       type: String
     },
+    fcmTokens: {
+      type: Array
+    },
     grade: {
       type: mongoose.Types.ObjectId,
       ref: "Grade"

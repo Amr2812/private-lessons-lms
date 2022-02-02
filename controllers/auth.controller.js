@@ -1,4 +1,4 @@
-const { authService } = require("../services");
+const { authService, notificationService } = require("../services");
 const passport = require("passport");
 const boom = require("@hapi/boom");
 
@@ -42,6 +42,16 @@ module.exports.login = async (req, res, next) => {
         return next(err);
       }
     });
+
+    if (req.query.role === "student" && req.body.fcmToken) {
+      if (!user.fcmTokens.includes(req.body.fcmToken)) {
+        await notificationService.subscribeToTopic(
+          user.fcmToken,
+          String(user.grade)
+        );
+      }
+    }
+
     return res.send(user);
   })(req, res, next);
 };

@@ -1,6 +1,7 @@
 const { Student, Admin } = require("../models");
 const { constants, env } = require("../config/constants");
 const { sendEmail } = require("../services/mail.service");
+const { subscribeToTopic } = require("./notification.service");
 const { templates } = require("../config/sendGrid");
 
 const { nanoid } = require("nanoid/async");
@@ -14,6 +15,13 @@ const { nanoid } = require("nanoid/async");
 module.exports.signup = async student => {
   const createdStudent = await Student.create(student);
   createdStudent.password = undefined;
+
+  if (createdStudent.fcmToken) {
+    await subscribeToTopic(
+      createdStudent.fcmToken,
+      String(createdStudent.grade)
+    );
+  }
 
   return createdStudent;
 };

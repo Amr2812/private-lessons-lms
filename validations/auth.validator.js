@@ -20,7 +20,8 @@ module.exports.studentSignup = [
         throw new Error("Phone number and parent phone number cannot be same");
       }
     }),
-  body("grade").isMongoId().withMessage("Grade ID is required")
+  body("grade").isMongoId().withMessage("Grade ID is required"),
+  body("fcmToken").optional().isString().withMessage("FCM Token is not valid")
 ];
 
 module.exports.login = [
@@ -28,7 +29,8 @@ module.exports.login = [
   body("email").isEmail().withMessage("Email is not valid"),
   body("password")
     .isLength({ min: 6 })
-    .withMessage("Password must be at least 6 characters long")
+    .withMessage("Password must be at least 6 characters long"),
+  body("fcmToken").optional().isString().withMessage("FCM Token is not valid")
 ];
 
 module.exports.forgotPassword = [

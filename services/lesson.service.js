@@ -42,7 +42,7 @@ module.exports.getLessons = async (
   let query = {};
   let sort = { createdAt: 1 };
 
-  if (!(userRole === "instructor")) {
+  if (userRole !== "instructor") {
     query = {
       grade,
       isPublished: true
