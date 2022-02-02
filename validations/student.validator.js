@@ -44,3 +44,11 @@ module.exports.updateProfile = [
     .isLength({ min: 6 })
     .withMessage("Phone must be at least 6 characters long")
 ];
+
+module.exports.updateFcmToken = [
+  body("fcmToken").isString().withMessage("FCM Token is not valid"),
+  body("oldFcmToken")
+    .optional()
+    .isString()
+    .withMessage("FCM Token is not valid")
+];

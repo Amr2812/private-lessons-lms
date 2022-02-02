@@ -41,6 +41,19 @@ module.exports.updateProfile = async (req, res, next) => {
 
 /**
  * @async
+ * @description Update student FCM token
+ * @param  {Object} req - Express request object
+ * @param  {Object} res - Express response object
+ * @param  {Function} next - Express next middleware
+ */
+module.exports.updateFcmToken = async (req, res, next) => {
+  const fcmTokens = await studentService.updateFcmToken(req.user, req.body);
+
+  res.send(fcmTokens);
+};
+
+/**
+ * @async
  * @description get all students
  * @param  {Object} req - Express request object
  * @param  {Object} res - Express response object

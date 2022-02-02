@@ -41,6 +41,27 @@ module.exports.updateProfile = async (id, body) =>
 
 /**
  * @async
+ * @description Update student FCM token
+ * @param {Object} user - Student object
+ * @param {Object} body - Req object (fcmToken, oldFCMToken)
+ * @returns {Promise<Object>} Updated student fcm tokens
+ */
+module.exports.updateFcmToken = async (user, { fcmToken, oldFcmToken }) => {
+  if (oldFcmToken && user.fcmTokens.includes(oldFcmToken)) {
+    user.fcmTokens = user.fcmTokens.filter(token => token !== oldFcmToken);
+  }
+
+  if (fcmToken && !user.fcmTokens.includes(fcmToken)) {
+    user.fcmTokens.push(fcmToken);
+  }
+
+  await Student.updateOne({ _id: user.id }, { fcmTokens: user.fcmTokens });
+
+  return user.fcmTokens;
+};
+
+/**
+ * @async
  * @description get all students
  * @param {Object} query - Query object (grade, q, lessonNotAttended, lessonAttended. skip, limit)
  * @returns {Promise<Object[]>}

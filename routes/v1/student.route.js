@@ -34,6 +34,14 @@ router
   );
 
 router
+  .route("/fcm-token")
+  .patch(
+    requireAuth,
+    validate(studentValidator.updateFcmToken),
+    asyncMiddleware(studentController.updateFcmToken)
+  );
+
+router
   .route("/:id")
   .get(
     requireAdmin,
