@@ -1,4 +1,8 @@
-const { authService, notificationService } = require("../services");
+const {
+  authService,
+  studentService,
+  notificationService
+} = require("../services");
 const passport = require("passport");
 const boom = require("@hapi/boom");
 
@@ -28,7 +32,7 @@ module.exports.studentSignup = async (req, res, next) => {
  * @param  {Function} next - Express next middleware
  */
 module.exports.login = async (req, res, next) => {
-  passport.authenticate(`${req.query.role}-local`, (err, user, info) => {
+  passport.authenticate(`${req.query.role}-local`, async (err, user, info) => {
     if (err) {
       return next(err);
     }
@@ -45,10 +49,19 @@ module.exports.login = async (req, res, next) => {
 
     if (req.query.role === "student" && req.body.fcmToken) {
       if (!user.fcmTokens.includes(req.body.fcmToken)) {
-        await notificationService.subscribeToTopic(
-          user.fcmToken,
-          String(user.grade)
-        );
+        const [updatedUser] = Promise.all([
+          await studentService.updateProfile(req.user.id, {
+            $push: {
+              fcmTokens: req.body.fcmToken
+            }
+          }),
+          await notificationService.subscribeToTopic(
+            req.body.fcmToken,
+            String(user.grade)
+          )
+        ]);
+
+        user = updatedUser;
       }
     }
 

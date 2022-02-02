@@ -19,6 +19,8 @@ module.exports.studentSignup = [
       if (value === req.body.phone) {
         throw new Error("Phone number and parent phone number cannot be same");
       }
+
+      return true;
     }),
   body("grade").isMongoId().withMessage("Grade ID is required"),
   body("fcmToken").optional().isString().withMessage("FCM Token is not valid")
