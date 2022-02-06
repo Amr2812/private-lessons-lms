@@ -160,7 +160,7 @@ module.exports.attendLesson = async (user, lessonId, code) => {
     _id: lessonId
   }).lean();
 
-  if (!lesson) return next(boom.notFound("Lesson not found"));
+  if (!lesson) return boom.notFound("Lesson not found");
 
   const accessCode = await AccessCode.findOne({
     code,

@@ -48,8 +48,8 @@ module.exports.login = async (req, res, next) => {
     });
 
     if (req.query.role === "student" && req.body.fcmToken) {
-      if (!user.fcmTokens.includes(req.body.fcmToken)) {
-        const [updatedUser] = Promise.all([
+      if (!user.fcmTokens?.includes(req.body.fcmToken)) {
+        const [updatedUser] = await Promise.all([
           await studentService.updateProfile(req.user.id, {
             $push: {
               fcmTokens: req.body.fcmToken

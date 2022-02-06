@@ -26,5 +26,6 @@ module.exports.constants = {
   RATE_LIMITER_BLOCK_DURATION: 60 * 15, // 15 Minutes
   RATE_LIMITER_PERFIX: "RL",
   ROLES: ["student", "admin"],
+  ADMINS_FCM_TOPIC: "admins",
   MAX_ACCESS_CODES_PER_REQUEST: 1000
 };

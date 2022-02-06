@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-const app = require("../app");
+const { app, io } = require("../app");
 const http = require("http");
 const mongodbInit = require("../config/mongodb");
 
@@ -25,6 +25,12 @@ app.set("port", port);
  */
 
 const server = http.createServer(app);
+
+/**
+ * Create Socket.IO Server
+ */
+
+io.attach(server);
 
 /**
  * Listen on provided port, on all network interfaces.

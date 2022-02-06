@@ -7,5 +7,6 @@ module.exports = {
   lessonService: require("./lesson.service"),
   accessCodeService: require("./accessCode.service"),
   actionService: require("./action.service"),
-  notificationService: require("./notification.service")
+  notificationService: require("./notification.service"),
+  messageService: require("./message.service")
 };

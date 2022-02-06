@@ -4,5 +4,6 @@ module.exports = {
   Grade: require("./Grade.model"),
   Lesson: require("./Lesson.model"),
   AccessCode: require("./AccessCode.model"),
-  Action: require("./Action.model")
+  Action: require("./Action.model"),
+  Message: require("./Message.model")
 };
