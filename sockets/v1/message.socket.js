@@ -29,7 +29,11 @@ module.exports = (io, socket) => {
       }
 
       socket.join(roomName);
-      const messages = await messageService.getMessages(studentId, lessonId);
+      const messages = await messageService.getMessages(
+        user.role,
+        studentId,
+        lessonId
+      );
 
       callback(messages);
     } catch (err) {

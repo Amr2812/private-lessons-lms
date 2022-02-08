@@ -17,7 +17,7 @@ const messageSchema = mongoose.Schema({
   content: {
     type: String
   },
-  seen: {
+  seenByAdmin: {
     type: Boolean,
     default: false
   },
@@ -28,6 +28,10 @@ const messageSchema = mongoose.Schema({
 });
 
 messageSchema.plugin(mongooseLeanId);
+
+messageSchema.index({ studentId: 1, lessonId: 1 });
+messageSchema.index({ seenByAdmin: 1, createdAt: -1 });
+messageSchema.index({ createdAt: -1 });
 
 const Message = mongoose.model("Message", messageSchema);
 

@@ -26,15 +26,18 @@ module.exports.getRoomName = (studentId, lessonId) =>
 /**
  * @async
  * @description Get messages
+ * @param {String} role - student | assistant | instructor
  * @param {String} studentId
  * @param {String} lessonId
  * @returns {Promise<Array>} messages
  */
-module.exports.getMessages = async (studentId, lessonId) => {
-  await Message.updateMany(
-    { studentId, lessonId, seen: false },
-    { seen: true }
-  );
+module.exports.getMessages = async (role, studentId, lessonId) => {
+  if (role !== "student") {
+    await Message.updateMany(
+      { studentId, lessonId, seenByAdmin: false },
+      { seenByAdmin: true }
+    );
+  }
 
   return await Message.find({ studentId, lessonId })
     .sort({ createdAt: -1 })
@@ -50,15 +53,22 @@ module.exports.getMessages = async (studentId, lessonId) => {
 module.exports.getChats = async ({ lessonId, skip, limit }) => {
   const aggregations = [
     {
-      $group: {
-        _id: "$lessonId",
-        students: { $addToSet: "$studentId" }
+      $sort: {
+        seenByAdmin: 1,
+        createdAt: -1
       }
     },
     {
-      $sort: {
-        seen: -1,
-        createdAt: -1
+      $group: {
+        _id: "$studentId",
+        messages: {
+          $first: "$$ROOT"
+        }
+      }
+    },
+    {
+      $replaceRoot: {
+        newRoot: "$messages"
       }
     },
     {
@@ -70,14 +80,33 @@ module.exports.getChats = async ({ lessonId, skip, limit }) => {
     {
       $lookup: {
         from: "students",
-        localField: "students",
+        localField: "studentId",
         foreignField: "_id",
-        as: "students"
+        as: "student"
       }
     },
     {
       $project: {
-        students: {
+        studentId: 1,
+        lessonId: 1,
+        from: 1,
+        content: { $substr: ["$content", 0, 150] },
+        createdAt: 1,
+        seenByAdmin: 1,
+        student: {
+          $arrayElemAt: ["$student", 0]
+        }
+      }
+    },
+    {
+      $project: {
+        studentId: 1,
+        lessonId: 1,
+        from: 1,
+        content: 1,
+        createdAt: 1,
+        seenByAdmin: 1,
+        student: {
           _id: 1,
           name: 1
         }
