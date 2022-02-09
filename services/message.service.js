@@ -124,10 +124,7 @@ module.exports.getChats = async ({ lessonId, skip, limit }) => {
 
   return chats.map(chat => {
     chat.id = chat._id;
-    chat.students = chat.students.map(student => {
-      student.id = student._id;
-      return student;
-    });
+    chat.student.id = chat.student._id;
 
     return chat;
   });
