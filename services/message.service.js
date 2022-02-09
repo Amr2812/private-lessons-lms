@@ -1,6 +1,7 @@
 const boom = require("@hapi/boom");
 const mongoose = require("mongoose");
 const { Message } = require("../models");
+const formatLink = require("../utils/formatLink.util");
 
 /**
  * @async
@@ -125,6 +126,7 @@ module.exports.getChats = async ({ lessonId, skip, limit }) => {
   return chats.map(chat => {
     chat.id = chat._id;
     chat.student.id = chat.student._id;
+    chat.student.imageUrl = formatLink("students", chat.studentId);
 
     return chat;
   });
