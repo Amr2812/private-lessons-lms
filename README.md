@@ -1,11 +1,14 @@
-# Private Lessons LMS API
+# Private Lessons/Courses LMS API
 
-A full techincal and features review and challenges faced will be written after finishing required features for the app to be functional.
+I am writing a full techincal and features review and challenges faced.
 
-### USES:
+### Techs:
 
-- ExpressJS
+- Node.js/ExpressJS
+- Socket.IO
 - MongoDB/Mongoose
 - Redis
 - Firebase Cloud Messaging (FCM)
 - Google Cloud Storage (Firebase Admin SDK)
+- SendGrid
+- Postman
