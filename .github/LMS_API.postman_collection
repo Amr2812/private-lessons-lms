@@ -1,0 +1,799 @@
+{
+	"info": {
+		"_postman_id": "239ab714-d5f4-482f-8391-babf29a2157c",
+		"name": "LMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Student Siginup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tests@mail.com\",\r\n    \"password\": \"password\",\r\n    \"name\": \"MYCOOsLNAME\",\r\n    \"phone\": \"0245454888\",\r\n    \"parentPhone\": \"0245456881\",\r\n    \"grade\": \"61ce95699139aa9a6182b6f9\",\r\n    \"fcmToken\": \"FCM_REGISTERATION_TOKEN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/signup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tests@mail.com\",\r\n    \"password\": \"password\",\r\n    \"fcmToken\": \"NEW_FCM_REGISTERATION_TOKEN2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login?role=student",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							],
+							"query": [
+								{
+									"key": "role",
+									"value": "student"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/auth/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ana.osama.elmohamady@gmail.com\",\r\n    \"accountRole\": \"student\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/forgot-password",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accountRole\": \"student\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/reset-password/:resetPasswordToken",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"reset-password",
+								":resetPasswordToken"
+							],
+							"variable": [
+								{
+									"key": "resetPasswordToken",
+									"value": "T5TePALicKSzbP8A1dc5TkLd_pn1NxqU"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admins",
+			"item": [
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/admins/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admins",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Assistant",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tadmin@email.com\",\r\n    \"password\": \"password\",\r\n    \"name\": \"ADmin\",\r\n    \"uploadUrl\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/admins/assistant",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admins",
+								"assistant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Admin's profile",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tests@email.com\",\r\n    \"name\": \"MYCOOsLNAME\",\r\n    \"parentPhone\": \"0245456888\",\r\n    \"grade\": \"61ce95699139aa9a6182b6f9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/admins/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admins",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload/Update Profile Image",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Mohamadi/Documents/youtube/IonicVue/lesson 4/Ionic Grid System.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/admins/profile-image",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admins",
+								"profile-image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Adminis' Actions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/admins/actions/?skip=0&limit=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admins",
+								"actions",
+								""
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Students",
+			"item": [
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/students/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"students",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a Student's profile",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/students/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"students",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "61d1cfcff86163195b9f863e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update profile",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tests@email.com\",\r\n    \"name\": \"MYCOOsLNAMEs\",\r\n    \"phone\": \"0245454888\",\r\n    \"parentPhone\": \"0245456888\",\r\n    \"grade\": \"61ce95699139aa9a6182b6f9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/students/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"students",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Registeration Token",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fcmToken\": \"FCM_REGISTERATION_TOKEN0\",\r\n    \"oldFcmToken\": \"FCM_REGISTERATION_TOKEN2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/students/fcm-token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"students",
+								"fcm-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload/Update Profile Image",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/students/profile-image",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"students",
+								"profile-image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get/Filter Students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/students?grade=61ccc3a13489f784206a4aa7&q=Amr&skip=0&limit=10&lessonNotAttended=61d833ad92cee1f49da58999&lessonAttended=61d833ad92cee1f49da58999",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"students"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "61ccc3a13489f784206a4aa7"
+								},
+								{
+									"key": "q",
+									"value": "Amr"
+								},
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "lessonNotAttended",
+									"value": "61d833ad92cee1f49da58999"
+								},
+								{
+									"key": "lessonAttended",
+									"value": "61d833ad92cee1f49da58999"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Grades",
+			"item": [
+				{
+					"name": "Get Grades",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/grades",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"grades"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Grade",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"1st Secondary\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/grades",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"grades"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Grade",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"3rd Secondary (Grade 12)\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/grades/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"grades",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "61cccc757eaf020088dbe54c"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lessons",
+			"item": [
+				{
+					"name": "Create a Lesson",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Intro to Limits\",\r\n    \"notes\": \"Limits are cool\",\r\n    \"grade\": \"61cccc757eaf020088dbe54b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/lessons",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"lessons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publish Lesson",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/lessons/:id/publish",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"lessons",
+								":id",
+								"publish"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "61d833ad92cee1f49da58999"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Un Publish Lesson",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/lessons/:id/unpublish",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"lessons",
+								":id",
+								"unpublish"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "61d833ad92cee1f49da58999"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lessons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/lessons?grade=61ce95699139aa9a6182b6f9&q=Intro&isPublished=false&skip=0&limit=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"lessons"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "61ce95699139aa9a6182b6f9"
+								},
+								{
+									"key": "q",
+									"value": "Intro"
+								},
+								{
+									"key": "isPublished",
+									"value": "false"
+								},
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lesson by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/lessons/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"lessons",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "61d833ad92cee1f49da58999"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Attend a Lesson",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"u1gDM02O\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/lessons/:id/attend",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"lessons",
+								":id",
+								"attend"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "61cdec4b43fc24fec2b3941b",
+									"description": "Lesson ID"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lesson's Video By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Range",
+								"value": "0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/lessons/:id/video",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"lessons",
+								":id",
+								"video"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "61d1d00df86163195b9f8651"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Access Codes",
+			"item": [
+				{
+					"name": "Generate Access Codes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/access-codes/grade/:id/generate/?count=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"access-codes",
+								"grade",
+								":id",
+								"generate",
+								""
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "2"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "61ce95699139aa9a6182b6f9"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
