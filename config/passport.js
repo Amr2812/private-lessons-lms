@@ -50,10 +50,11 @@ module.exports = passport => {
         try {
           const student = await Student.findOne({
             facebookId: profile.id
-          }).lean({ virtuals: true });
+          })
+            .select("-password")
+            .lean({ virtuals: true });
 
           if (student) {
-            delete student.password;
             return done(null, student);
           } else {
             const student = await authService.signup({
