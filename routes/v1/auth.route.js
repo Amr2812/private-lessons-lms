@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
+const { env } = require("../../config/constants");
 
 const asyncMiddleware = require("../../middlewares/asyncErrors");
 const { requireAuth } = require("../../middlewares/auth");
@@ -36,5 +38,15 @@ router
     validate(authValidator.resetPassword),
     asyncMiddleware(authController.resetPassword)
   );
+
+router.get("/facebook", passport.authenticate("student-facebook"));
+
+router.get(
+  "/facebook/callback",
+  passport.authenticate("student-facebook", {
+    successRedirect: env.FRONTEND_URL,
+    failureRedirect: env.FRONTEND_URL
+  })
+);
 
 module.exports = router;

@@ -146,6 +146,24 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Student Facebook Sign In/Up",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/auth/facebook",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"facebook"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

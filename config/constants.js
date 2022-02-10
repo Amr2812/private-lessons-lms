@@ -13,7 +13,9 @@ module.exports.env = {
   EMAIL_FROM: process.env.EMAIL_FROM,
   EMAIL_USERNAME: process.env.EMAIL_USERNAME,
   SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
-  FRONTEND_URL: process.env.FRONTEND_URL
+  FRONTEND_URL: process.env.FRONTEND_URL,
+  FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
+  FACEBOOK_APP_SECRET: process.env.FACEBOOK_APP_SECRET
 };
 
 module.exports.constants = {

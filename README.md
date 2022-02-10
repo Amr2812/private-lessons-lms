@@ -14,7 +14,7 @@
 
 ## Application Structure:
 
-      Routes <-> Authorization <-> Validations <-> Controllers <-> Services <-> Models (ORM)
+      Router <-> Authorization <-> Validations <-> Controllers <-> Services <-> Models (ORM)
 
 ## Features:
 
@@ -27,6 +27,7 @@ A simple overview of the LMS API.
 - **Authentication & Authorization:**
 
   - Sessions handling with express-session using Redis as a session store
+  - Facebook authentication OAuth2.0
   - PassportJS for authentication
   - Signup
   - Login
