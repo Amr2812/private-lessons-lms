@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const mongooseLeanVirtuals = require("mongoose-lean-virtuals");
 const uniqueValidator = require("mongoose-unique-validator");
 const mongooseLeanId = require("mongoose-lean-id");
-const formatLink = require("../utils/formatLink.util");
+const { nanoid } = require("nanoid");
 
 const lessonSchema = mongoose.Schema(
   {
@@ -13,6 +13,9 @@ const lessonSchema = mongoose.Schema(
     title: {
       type: String,
       unique: true
+    },
+    videoName: {
+      type: String
     },
     notes: {
       type: String
@@ -29,16 +32,18 @@ const lessonSchema = mongoose.Schema(
   { toJSON: { virtuals: true } }
 );
 
-lessonSchema.virtual("videoUrl").get(function () {
-  return formatLink("lessons", this._id);
-});
-
 lessonSchema.index({ grade: 1, isPublished: 1, title: "text" });
 
+lessonSchema.pre("save", function (next) {
+  if (this.isNew) {
+    videoName = `${this.title.replace(/\s/g, "-")}-${nanoid(8)}`;
+  }
+
+  next();
+});
+
 lessonSchema.plugin(mongooseLeanVirtuals);
-
 lessonSchema.plugin(mongooseLeanId);
-
 lessonSchema.plugin(uniqueValidator, {
   message: "There is already a lesson with that {PATH}"
 });

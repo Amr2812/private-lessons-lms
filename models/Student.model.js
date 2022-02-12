@@ -8,8 +8,7 @@ const formatLink = require("../utils/formatLink.util");
 const studentSchema = mongoose.Schema(
   {
     facebookId: {
-      type: String,
-      unique: true
+      type: String
     },
     email: {
       type: String,

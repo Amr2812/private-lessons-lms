@@ -20,7 +20,7 @@ module.exports.createLesson = async lesson => {
 
   createdLesson.uploadUrl = await getSignedUrl(
     "lessons",
-    createdLesson.id,
+    createdLesson.videoName,
     constants.MAX_SIGNED_URL_EXPIRATION
   );
 
@@ -100,6 +100,7 @@ module.exports.getLesson = async (id, user) => {
   }
 
   const lesson = await Lesson.findById(id)
+    .select("-videoName")
     .populate({ path: "grade", select: "name" })
     .lean();
 
@@ -121,11 +122,9 @@ module.exports.getLesson = async (id, user) => {
  * @returns {Promise<Object>} - Lesson
  */
 module.exports.publishLesson = async id =>
-  await Lesson.findByIdAndUpdate(
-    id,
-    { isPublished: true },
-    { new: true }
-  ).lean();
+  await Lesson.findByIdAndUpdate(id, { isPublished: true }, { new: true })
+    .select("-videoName")
+    .lean();
 
 /**
  * @async
@@ -134,11 +133,9 @@ module.exports.publishLesson = async id =>
  * @returns {Promise<Object>} - Lesson
  */
 module.exports.unpublishLesson = async id =>
-  await Lesson.findByIdAndUpdate(
-    id,
-    { isPublished: false },
-    { new: true }
-  ).lean();
+  await Lesson.findByIdAndUpdate(id, { isPublished: false }, { new: true })
+    .select("-videoName")
+    .lean();
 
 /**
  * @async
@@ -158,7 +155,9 @@ module.exports.attendLesson = async (user, lessonId, code) => {
   const lesson = await Lesson.findOne({
     isPublished: true,
     _id: lessonId
-  }).lean();
+  })
+    .select("-videoName")
+    .lean();
 
   if (!lesson) return boom.notFound("Lesson not found");
 

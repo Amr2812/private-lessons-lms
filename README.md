@@ -51,7 +51,7 @@ A simple overview of the LMS API.
   - Create Grade
   - Get Grades
 
-- **Lesson Management:**
+- **Lessons:**
 
   - Create Lesson
   - Update Lesson

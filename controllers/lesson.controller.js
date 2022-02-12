@@ -108,7 +108,7 @@ module.exports.streamVideo = async (req, res, next) => {
 
   const [metadata] = await storageService.getFileMetaData(
     "lessons",
-    req.params.id
+    lesson.videoName
   );
 
   // Parse Range
@@ -129,7 +129,7 @@ module.exports.streamVideo = async (req, res, next) => {
 
   const videoStream = await storageService.streamVideo(
     "lessons",
-    req.params.id,
+    lesson.videoName,
     {
       start,
       end
