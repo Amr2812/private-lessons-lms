@@ -36,7 +36,7 @@ lessonSchema.index({ grade: 1, isPublished: 1, title: "text" });
 
 lessonSchema.pre("save", function (next) {
   if (this.isNew) {
-    videoName = `${this.title.replace(/\s/g, "-")}-${nanoid(8)}`;
+    videoName = `${this.title.replace(/\s/g, "-")}-${nanoid()}`;
   }
 
   next();
