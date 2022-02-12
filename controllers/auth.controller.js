@@ -5,6 +5,7 @@ const {
 } = require("../services");
 const passport = require("passport");
 const boom = require("@hapi/boom");
+const { env } = require("../config/constants");
 
 /**
  * @async
@@ -108,4 +109,29 @@ module.exports.resetPassword = async (req, res, next) => {
   if (user instanceof Error) next(user);
 
   res.sendStatus(204);
+};
+
+/**
+ * @description Facebook callback
+ * @param  {Object} req - Express request object
+ * @param  {Object} res - Express response object
+ * @param  {Function} next - Express next middleware
+ */
+module.exports.facebookCallback = (req, res, next) => {
+  passport.authenticate(
+    "student-facebook",
+    {
+      failureRedirect: env.FRONTEND_URL,
+      successRedirect: env.FRONTEND_URL
+    },
+    (err, user) => {
+      req.logIn(user, err => {
+        if (err) {
+          return next(err);
+        }
+
+        res.redirect(env.FRONTEND_URL);
+      });
+    }
+  )(req, res, next);
 };

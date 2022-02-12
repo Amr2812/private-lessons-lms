@@ -7,11 +7,19 @@ const boom = require("@hapi/boom");
  * @param  {Function} next - Express next middleware
  */
 module.exports.requireAuth = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
+  if (!req.isAuthenticated()) {
+    return next(boom.unauthorized());
   }
 
-  next(boom.unauthorized());
+  if (
+    req.user.role === "student" &&
+    !req.user.completed &&
+    req.path !== "/profile"
+  ) {
+    return next(boom.unauthorized("Please complete your profile"));
+  }
+
+  return next();
 };
 
 /**

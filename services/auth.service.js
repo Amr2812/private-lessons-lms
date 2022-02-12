@@ -13,7 +13,7 @@ const { nanoid } = require("nanoid/async");
  * @returns {Promise<Object>}
  */
 module.exports.signup = async student => {
-  student.fcmTokens = [student.fcmToken || null];
+  student.fcmTokens = student.fcmToken ? [student.fcmToken] : [];
   const createdStudent = await Student.create(student);
   createdStudent.password = undefined;
 

@@ -44,7 +44,8 @@ module.exports = passport => {
       {
         clientID: env.FACEBOOK_APP_ID,
         clientSecret: env.FACEBOOK_APP_SECRET,
-        callbackURL: "/v1/auth/facebook/callback"
+        callbackURL: "/v1/auth/facebook/callback",
+        profileFields: ["id", "displayName", "email"]
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
@@ -116,7 +117,7 @@ module.exports = passport => {
         User = Admin;
       }
 
-      const user = await User.findById(id).lean({ virtuals: true });
+      const user = await User.findOne({ _id: id }).lean({ virtuals: true });
       delete user.password;
       delete user.resetPasswordToken;
       delete user.resetPasswordExpire;

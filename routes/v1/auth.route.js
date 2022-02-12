@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-const { env } = require("../../config/constants");
 
 const asyncMiddleware = require("../../middlewares/asyncErrors");
 const { requireAuth } = require("../../middlewares/auth");
@@ -23,7 +22,7 @@ router
 
 router
   .route("/logout")
-  .delete(requireAuth, asyncMiddleware(authController.logout));
+  .get(requireAuth, asyncMiddleware(authController.logout));
 
 router
   .route("/forgot-password")
@@ -39,14 +38,13 @@ router
     asyncMiddleware(authController.resetPassword)
   );
 
-router.get("/facebook", passport.authenticate("student-facebook"));
-
 router.get(
-  "/facebook/callback",
+  "/facebook",
   passport.authenticate("student-facebook", {
-    successRedirect: env.FRONTEND_URL,
-    failureRedirect: env.FRONTEND_URL
+    scope: ["email"]
   })
 );
+
+router.get("/facebook/callback", authController.facebookCallback);
 
 module.exports = router;

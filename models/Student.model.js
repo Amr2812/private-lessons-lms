@@ -40,6 +40,10 @@ const studentSchema = mongoose.Schema(
         ref: "Lesson"
       }
     ],
+    completed: {
+      type: Boolean,
+      default: false
+    },
     passwordResetToken: {
       type: String
     },
@@ -60,12 +64,28 @@ studentSchema.virtual("imageUrl").get(function () {
 
 studentSchema.index({ email: 1 });
 studentSchema.index({ name: "text" });
+studentSchema.index({ facebookId: 1 });
 studentSchema.index({ grade: 1, lessonsAttended: 1 });
 
 studentSchema.pre("save", async function (next) {
   try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
+    if (this.password) {
+      const salt = await bcrypt.genSalt(10);
+      this.password = await bcrypt.hash(this.password, salt);
+    }
+
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
+studentSchema.pre("save", async function (next) {
+  try {
+    if (this.grade && this.phone && this.parentPhone) {
+      this.completed = true;
+    }
+
     next();
   } catch (err) {
     next(err);
