@@ -5,7 +5,7 @@ const {
 } = require("../services");
 const passport = require("passport");
 const boom = require("@hapi/boom");
-const { env } = require("../config/constants");
+const { env, constants } = require("../config/constants");
 
 /**
  * @async
@@ -48,7 +48,7 @@ module.exports.login = async (req, res, next) => {
       }
     });
 
-    if (req.query.role === "student" && req.body.fcmToken) {
+    if (req.query.role === constants.ROLES_ENUM.student && req.body.fcmToken) {
       if (!user.fcmTokens?.includes(req.body.fcmToken)) {
         const [updatedUser] = await Promise.all([
           await studentService.updateProfile(req.user.id, {

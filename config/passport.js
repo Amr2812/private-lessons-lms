@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 
 const { Admin, Student } = require("../models");
 const { authService } = require("../services");
-const { env } = require("./constants");
+const { env, constants } = require("./constants");
 
 module.exports = passport => {
   passport.use(
@@ -105,13 +105,16 @@ module.exports = passport => {
   );
 
   passport.serializeUser((user, done) => {
-    done(null, { id: user.id, role: user.role || "student" });
+    done(null, {
+      id: user.id,
+      role: user.role || constants.ROLES_ENUM.student
+    });
   });
 
   passport.deserializeUser(async ({ id, role }, done) => {
     try {
       let User;
-      if (role === "student") {
+      if (role === constants.ROLES_ENUM.student) {
         User = Student;
       } else {
         User = Admin;
@@ -122,9 +125,9 @@ module.exports = passport => {
       delete user.resetPasswordToken;
       delete user.resetPasswordExpire;
 
-      if (role === "student") {
+      if (role === constants.ROLES_ENUM.student) {
         user.lessonsAttended = user.lessonsAttended.map(e => String(e));
-        user.role = "student";
+        user.role = constants.ROLES_ENUM.student;
       }
 
       done(null, user);

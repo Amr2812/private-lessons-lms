@@ -35,7 +35,7 @@ module.exports.signup = async student => {
  */
 module.exports.forgotPassword = async ({ email, role }) => {
   let User;
-  if (role === "student") {
+  if (role === constants.ROLES_ENUM.student) {
     User = Student;
   } else {
     User = Admin;
@@ -70,7 +70,7 @@ module.exports.forgotPassword = async ({ email, role }) => {
  */
 module.exports.resetPassword = async (token, { role, password }) => {
   let User;
-  if (role === "student") {
+  if (role === constants.ROLES_ENUM.student) {
     User = Student;
   } else {
     User = Admin;

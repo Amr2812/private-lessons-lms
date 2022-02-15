@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const mongooseLeanId = require("mongoose-lean-id");
+const { constants } = require("../config/constants");
 
 const messageSchema = mongoose.Schema({
   studentId: {
@@ -12,7 +13,7 @@ const messageSchema = mongoose.Schema({
   },
   from: {
     type: String,
-    enum: ["student", "admin"]
+    enum: constants.ROLES
   },
   content: {
     type: String

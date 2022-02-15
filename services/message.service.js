@@ -1,7 +1,7 @@
-const boom = require("@hapi/boom");
 const mongoose = require("mongoose");
 const { Message } = require("../models");
 const formatLink = require("../utils/formatLink.util");
+const { constants } = require("../config/constants");
 
 /**
  * @async
@@ -33,7 +33,7 @@ module.exports.getRoomName = (studentId, lessonId) =>
  * @returns {Promise<Array>} messages
  */
 module.exports.getMessages = async (role, studentId, lessonId) => {
-  if (role !== "student") {
+  if (role !== constants.ROLES_ENUM.student) {
     await Message.updateMany(
       { studentId, lessonId, seenByAdmin: false },
       { seenByAdmin: true }

@@ -4,6 +4,7 @@ const mongooseLeanVirtuals = require("mongoose-lean-virtuals");
 const uniqueValidator = require("mongoose-unique-validator");
 const mongooseLeanId = require("mongoose-lean-id");
 const formatLink = require("../utils/formatLink.util");
+const { constants } = require("../config/constants");
 
 const adminSchema = mongoose.Schema(
   {
@@ -19,8 +20,8 @@ const adminSchema = mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["assistant", "instructor"],
-      default: "assistant"
+      enum: constants.ADMINS_ROLES,
+      default: constants.ROLES_ENUM.assistant
     },
     passwordResetToken: {
       type: String

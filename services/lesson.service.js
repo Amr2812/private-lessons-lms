@@ -93,7 +93,7 @@ module.exports.getLessons = async (
  * @returns {Promise<Object>} - Lesson
  */
 module.exports.getLesson = async (id, user) => {
-  if (user.role === "student") {
+  if (user.role === constants.ROLES_ENUM.student) {
     if (!user.lessonsAttended.includes(req.params.id)) {
       return next(boom.badRequest("You have to attend this lesson to view it"));
     }
@@ -146,7 +146,7 @@ module.exports.unpublishLesson = async id =>
  * @returns {Promise<Object>} - Lesson
  */
 module.exports.attendLesson = async (user, lessonId, code) => {
-  if (user.role !== "student") {
+  if (user.role !== constants.ROLES_ENUM.student) {
     return next(
       boom.unauthorized("You have to be a student to attend a lesson")
     );

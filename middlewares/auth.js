@@ -1,4 +1,5 @@
 const boom = require("@hapi/boom");
+const { constants } = require("../config/constants");
 
 /**
  * @description Require authentication
@@ -12,7 +13,7 @@ module.exports.requireAuth = (req, res, next) => {
   }
 
   if (
-    req.user.role === "student" &&
+    req.user.role === constants.ROLES_ENUM.student &&
     !req.user.completed &&
     req.path !== "/profile"
   ) {
@@ -31,7 +32,8 @@ module.exports.requireAuth = (req, res, next) => {
 module.exports.requireAdmin = (req, res, next) => {
   if (
     req.isAuthenticated() &&
-    (req.user.role === "assistant" || req.user.role === "instructor")
+    (req.user.role === constants.ROLES_ENUM.assistant ||
+      req.user.role === "instructor")
   ) {
     return next();
   }

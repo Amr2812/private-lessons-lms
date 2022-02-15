@@ -66,7 +66,7 @@ module.exports = (io, socket) => {
       if (inRoom.length > 0) {
         socket.broadcast.to(roomName).emit("messages:message", message);
       } else {
-        if (user.role === constants.ROLES[0] /* student */) {
+        if (user.role === constants.ROLES_ENUM.student) {
           await notificationService.sendNotification(user.fcmTokens, {
             notification: {
               title: "Admin replied to your message",
@@ -94,7 +94,7 @@ module.exports = (io, socket) => {
   socket.use(([event, ...args], next) => {
     if (
       user.lessonsAttended?.includes(args[0].lessonId) ||
-      user.role !== constants.ROLES[0]
+      user.role !== constants.ROLES_ENUM.student
     ) {
       next();
     } else {
