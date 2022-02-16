@@ -1,6 +1,7 @@
 const { bucket } = require("../config/firebase");
 const boom = require("@hapi/boom");
 const { constants } = require("../config/constants");
+const got = require("got");
 
 /**
  * @async
@@ -32,15 +33,14 @@ module.exports.getFileMetaData = async (folder, name) =>
   await bucket.file(`${folder}/${name}`).getMetadata();
 
 /**
- * @async
  * @description Streams Video
  * @param {String} folder - Folder name
  * @param {String} name - File name
  * @param {Object} { start, end } - Range
  * @returns {Promise<any>} Stream
  */
-module.exports.streamVideo = async (folder, name, { start, end }) =>
-  await bucket.file(`${folder}/${name}`).createReadStream({ start, end });
+module.exports.streamVideo = (folder, name, { start, end }) =>
+  bucket.file(`${folder}/${name}`).createReadStream({ start, end });
 
 /**
  * @async
@@ -51,6 +51,33 @@ module.exports.streamVideo = async (folder, name, { start, end }) =>
  */
 module.exports.deleteFile = async (folder, name) =>
   await bucket.file(`${folder}/${name}`).delete();
+
+/**
+ * @async
+ * @description Download sream & upload it
+ * @param {String} folder - Folder name
+ * @param {String} name - File name
+ * @param {String} url - URL
+ * @returns {Promise<any>}
+ */
+module.exports.getStreamAndUpload = (folder, name, url) => {
+  try {
+    return new Promise((resolve, reject) => {
+      got
+        .stream(url)
+        .pipe(bucket.file(`${folder}/${name}`).createWriteStream())
+        .on("error", reject)
+        .on("finish", resolve);
+    });
+  } catch (err) {
+    console.error(err);
+    this.deleteFile(folder, name)
+      .catch(err => console.error(err))
+      .finally(() => {
+        throw err;
+      });
+  }
+};
 
 /**
  * @class

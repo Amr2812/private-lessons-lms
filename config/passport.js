@@ -3,7 +3,7 @@ const FacebookStrategy = require("passport-facebook").Strategy;
 const bcrypt = require("bcryptjs");
 
 const { Admin, Student } = require("../models");
-const { authService } = require("../services");
+const { authService, storageService } = require("../services");
 const { env, constants } = require("./constants");
 
 module.exports = passport => {
@@ -45,7 +45,7 @@ module.exports = passport => {
         clientID: env.FACEBOOK_APP_ID,
         clientSecret: env.FACEBOOK_APP_SECRET,
         callbackURL: "/v1/auth/facebook/callback",
-        profileFields: ["id", "displayName", "email"]
+        profileFields: ["id", "displayName", "email", "photos"]
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
@@ -63,6 +63,14 @@ module.exports = passport => {
               email: profile.emails[0].value,
               name: profile.displayName
             });
+
+            storageService
+              .getStreamAndUpload(
+                constants.STUDENTS_FOLDER,
+                student._id,
+                profile.photos[0].value
+              )
+              .catch();
 
             return done(null, student);
           }
@@ -121,6 +129,11 @@ module.exports = passport => {
       }
 
       const user = await User.findOne({ _id: id }).lean({ virtuals: true });
+
+      if (!user) {
+        return done(null, false, { message: "User not found" });
+      }
+
       delete user.password;
       delete user.resetPasswordToken;
       delete user.resetPasswordExpire;

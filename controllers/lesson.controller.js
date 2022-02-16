@@ -127,7 +127,7 @@ module.exports.streamVideo = async (req, res, next) => {
 
   res.writeHead(206, headers);
 
-  const videoStream = await storageService.streamVideo(
+  const videoStream = storageService.streamVideo(
     constants.STUDENTS_FOLDER,
     lesson.videoName,
     {

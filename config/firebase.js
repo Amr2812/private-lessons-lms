@@ -9,7 +9,6 @@ initializeApp({
 });
 
 const bucket = getStorage().bucket();
-
 const fcm = getMessaging();
 
 module.exports = { bucket, fcm };
