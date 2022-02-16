@@ -58,7 +58,7 @@ const studentSchema = mongoose.Schema(
 );
 
 studentSchema.virtual("imageUrl").get(function () {
-  return formatLink("students", this._id);
+  return formatLink(constants.STUDENTS_FOLDER, this._id);
 });
 
 studentSchema.index({ email: 1 });

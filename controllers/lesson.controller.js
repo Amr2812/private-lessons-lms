@@ -107,7 +107,7 @@ module.exports.streamVideo = async (req, res, next) => {
   if (lesson instanceof Error) return next(lesson);
 
   const [metadata] = await storageService.getFileMetaData(
-    "lessons",
+    constants.STUDENTS_FOLDER,
     lesson.videoName
   );
 
@@ -128,7 +128,7 @@ module.exports.streamVideo = async (req, res, next) => {
   res.writeHead(206, headers);
 
   const videoStream = await storageService.streamVideo(
-    "lessons",
+    constants.STUDENTS_FOLDER,
     lesson.videoName,
     {
       start,

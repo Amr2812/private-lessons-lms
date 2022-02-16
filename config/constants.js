@@ -36,5 +36,8 @@ module.exports.constants = {
     instructor: "instructor"
   },
   ADMINS_FCM_TOPIC: "admins",
+  ADMINS_FOLDER: "admins",
+  STUDENTS_FOLDER: "students",
+  LESSONS_FOLDER: "lessons",
   MAX_ACCESS_CODES_PER_REQUEST: 1000
 };

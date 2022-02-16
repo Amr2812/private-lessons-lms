@@ -6,7 +6,7 @@ const { constants } = require("../config/constants");
 module.exports.updateProfileImage = multer({
   storage: storageService.createGCStorage({
     destination: (req, file, cb) => {
-      cb(null, { name: req.user.id, folder: "students" });
+      cb(null, { name: req.user.id, folder: constants.STUDENTS_FOLDER });
     },
     fileType: "image"
   }),

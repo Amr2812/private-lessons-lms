@@ -19,7 +19,7 @@ module.exports.createLesson = async lesson => {
   createdLesson = createdLesson.toJSON();
 
   createdLesson.uploadUrl = await getSignedUrl(
-    "lessons",
+    constants.STUDENTS_FOLDER,
     createdLesson.videoName,
     constants.MAX_SIGNED_URL_EXPIRATION
   );

@@ -126,7 +126,10 @@ module.exports.getChats = async ({ lessonId, skip, limit }) => {
   return chats.map(chat => {
     chat.id = chat._id;
     chat.student.id = chat.student._id;
-    chat.student.imageUrl = formatLink("students", chat.studentId);
+    chat.student.imageUrl = formatLink(
+      constants.STUDENTS_FOLDER,
+      chat.studentId
+    );
 
     return chat;
   });
