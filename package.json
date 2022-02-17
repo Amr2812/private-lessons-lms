@@ -8,7 +8,7 @@
   "scripts": {
     "start": "pm2 start ./bin/www -i 0",
     "dev": "nodemon ./bin/www",
-    "seed": "node ./seeders",
+    "seed": "node ./bin/seed",
     "prepare": "husky install"
   },
   "dependencies": {

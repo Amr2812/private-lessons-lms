@@ -8,7 +8,7 @@ module.exports = async () => {
       useUnifiedTopology: true
     });
 
-    console.log("Connected to MongoDB");
+    console.log("\x1b[32m%s\x1b[0m", "Connected to MongoDB");
   } catch (err) {
     console.error(err);
     process.exit(1);

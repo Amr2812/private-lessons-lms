@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+const { run } = require("../seeders");
+
+/**
+ * check if dropDB flag is set
+ */
+const dropDB = process.argv.includes("dropDB");
+
+/**
+ * Run the seeders
+ */
+run(dropDB)
+  .then(() => {
+    console.log("\n\x1b[32m%s\x1b[0m", "Seeding Completed!");
+    process.exit(0);
+  })
+  .catch(err => {
+    console.error("\x1b[31m%s\x1b[0m", err);
+    process.exit(1);
+  });

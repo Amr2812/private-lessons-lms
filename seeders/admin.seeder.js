@@ -3,14 +3,16 @@ const { Admin } = require("../models");
 module.exports = async () =>
   await Admin.create([
     {
+      _id: "620e46d53d374d3e98a297e6",
       email: "instructor@gmail.com",
-      name: "instructor",
-      password: "instructor",
+      name: "Instructor",
+      password: "password",
       role: "instructor"
     },
     {
+      _id: "620e4701d4c68a6b87cba22a",
       email: "assistant@gmail.com",
-      name: "assistant",
-      password: "assistant"
+      name: "Assistant",
+      password: "password"
     }
   ]);
