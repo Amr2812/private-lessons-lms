@@ -65,7 +65,11 @@ module.exports.getStreamAndUpload = (folder, name, url) => {
     return new Promise((resolve, reject) => {
       got
         .stream(url)
-        .pipe(bucket.file(`${folder}/${name}`).createWriteStream())
+        .pipe(
+          bucket.file(`${folder}/${name}`).createWriteStream({
+            resumable: false
+          })
+        )
         .on("error", reject)
         .on("finish", resolve);
     });
