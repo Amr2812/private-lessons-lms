@@ -60,9 +60,9 @@ module.exports.deleteFile = async (folder, name) =>
  * @param {String} url - URL
  * @returns {Promise<any>}
  */
-module.exports.getStreamAndUpload = (folder, name, url) => {
+module.exports.getStreamAndUpload = async (folder, name, url) => {
   try {
-    return new Promise((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       got
         .stream(url)
         .pipe(
