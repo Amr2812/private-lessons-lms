@@ -7,8 +7,8 @@
 - PassportJS
 - MongoDB/Mongoose
 - Redis
-- Firebase Cloud Messaging (FCM)
 - Google Cloud Storage (Firebase Admin SDK)
+- Firebase Cloud Messaging (FCM)
 - SendGrid
 - Postman
 
@@ -18,11 +18,40 @@
 
 ## Features:
 
-A simple overview of the LMS API.
+An overview of the LMS API.
 
 > **Note 1:** This is not all the API endpints but the most important features. A postman documentaion is available at the end of this document.
 
 > **Note 2:** This is a work in progress and more features will be added & I might convert the app to use Dependency Injection pattern or Dependency Injection Container patterns (IOC) or even service locator pattern instead of hardcoded dependency.
+
+- **App Scaling:**
+
+  The app is scalable horizontally and can be deployed to multiple servers and/or multiple instances as it is stateless and WebSockets servers communicate through redis to preserve state.
+
+- **Database Performance:**
+
+  Due to the fact that the app load will be mainly from reads so I could use indexes freely so I used sutible indexes like compound indexes & text indexes for the database queries/sorts and I could track query optimizer usage by MongoDB Compass Explain plain and Apply what I've learned in the MongoDB Performance course from MongoDB University.
+
+- **Error Handling:**
+
+  - Error Handling with @Hapi/Boom for error responses
+  - Custom middleware for sending error responses
+  - Asyncronous error catching with a wrapped function for all controllers
+
+- **Security:**
+
+  - XSS Protection (HelmetJS)
+  - Rate Limiting with Token Bucket Algorithm (Redis as Token Store)
+
+- **Code Style:**
+
+  - Code Style with Prettier
+  - Hsuky & lint-staged as a pre-commit hook to automatically format code using prettier
+
+- **File Upload:**
+
+  - Multer as a streaming middleware between client and Google Cloud Storage as I built a custom storage class and factory for it for uploading profile pictures
+  - Google Cloud Storage Signed URLs for uploading lessons/videos
 
 - **Authentication & Authorization:**
 
@@ -67,11 +96,6 @@ A simple overview of the LMS API.
   - Create Access Codes for grades
   - Track admin actions (generate access codes) by role 3 (Instructor)
 
-- **File Upload:**
-
-  - Multer as a streaming middleware between client and Google Cloud Storage as I built a custom storage class and factory for it for uploading profile pictures
-  - Signed URLs for uploading lessons/videos
-
 - **Realtime chat with admins**
 
   - Ask/Chat with admins about lessons if attended
@@ -83,26 +107,6 @@ A simple overview of the LMS API.
   - SendGrid as an Email service
   - Firebase Cloud Messaging (FCM) as a Notification service
   - Node.js EventEmitter Pub/Sub as a Notification service emitter
-
-- **Database Performance:**
-
-  Due to the fact that the app load will be mainly from reads so I could use indexes freely so I used sutible indexes like compound indexes & text indexes for the database queries/sorts and I could track query optimizer usage by MongoDB Compass Explain plain and Apply what I've learned in the MongoDB Performance course from MongoDB University.
-
-- **Error Handling:**
-
-  - Error Handling with @Hapi/Boom for error responses
-  - Custom middleware for sending error responses
-  - Asyncronous error catching with a wrapped function for all controllers
-
-- **Security:**
-
-  - XSS Protection (HelmetJS)
-  - Rate Limiting with Token Bucket Algorithm (Redis as Token Store)
-
-- **Code Style:**
-
-  - Code Style with Prettier
-  - Hsuky & lint-staged as a pre-commit hook to automatically format code using prettier
 
 - **Postman Documentaion**
 

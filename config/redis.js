@@ -8,7 +8,7 @@ const client = new Redis({
 });
 
 client.on("connect", () => {
-  console.log("Redis connected");
+  console.log("\x1b[32m%s\x1b[0m", "Redis connected");
 });
 
 client.on("error", err => {

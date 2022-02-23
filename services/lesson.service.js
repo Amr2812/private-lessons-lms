@@ -42,32 +42,21 @@ module.exports.getLessons = async (
   let query = {};
   let sort = { createdAt: 1 };
 
-  if (userRole !== "instructor") {
+  if (userRole !== constants.ROLES_ENUM.instructor) {
     query = {
       grade,
       isPublished: true
     };
-
-    if (q) {
-      query.$text = { $search: q };
-      sort = { score: { $meta: "textScore" } };
-    }
   } else {
     query = {
       grade,
-      isPublished: true
+      isPublished
     };
+  }
 
-    if (isPublished) {
-      query.isPublished = true;
-    } else if (isPublished == false) {
-      query.isPublished = false;
-    }
-
-    if (q) {
-      query.$text = { $search: q };
-      sort = { score: { $meta: "textScore" } };
-    }
+  if (q) {
+    query.$text = { $search: q };
+    sort = { score: { $meta: "textScore" } };
   }
 
   const total = await Lesson.countDocuments(query);
@@ -93,10 +82,11 @@ module.exports.getLessons = async (
  * @returns {Promise<Object>} - Lesson
  */
 module.exports.getLesson = async (id, user) => {
-  if (user.role === constants.ROLES_ENUM.student) {
-    if (!user.lessonsAttended.includes(req.params.id)) {
-      return next(boom.badRequest("You have to attend this lesson to view it"));
-    }
+  if (
+    user.role === constants.ROLES_ENUM.student &&
+    !user.lessonsAttended.includes(id)
+  ) {
+    return boom.badRequest("You have to attend this lesson to view it");
   }
 
   const lesson = await Lesson.findById(id)
@@ -106,10 +96,8 @@ module.exports.getLesson = async (id, user) => {
 
   if (!lesson) return boom.notFound("Lesson not found");
 
-  if (!lesson.isPublished) {
-    if (userRole !== "instructor") {
-      return boom.notFound("Lesson not published");
-    }
+  if (!lesson.isPublished && userRole !== constants.ROLES_ENUM.instructor) {
+    return boom.notFound("Lesson not published");
   }
 
   return lesson;
@@ -147,9 +135,7 @@ module.exports.unpublishLesson = async id =>
  */
 module.exports.attendLesson = async (user, lessonId, code) => {
   if (user.role !== constants.ROLES_ENUM.student) {
-    return next(
-      boom.unauthorized("You have to be a student to attend a lesson")
-    );
+    return boom.unauthorized("You have to be a student to attend a lesson");
   }
 
   const lesson = await Lesson.findOne({

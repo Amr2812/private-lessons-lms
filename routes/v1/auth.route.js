@@ -22,7 +22,7 @@ router
 
 router
   .route("/logout")
-  .get(requireAuth, asyncMiddleware(authController.logout));
+  .delete(requireAuth, asyncMiddleware(authController.logout));
 
 router
   .route("/forgot-password")

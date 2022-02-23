@@ -22,6 +22,7 @@ module.exports.updateProfileImage = multer({
  */
 module.exports.getProfile = async (req, res, next) => {
   const profile = await studentService.getProfile(req.user.id);
+  if (profile instanceof Error) return next(profile);
 
   res.send(profile);
 };

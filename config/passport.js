@@ -19,7 +19,7 @@ module.exports = passport => {
 
           if (!student) {
             return done(null, false, {
-              message: "This email is not registered"
+              message: "Incorrect Email or Password"
             });
           }
 
@@ -29,10 +29,12 @@ module.exports = passport => {
             delete student.password;
             return done(null, student);
           } else {
-            return done(null, false, { message: "Password Incorrect" });
+            return done(null, false, {
+              message: "Incorrect Email or Password"
+            });
           }
         } catch (err) {
-          return done(null, false, { message: "This email is not registered" });
+          return done(null, false, { message: "Incorrect Email or Password" });
         }
       }
     )
@@ -93,7 +95,7 @@ module.exports = passport => {
 
           if (!admin) {
             return done(null, false, {
-              message: "This email is not registered"
+              message: "Incorrect Email or Password"
             });
           }
 
@@ -103,10 +105,12 @@ module.exports = passport => {
             delete admin.password;
             return done(null, admin);
           } else {
-            return done(null, false, { message: "Password Incorrect" });
+            return done(null, false, {
+              message: "Incorrect Email or Password"
+            });
           }
         } catch (err) {
-          return done(null, false, { message: "This email is not registered" });
+          return done(null, false, { message: "Incorrect Email or Password" });
         }
       }
     )

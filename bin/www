@@ -7,6 +7,7 @@
 const { app, io } = require("../app");
 const http = require("http");
 const mongodbInit = require("../config/mongodb");
+const { env } = require("../config/constants");
 
 /**
  * Connect to MongoDB
@@ -17,7 +18,7 @@ mongodbInit();
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || "3000");
+const port = normalizePort(env.PORT);
 app.set("port", port);
 
 /**
@@ -93,5 +94,5 @@ function onError(error) {
 function onListening() {
   const addr = server.address();
   const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
-  console.log("Listening on " + bind);
+  console.log("\x1b[32m%s\x1b[0m", "\nListening on " + bind);
 }

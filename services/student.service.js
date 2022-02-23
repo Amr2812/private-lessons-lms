@@ -17,7 +17,7 @@ module.exports.getProfile = async id => {
     .lean({ virtuals: true });
 
   if (!profile) {
-    return next(boom.notFound("Profile not found"));
+    return boom.notFound("Profile not found");
   }
 
   return profile;

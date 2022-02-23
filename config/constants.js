@@ -2,7 +2,7 @@ require("dotenv").config();
 
 module.exports.env = {
   NODE_ENV: process.env.NODE_ENV,
-  PORT: process.env.PORT,
+  PORT: process.env.PORT || 3000,
   SECRET: process.env.SECRET,
   MONGO_URI: process.env.MONGO_URI,
   REDIS_HOST: process.env.REDIS_HOST,
