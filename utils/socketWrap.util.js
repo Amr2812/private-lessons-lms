@@ -1,2 +1,2 @@
-module.exports.wrap = middleware => (socket, next) =>
+module.exports = middleware => (socket, next) =>
   middleware(socket.request, {}, next);

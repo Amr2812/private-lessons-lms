@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const mongooseLeanVirtuals = require("mongoose-lean-virtuals");
 const uniqueValidator = require("mongoose-unique-validator");
 const mongooseLeanId = require("mongoose-lean-id");
-const formatLink = require("../utils/formatLink.util");
+const { formatLink } = require("../utils");
 const { constants } = require("../config/constants");
 
 const adminSchema = mongoose.Schema(

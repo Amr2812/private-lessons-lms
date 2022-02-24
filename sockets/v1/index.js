@@ -1,5 +1,5 @@
 const { requireAuth } = require("../../middlewares/auth");
-const { wrap } = require("../../utils/socketWrap.util");
+const { wrap } = require("../../utils");
 const registerMessageSocket = require("./message.socket");
 
 module.exports = io => socket => {

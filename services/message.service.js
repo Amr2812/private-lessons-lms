@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { Message } = require("../models");
-const formatLink = require("../utils/formatLink.util");
+const { formatLink } = require("../utils");
 const { constants } = require("../config/constants");
 
 /**

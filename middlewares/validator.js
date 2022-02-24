@@ -1,5 +1,5 @@
 const { validationResult, matchedData } = require("express-validator");
-const boomifyError = require("../utils/boomifyError.util");
+const { boomifyError } = require("../utils");
 
 module.exports = validations => async (req, res, next) => {
   await Promise.all(validations.map(validation => validation.run(req)));

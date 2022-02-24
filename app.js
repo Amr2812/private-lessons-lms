@@ -15,7 +15,7 @@ const redisClient = require("./config/redis");
 const rateLimiterMiddleware = require("./middlewares/rateLimiter");
 
 const { env, constants } = require("./config/constants");
-const { wrap } = require("./utils/socketWrap.util");
+const { wrap } = require("./utils");
 
 require("./config/passport")(passport);
 
