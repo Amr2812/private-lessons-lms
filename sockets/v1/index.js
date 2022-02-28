@@ -12,10 +12,10 @@ module.exports = io => socket => {
 
     if (!error) {
       console.error(err);
-      error = boom.badImplementation();
+      error = boom.badImplementation(err.message);
       error.output.payload.errors = err;
     }
 
-    socket.emit("error", error);
+    socket.emit("error", error.output.payload);
   });
 };

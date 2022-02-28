@@ -3,6 +3,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const boom = require("@hapi/boom");
 const helmet = require("helmet");
+const cors = require("cors");
 const { Server } = require("socket.io");
 const { createAdapter } = require("@socket.io/redis-adapter");
 
@@ -58,8 +59,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// Helmet Security
+// Security
 app.use(helmet());
+app.use(
+  cors({
+    origin: env.FRONTEND_URL
+  })
+);
 
 // passport
 app.use(passport.initialize());
@@ -86,7 +92,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   if (!err.output?.payload || !err.output?.statusCode) {
     console.error(err);
-    const error = boom.badImplementation();
+    const error = boom.badImplementation(err.message);
     error.output.payload.errors = err;
 
     return next(error);

@@ -31,7 +31,11 @@ const server = http.createServer(app);
  * Create Socket.IO Server
  */
 
-io.attach(server);
+io.attach(server, {
+  cors: {
+    origin: env.FRONTEND_URL
+  }
+});
 
 /**
  * Listen on provided port, on all network interfaces.

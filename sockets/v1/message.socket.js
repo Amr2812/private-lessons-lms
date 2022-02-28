@@ -11,7 +11,7 @@ module.exports = (io, socket) => {
 
       callback(messages);
     } catch (err) {
-      const error = boom.badImplementation().output.payload;
+      const error = boom.badImplementation(err.message).output.payload;
       error.errors = err;
       callback(error);
     }
@@ -37,7 +37,7 @@ module.exports = (io, socket) => {
 
       callback(messages);
     } catch (err) {
-      const error = boom.badImplementation().output.payload;
+      const error = boom.badImplementation(err.message).output.payload;
       error.errors = err;
       callback(error);
     }
@@ -85,7 +85,7 @@ module.exports = (io, socket) => {
         }
       }
     } catch (err) {
-      const error = boom.badImplementation().output.payload;
+      const error = boom.badImplementation(err.message).output.payload;
       error.errors = err;
       callback(error);
     }

@@ -40,8 +40,9 @@ An overview of the LMS API.
 
 - **Security:**
 
-  - XSS Protection (HelmetJS)
   - Rate Limiting with Token Bucket Algorithm (Redis as Token Store)
+  - XSS Protection (HelmetJS)
+  - CORS Protection
 
 - **Code Style:**
 
