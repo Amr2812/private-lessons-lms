@@ -41,7 +41,8 @@
     "passport-local": "^1.0.0",
     "rate-limiter-flexible": "^2.3.6",
     "socket.io": "^4.4.1",
-    "winston": "3.6.0"
+    "winston": "3.6.0",
+    "winston-transport-sentry-node": "2.3.0"
   },
   "devDependencies": {
     "husky": "^7.0.4",

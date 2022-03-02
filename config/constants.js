@@ -15,7 +15,8 @@ module.exports.env = {
   SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
   FRONTEND_URL: process.env.FRONTEND_URL,
   FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
-  FACEBOOK_APP_SECRET: process.env.FACEBOOK_APP_SECRET
+  FACEBOOK_APP_SECRET: process.env.FACEBOOK_APP_SECRET,
+  SENTRY_DSN: process.env.SENTRY_DSN
 };
 
 module.exports.constants = {

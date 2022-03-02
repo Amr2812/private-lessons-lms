@@ -10,6 +10,7 @@
 - Google Cloud Storage (Firebase Admin SDK)
 - Firebase Cloud Messaging (FCM)
 - SendGrid
+- Sentry
 - Postman
 
 ## Application Structure:
@@ -53,6 +54,12 @@ An overview of the LMS API.
 
   - Multer as a streaming middleware between client and Google Cloud Storage as I built a custom storage class and factory for it for uploading profile pictures
   - Google Cloud Storage Signed URLs for uploading lessons/videos
+
+- **Logging:**
+
+  - Logging with WinstonJS
+  - Error Reporting with Sentry
+  - Logging Requests with Morgan
 
 - **Authentication & Authorization:**
 
