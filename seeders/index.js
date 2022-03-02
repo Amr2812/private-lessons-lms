@@ -1,5 +1,5 @@
 const mongodbInit = require("../config/mongodb");
-
+const logger = require("../config/logger");
 const adminSeeder = require("./admin.seeder");
 const gradeSeeder = require("./grade.seeder");
 const studentSeeder = require("./student.seeder");
@@ -8,30 +8,30 @@ const lessonSeeder = require("./lesson.seeder");
 const mongoose = require("mongoose");
 
 module.exports.run = async dropDB => {
-  console.log("Starting...\n");
+  logger.info("Starting...\n");
 
   try {
     await mongodbInit();
 
     if (dropDB) {
       await mongoose.connection.db.dropDatabase();
-      console.log("\x1b[32m%s\x1b[0m", "Database Dropped\n");
+      logger.info("Database Dropped");
     }
 
     await adminSeeder();
-    console.log("Admins seeded");
+    logger.info("Admins seeded");
 
     await gradeSeeder();
-    console.log("Grades seeded");
+    logger.info("Grades seeded");
 
     await studentSeeder();
-    console.log("Students seeded");
+    logger.info("Students seeded");
 
     await accessCodeSeeder();
-    console.log("AccessCodes seeded");
+    logger.info("AccessCodes seeded");
 
     await lessonSeeder();
-    console.log("Lessons seeded");
+    logger.info("Lessons seeded");
 
     return await Promise.resolve();
   } catch (err) {

@@ -1,5 +1,6 @@
 const Redis = require("ioredis");
 const { env } = require("./constants");
+const logger = require("./logger");
 
 const client = new Redis({
   host: env.REDIS_HOST,
@@ -8,11 +9,11 @@ const client = new Redis({
 });
 
 client.on("connect", () => {
-  console.log("\x1b[32m%s\x1b[0m", "Redis connected");
+  logger.info("Redis connected");
 });
 
 client.on("error", err => {
-  console.error(err);
+  logger.error(err);
 });
 
 module.exports = client;

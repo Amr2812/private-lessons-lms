@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { env } = require("./constants");
+const logger = require("./logger");
 
 module.exports = async () => {
   try {
@@ -8,9 +9,9 @@ module.exports = async () => {
       useUnifiedTopology: true
     });
 
-    console.log("\x1b[32m%s\x1b[0m", "MongoDB Connected");
+    logger.info("MongoDB Connected");
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     process.exit(1);
   }
 };

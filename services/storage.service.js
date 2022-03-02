@@ -2,6 +2,7 @@ const { bucket } = require("../config/firebase");
 const boom = require("@hapi/boom");
 const { constants } = require("../config/constants");
 const got = require("got");
+const logger = require("../config/logger");
 
 /**
  * @async
@@ -74,9 +75,9 @@ module.exports.getStreamAndUpload = async (folder, name, url) => {
         .on("finish", resolve);
     });
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     this.deleteFile(folder, name)
-      .catch(err => console.error(err))
+      .catch(err => logger.error(err))
       .finally(() => {
         throw err;
       });

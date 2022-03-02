@@ -1,6 +1,7 @@
 const { requireAuth } = require("../../middlewares/auth");
 const { wrap } = require("../../utils");
 const registerMessageSocket = require("./message.socket");
+const logger = require("../../config/logger");
 
 module.exports = io => socket => {
   io.use(wrap(requireAuth));
@@ -11,7 +12,7 @@ module.exports = io => socket => {
     let error = err.output?.payload;
 
     if (!error) {
-      console.error(err);
+      logger.error(Object.assign(err, { socket }));
       error = boom.badImplementation(err.message);
       error.output.payload.errors = err;
     }

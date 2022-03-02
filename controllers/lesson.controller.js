@@ -1,5 +1,6 @@
 const { lessonService, storageService } = require("../services");
 const { constants } = require("../config/constants");
+const logger = require("../config/logger");
 const boom = require("@hapi/boom");
 
 /**
@@ -138,8 +139,8 @@ module.exports.streamVideo = async (req, res, next) => {
   );
 
   videoStream.on("error", err => {
-    console.error(err);
-    next(boom.badImplementation("Somethong wrong happened", err));
+    logger.error(err);
+    next(boom.badImplementation(err.message, err));
   });
 
   videoStream.pipe(res);

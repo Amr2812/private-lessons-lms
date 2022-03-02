@@ -8,10 +8,12 @@ const { app, io } = require("../app");
 const http = require("http");
 const mongodbInit = require("../config/mongodb");
 const { env } = require("../config/constants");
+const logger = require("../config/logger");
 
 /**
  * Connect to MongoDB
  */
+
 mongodbInit();
 
 /**
@@ -79,12 +81,10 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case "EACCES":
-      console.error(bind + " requires elevated privileges");
-      process.exit(1);
+      logger.error(bind + " requires elevated privileges");
       break;
     case "EADDRINUSE":
-      console.error(bind + " is already in use");
-      process.exit(1);
+      logger.error(bind + " is already in use");
       break;
     default:
       throw error;
@@ -98,5 +98,5 @@ function onError(error) {
 function onListening() {
   const addr = server.address();
   const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
-  console.log("\x1b[32m%s\x1b[0m", "\nListening on " + bind);
+  logger.info("Listening on " + bind);
 }

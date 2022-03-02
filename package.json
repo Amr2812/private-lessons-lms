@@ -40,7 +40,8 @@
     "passport-facebook": "^3.0.0",
     "passport-local": "^1.0.0",
     "rate-limiter-flexible": "^2.3.6",
-    "socket.io": "^4.4.1"
+    "socket.io": "^4.4.1",
+    "winston": "3.6.0"
   },
   "devDependencies": {
     "husky": "^7.0.4",

@@ -1,6 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const logger = require("morgan");
+const morgan = require("morgan");
+const logger = require("./config/logger");
 const boom = require("@hapi/boom");
 const helmet = require("helmet");
 const cors = require("cors");
@@ -51,8 +52,8 @@ const sessionMiddleware = session({
 app.use(sessionMiddleware);
 io.use(wrap(sessionMiddleware));
 
-// Dev Logger
-app.use(logger("dev"));
+// Logger
+app.use(morgan("dev"));
 
 // express middlewares
 app.use(express.json());
@@ -91,13 +92,16 @@ app.use((req, res, next) => {
 // Error Handler
 app.use((err, req, res, next) => {
   if (!err.output?.payload || !err.output?.statusCode) {
-    console.error(err);
+    logger.error(Object.assign(err, { req }));
+
     const error = boom.badImplementation(err.message);
     error.output.payload.errors = err;
 
     return next(error);
   }
-  return res.status(err.output.statusCode).json(err.output.payload);
+
+  if (err.data) err.output.payload.data = err.data;
+  return res.status(err.output.statusCode).send(err.output.payload);
 });
 
 module.exports = { app, io };

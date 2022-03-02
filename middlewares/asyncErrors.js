@@ -1,4 +1,5 @@
 const boom = require("@hapi/boom");
+const logger = require("../config/logger");
 
 module.exports = fn => (req, res, next) => {
   Promise.resolve(fn(req, res, next)).catch(err => {
@@ -12,8 +13,9 @@ module.exports = fn => (req, res, next) => {
 
         return next(error);
       }
-      console.log(err);
-      return next(boom.boomify(err));
+
+      logger.error(err);
+      return next(boom.badImplementation(err.message, err));
     }
     next(err);
   });

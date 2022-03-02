@@ -4,6 +4,7 @@ const { sendToTopic } = require("./notification.service");
 const { sendEmail } = require("./mail.service");
 const { templates } = require("../config/sendGrid");
 const { constants, env } = require("../config/constants");
+const logger = require("../config/logger");
 
 const boom = require("@hapi/boom");
 const { EventEmitter } = require("events");
@@ -206,7 +207,7 @@ eventEmitter.on("LESSON_PUBLISHED", async lesson => {
       url: `${env.FRONTEND_URL}/lessons/${lesson.id}`
     });
   } catch (err) {
-    console.error(err);
+    logger.error(err);
   }
 });
 
