@@ -7,7 +7,7 @@
   },
   "scripts": {
     "preinstall": "npm install pm2 -g",
-    "start": "pm2 start ./bin/www -i 1",
+    "start": "pm2 start ecosystem.config.js --env production",
     "dev": "nodemon ./bin/www",
     "seed": "node ./bin/seed",
     "prepare": "husky install"
