@@ -6,8 +6,7 @@
     "**/*": "prettier --write --ignore-unknown"
   },
   "scripts": {
-    "preinstall": "npm install pm2 -g",
-    "start": "pm2 start ecosystem.config.js --env production",
+    "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
     "seed": "node ./bin/seed",
     "prepare": "husky install"
