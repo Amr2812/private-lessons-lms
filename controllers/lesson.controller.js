@@ -105,7 +105,7 @@ module.exports.streamVideo = async (req, res, next) => {
     return next(boom.badRequest("Range header is required"));
   }
 
-  const lesson = await lessonService.getLesson(req.params.id, req.user);
+  const lesson = await lessonService.getLesson(req.params.id, req.user, true);
   if (lesson instanceof Error) return next(lesson);
 
   const [metadata] = await storageService.getFileMetaData(
@@ -130,7 +130,7 @@ module.exports.streamVideo = async (req, res, next) => {
   res.writeHead(206, headers);
 
   const videoStream = storageService.streamVideo(
-    constants.STUDENTS_FOLDER,
+    constants.LESSONS_FOLDER,
     lesson.videoName,
     {
       start,

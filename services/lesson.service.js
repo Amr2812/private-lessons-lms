@@ -80,9 +80,10 @@ module.exports.getLessons = async (
  * @description Get lesson by id
  * @param {String} id - Lesson id
  * @param {Object} user - User
+ * @param {Boolean} videoName - wether to return videoName or not
  * @returns {Promise<Object>} - Lesson
  */
-module.exports.getLesson = async (id, user) => {
+module.exports.getLesson = async (id, user, videoName = false) => {
   if (
     user.role === constants.ROLES_ENUM.student &&
     !user.lessonsAttended.includes(id)
@@ -91,7 +92,6 @@ module.exports.getLesson = async (id, user) => {
   }
 
   const lesson = await Lesson.findById(id)
-    .select("-videoName")
     .populate({ path: "grade", select: "name" })
     .lean();
 
@@ -99,6 +99,10 @@ module.exports.getLesson = async (id, user) => {
 
   if (!lesson.isPublished && user.role !== constants.ROLES_ENUM.instructor) {
     return boom.notFound("Lesson not published");
+  }
+
+  if (!lesson.videoName) {
+    lesson.videoName = undefined;
   }
 
   return lesson;
