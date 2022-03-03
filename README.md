@@ -33,11 +33,23 @@ An overview of the LMS API.
 
   Due to the fact that the app load will be mainly from reads so I could use indexes freely so I used sutible indexes like compound indexes & text indexes for the database queries/sorts and I could track query optimizer usage by MongoDB Compass Explain plain and Apply what I've learned in the MongoDB Performance course from MongoDB University.
 
+- **File Upload:**
+
+  - Multer as a streaming middleware between client and Google Cloud Storage as I built a custom storage class and factory for it for uploading profile pictures
+  - Google Cloud Storage Signed URLs for uploading lessons/videos
+
+- **Logging:**
+
+  - Logging with WinstonJS
+  - Error Reporting with Sentry
+  - Logging Requests with Morgan
+
 - **Error Handling:**
 
   - Error Handling with @Hapi/Boom for error responses
   - Custom middleware for sending error responses
   - Asyncronous error catching with a wrapped function for all controllers
+  - Report unexpected errors to sentry
 
 - **Security:**
 
@@ -49,17 +61,6 @@ An overview of the LMS API.
 
   - Code Style with Prettier
   - Hsuky & lint-staged as a pre-commit hook to automatically format code using prettier
-
-- **File Upload:**
-
-  - Multer as a streaming middleware between client and Google Cloud Storage as I built a custom storage class and factory for it for uploading profile pictures
-  - Google Cloud Storage Signed URLs for uploading lessons/videos
-
-- **Logging:**
-
-  - Logging with WinstonJS
-  - Error Reporting with Sentry
-  - Logging Requests with Morgan
 
 - **Authentication & Authorization:**
 
