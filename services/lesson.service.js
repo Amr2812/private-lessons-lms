@@ -97,7 +97,7 @@ module.exports.getLesson = async (id, user) => {
 
   if (!lesson) return boom.notFound("Lesson not found");
 
-  if (!lesson.isPublished && userRole !== constants.ROLES_ENUM.instructor) {
+  if (!lesson.isPublished && user.role !== constants.ROLES_ENUM.instructor) {
     return boom.notFound("Lesson not published");
   }
 
