@@ -6,6 +6,7 @@
     "**/*": "prettier --write --ignore-unknown"
   },
   "scripts": {
+    "preinstall": "npm install pm2 -g",
     "start": "pm2 start ./bin/www -i 0",
     "dev": "nodemon ./bin/www",
     "seed": "node ./bin/seed",
