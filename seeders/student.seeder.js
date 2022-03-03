@@ -1,7 +1,7 @@
 const { Student } = require("../models");
 
 module.exports = async () =>
-  await Student.create([
+  await Student.insertMany([
     {
       _id: "620e47ec1df2e6906cd4ca0f",
       name: "Amr Elmohamady",

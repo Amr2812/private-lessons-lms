@@ -1,7 +1,7 @@
 const { AccessCode } = require("../models");
 
 module.exports = async () =>
-  await AccessCode.create([
+  await AccessCode.insertMany([
     {
       _id: "620e47ec1df2e6906cd4ca0f",
       grade: "620e472e3dee2cd5b28a9bfa",
