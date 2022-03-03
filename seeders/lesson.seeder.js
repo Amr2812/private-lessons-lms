@@ -7,6 +7,7 @@ module.exports = async () =>
       grade: "620e472e3dee2cd5b28a9bfa",
       title: "Week 1",
       notes: "This is the first lesson",
+      videoName: "example-lesson-bsxXKRm2lY0PhRfbt6rgF",
       isPublished: false
     },
     {
@@ -14,6 +15,7 @@ module.exports = async () =>
       grade: "620e472e3dee2cd5b28a9bfa",
       title: "Week 2",
       notes: "This is the second lesson",
+      videoName: "example-lesson-bsxXKRm2lY0PhRfbt6rgF",
       isPublished: true
     },
     {
@@ -21,6 +23,7 @@ module.exports = async () =>
       grade: "620e472e3dee2cd5b28a9bfa",
       title: "Week 3",
       notes: "This is the third lesson",
+      videoName: "example-lesson-bsxXKRm2lY0PhRfbt6rgF",
       isPublished: true
     },
     {
@@ -28,6 +31,7 @@ module.exports = async () =>
       grade: "620e473f62d74af088b0ab38",
       title: "Lesson 1",
       notes: "This is the first lesson",
+      videoName: "example-lesson-bsxXKRm2lY0PhRfbt6rgF",
       isPublished: false
     },
     {
@@ -35,6 +39,7 @@ module.exports = async () =>
       grade: "620e473f62d74af088b0ab38",
       title: "Lesson 2",
       notes: "This is the second lesson",
+      videoName: "example-lesson-bsxXKRm2lY0PhRfbt6rgF",
       isPublished: true
     },
     {
@@ -42,6 +47,7 @@ module.exports = async () =>
       grade: "620e473f62d74af088b0ab38",
       title: "Lesson 3",
       notes: "This is the third lesson",
+      videoName: "example-lesson-bsxXKRm2lY0PhRfbt6rgF",
       isPublished: true
     }
   ]);
