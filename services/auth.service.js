@@ -1,10 +1,10 @@
-const { Student, Admin } = require("../models");
-const { constants, env } = require("../config/constants");
-const { sendEmail } = require("../services/mail.service");
-const { subscribeToTopic } = require("./notification.service");
-const { templates } = require("../config/sendGrid");
-const { isStudent } = require("./student.service");
 const { nanoid } = require("nanoid/async");
+const { constants, env } = require("../config/constants");
+const { templates } = require("../config/sendGrid");
+const { Student, Admin } = require("../models");
+const { sendEmail } = require("./mail.service");
+const { subscribeToTopic } = require("./notification.service");
+const { isStudent } = require("./student.service");
 
 /**
  * @async

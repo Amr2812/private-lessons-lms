@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
-const { Message } = require("../models");
-const { formatLink } = require("../utils");
 const { constants } = require("../config/constants");
+const { Message } = require("../models");
 const { isStudent } = require("./student.service");
+const { formatLink } = require("../utils");
 
 /**
  * @async

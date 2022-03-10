@@ -1,7 +1,4 @@
 const { quizService } = require("../services");
-const { constants } = require("../config/constants");
-const logger = require("../config/logger");
-const boom = require("@hapi/boom");
 
 /**
  * @async

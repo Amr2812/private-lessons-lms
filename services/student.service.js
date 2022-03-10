@@ -1,6 +1,6 @@
-const { Student } = require("../models");
-const boom = require("@hapi/boom");
 const { constants } = require("../config/constants");
+const boom = require("@hapi/boom");
+const { Student } = require("../models");
 
 /**
  * @async

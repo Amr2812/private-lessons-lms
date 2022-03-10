@@ -2,9 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const asyncMiddleware = require("../../middlewares/asyncErrors");
-const validate = require("../../middlewares/validator");
 const { requireAuth, requireAdmin } = require("../../middlewares/auth");
-
+const validate = require("../../middlewares/validator");
 const { studentController } = require("../../controllers");
 const { studentValidator } = require("../../validations");
 

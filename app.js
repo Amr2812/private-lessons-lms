@@ -1,39 +1,33 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
-const logger = require("./config/logger");
-const boom = require("@hapi/boom");
 const helmet = require("helmet");
 const cors = require("cors");
-const { Server } = require("socket.io");
-const { createAdapter } = require("@socket.io/redis-adapter");
-
 const passport = require("passport");
 const session = require("express-session");
 const RedisStore = require("connect-redis")(session);
-
-const redisClient = require("./config/redis");
-
-const rateLimiterMiddleware = require("./middlewares/rateLimiter");
-
+const { Server } = require("socket.io");
+const { createAdapter } = require("@socket.io/redis-adapter");
+const boom = require("@hapi/boom");
 const { env, constants } = require("./config/constants");
+const logger = require("./config/logger");
+const redisClient = require("./config/redis");
+const v1Router = require("./routes/v1");
+const rateLimiterMiddleware = require("./middlewares/rateLimiter");
 const { wrap } = require("./utils");
 
 require("./config/passport")(passport);
-
-const v1Router = require("./routes/v1");
 
 const app = express();
 app.set("trust proxy", 1);
 
 const io = new Server();
+const v1Socket = require("./sockets/v1")(io);
 
 const pubClient = redisClient;
 const subClient = pubClient.duplicate();
 
 io.adapter(createAdapter(pubClient, subClient));
-
-const v1Socket = require("./sockets/v1")(io);
 
 // express session
 const sessionMiddleware = session({

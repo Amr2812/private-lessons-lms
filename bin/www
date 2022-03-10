@@ -4,11 +4,11 @@
  * Module dependencies.
  */
 
-const { app, io } = require("../app");
 const http = require("http");
-const mongodbInit = require("../config/mongodb");
 const { env } = require("../config/constants");
+const mongodbInit = require("../config/mongodb");
 const logger = require("../config/logger");
+const { app, io } = require("../app");
 
 /**
  * Connect to MongoDB

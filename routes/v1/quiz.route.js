@@ -2,13 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 const asyncMiddleware = require("../../middlewares/asyncErrors");
+const validate = require("../../middlewares/validator");
 const {
   requireAuth,
   requireInstructor,
   requireAdmin
 } = require("../../middlewares/auth");
-const validate = require("../../middlewares/validator");
-
 const { quizValidator } = require("../../validations");
 const { quizController } = require("../../controllers");
 

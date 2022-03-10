@@ -1,11 +1,11 @@
+const passport = require("passport");
+const boom = require("@hapi/boom");
+const { env, constants } = require("../config/constants");
 const {
   authService,
   studentService,
   notificationService
 } = require("../services");
-const passport = require("passport");
-const boom = require("@hapi/boom");
-const { env, constants } = require("../config/constants");
 
 /**
  * @async

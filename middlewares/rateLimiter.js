@@ -1,7 +1,7 @@
 const { RateLimiterRedis } = require("rate-limiter-flexible");
-const redisClient = require("../config/redis");
 const boom = require("@hapi/boom");
 const { constants } = require("../config/constants");
+const redisClient = require("../config/redis");
 
 const rateLimiter = new RateLimiterRedis({
   storeClient: redisClient,

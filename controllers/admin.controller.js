@@ -1,6 +1,6 @@
-const { adminService, actionService, storageService } = require("../services");
 const multer = require("multer");
 const { constants } = require("../config/constants");
+const { adminService, actionService, storageService } = require("../services");
 
 module.exports.updateProfileImage = multer({
   storage: storageService.createGCStorage({

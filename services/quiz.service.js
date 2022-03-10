@@ -1,13 +1,13 @@
+const { EventEmitter } = require("events");
+const boom = require("@hapi/boom");
+const { constants, env } = require("../config/constants");
+const logger = require("../config/logger");
+const { templates } = require("../config/sendGrid");
 const { Quiz, AccessCode, Student } = require("../models");
 const { sendToTopic } = require("./notification.service");
 const { sendEmail } = require("./mail.service");
 const { isStudent } = require("./student.service");
 const { isAdmin } = require("./admin.service");
-const { templates } = require("../config/sendGrid");
-const { constants, env } = require("../config/constants");
-const logger = require("../config/logger");
-const boom = require("@hapi/boom");
-const { EventEmitter } = require("events");
 
 /**
  * @async

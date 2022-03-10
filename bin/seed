@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 
-const { run } = require("../seeders");
 const logger = require("../config/logger");
+const { run } = require("../seeders");
 
 /**
  * check if dropDB flag is set

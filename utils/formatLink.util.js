@@ -1,7 +1,7 @@
 const { env } = require("../config/constants");
 
 /**
- *
+ * @description return file link from Google cloud storage
  * @param {String} folder
  * @param {String} name
  * @returns {String} File URL

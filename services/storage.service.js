@@ -1,8 +1,8 @@
-const { bucket } = require("../config/firebase");
+const got = require("got");
 const boom = require("@hapi/boom");
 const { constants } = require("../config/constants");
-const got = require("got");
 const logger = require("../config/logger");
+const { bucket } = require("../config/firebase");
 
 /**
  * @async

@@ -1,5 +1,4 @@
 const { accessCodeService, actionService } = require("../services");
-const { boom } = require("@hapi/boom");
 
 /**
  * @async

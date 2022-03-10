@@ -1,5 +1,5 @@
-const { AccessCode } = require("../models");
 const { nanoid } = require("nanoid/async");
+const { AccessCode } = require("../models");
 
 /**
  * @async

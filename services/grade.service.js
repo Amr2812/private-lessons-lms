@@ -1,5 +1,5 @@
-const { Grade } = require("../models");
 const { nanoid } = require("nanoid/async");
+const { Grade } = require("../models");
 
 /**
  * @async

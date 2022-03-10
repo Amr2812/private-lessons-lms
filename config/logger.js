@@ -1,6 +1,5 @@
 const winston = require("winston");
 const Sentry = require("winston-transport-sentry-node").default;
-
 const { env } = require("./constants");
 
 const logger = winston.createLogger({

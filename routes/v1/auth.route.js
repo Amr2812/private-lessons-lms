@@ -1,11 +1,10 @@
+const passport = require("passport");
 const express = require("express");
 const router = express.Router();
-const passport = require("passport");
 
 const asyncMiddleware = require("../../middlewares/asyncErrors");
-const { requireAuth } = require("../../middlewares/auth");
 const validate = require("../../middlewares/validator");
-
+const { requireAuth } = require("../../middlewares/auth");
 const { authValidator } = require("../../validations");
 const { authController } = require("../../controllers");
 

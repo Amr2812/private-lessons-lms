@@ -1,5 +1,5 @@
-const { sgMail } = require("../config/sendGrid");
 const { env } = require("../config/constants");
+const { sgMail } = require("../config/sendGrid");
 
 /**
  * @async

@@ -1,6 +1,6 @@
 const boom = require("@hapi/boom");
-const { messageService, notificationService } = require("../../services");
 const { constants } = require("../../config/constants");
+const { messageService, notificationService } = require("../../services");
 
 module.exports = (io, socket) => {
   const user = socket.request.user;

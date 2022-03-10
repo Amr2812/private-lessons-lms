@@ -1,10 +1,9 @@
 const LocalStrategy = require("passport-local").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
 const bcrypt = require("bcryptjs");
-const { Admin, Student } = require("../models");
-const { authService, storageService } = require("../services");
-const { isStudent } = require("../services/student.service");
 const { env, constants } = require("./constants");
+const { Admin, Student } = require("../models");
+const { authService, storageService, studentService } = require("../services");
 
 module.exports = passport => {
   passport.use(
@@ -126,7 +125,7 @@ module.exports = passport => {
   passport.deserializeUser(async ({ id, role }, done) => {
     try {
       let User;
-      if (isStudent({ role })) {
+      if (studentService.isStudent({ role })) {
         User = Student;
       } else {
         User = Admin;
@@ -142,7 +141,7 @@ module.exports = passport => {
       delete user.resetPasswordToken;
       delete user.resetPasswordExpire;
 
-      if (isStudent(user)) {
+      if (studentService.isStudent(user)) {
         user.lessonsAttended = user.lessonsAttended.map(e => String(e));
         user.quizzesTaken = user.quizzesTaken.map(e => String(e));
         user.role = constants.ROLES_ENUM.student;

@@ -1,7 +1,7 @@
-const { lessonService, storageService } = require("../services");
+const boom = require("@hapi/boom");
 const { constants } = require("../config/constants");
 const logger = require("../config/logger");
-const boom = require("@hapi/boom");
+const { lessonService, storageService } = require("../services");
 
 /**
  * @async
