@@ -11,13 +11,15 @@ const { boom } = require("@hapi/boom");
 module.exports.generateAccessCodes = async (req, res, next) => {
   const codes = await accessCodeService.generateAccessCodes(
     req.params.gradeId,
-    req.query.count
+    req.query.count,
+    req.query.type
   );
 
   await actionService.recordAction(
     req.user.id,
     req.params.gradeId,
-    req.query.count
+    req.query.count,
+    req.query.type
   );
 
   res.send(codes);

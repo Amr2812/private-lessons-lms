@@ -49,11 +49,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/auth/signup",
+									"raw": "localhost:3000/v1/auth/signup",
 									"host": [
-										"{{url}}"
+										"localhost"
 									],
+									"port": "3000",
 									"path": [
+										"v1",
 										"auth",
 										"signup"
 									]
@@ -277,7 +279,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"password\": \"password\",\r\n    \"fcmToken\": \"NEW_FCM_REGISTERATION_TOKEN\"\r\n}",
+							"raw": "{\r\n    \"email\": \"ana.osama.elmohamady@gmail.com\",\r\n    \"password\": \"password\",\r\n    \"fcmToken\": \"NEW_FCM_REGISTERATION_TOKEN\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -317,11 +319,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/auth/login?role=student",
+									"raw": "localhost:3000/v1/auth/login?role=student",
 									"host": [
-										"{{url}}"
+										"localhost"
 									],
+									"port": "3000",
 									"path": [
+										"v1",
 										"auth",
 										"login"
 									],
@@ -2362,12 +2366,12 @@
 					]
 				},
 				{
-					"name": "Get Adminis' Actions",
+					"name": "Get Admins' Actions",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/admins/actions/?skip=0&limit=10",
+							"raw": "{{url}}/admins/actions/?skip=0&limit=10&type=lesson",
 							"host": [
 								"{{url}}"
 							],
@@ -2384,6 +2388,10 @@
 								{
 									"key": "limit",
 									"value": "10"
+								},
+								{
+									"key": "type",
+									"value": "lesson"
 								}
 							]
 						}
@@ -2395,7 +2403,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admins/actions/?skip=0&limit=10",
+									"raw": "{{url}}/admins/actions/?skip=0&limit=10&type=lesson",
 									"host": [
 										"{{url}}"
 									],
@@ -2412,6 +2420,10 @@
 										{
 											"key": "limit",
 											"value": "10"
+										},
+										{
+											"key": "type",
+											"value": "lesson"
 										}
 									]
 								}
@@ -7232,6 +7244,2088 @@
 			]
 		},
 		{
+			"name": "Quizzes",
+			"item": [
+				{
+					"name": "Create a Quiz",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Intro to Limits\",\r\n    \"notes\": \"Limits are cool\",\r\n    \"grade\": \"620e472e3dee2cd5b28a9bfa\",\r\n    \"questions\": [\r\n        {\r\n            \"question\": \"Which category do limits belong to?\",\r\n            \"answers\": [\r\n                \"Linear Algebra\",\r\n                \"Calclus\",\r\n                \"Dynamics\",\r\n                \"Geometry\"\r\n            ],\r\n            \"correctAnswer\": \"Calclus\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/quizzes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"quizzes"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Intro to Limits\",\r\n    \"notes\": \"Limits are cool\",\r\n    \"grade\": \"620e472e3dee2cd5b28a9bfa\",\r\n    \"questions\": [\r\n        {\r\n            \"question\": \"Which category do limits belong to?\",\r\n            \"answers\": [\r\n                \"Linear Algebra\",\r\n                \"Calclus\",\r\n                \"Dynamics\",\r\n                \"Geometry\"\r\n            ],\r\n            \"correctAnswer\": \"Calclus\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/quizzes",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"quizzes"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Tue Mar 08 2022 21:11:18 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "379"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"17b-9BsdW4sJfwlTUwzhLFf/+E9EFhQ\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Tue, 22 Mar 2022 19:11:18 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 08 Mar 2022 19:11:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"grade\": \"620e472e3dee2cd5b28a9bfa\",\n    \"title\": \"Intro to Limits\",\n    \"questions\": [\n        {\n            \"question\": \"Which category do limits belong to?\",\n            \"answers\": [\n                \"Linear Algebra\",\n                \"Calclus\",\n                \"Dynamics\",\n                \"Geometry\"\n            ],\n            \"correctAnswer\": \"Calclus\",\n            \"_id\": \"6227aa5535e464afc6388b09\"\n        }\n    ],\n    \"isPublished\": false,\n    \"createdAt\": \"2022-03-08T19:10:55.959Z\",\n    \"_id\": \"6227aa5535e464afc6388b08\",\n    \"__v\": 0,\n    \"id\": \"6227aa5535e464afc6388b08\"\n}"
+						},
+						{
+							"name": "Invalid Data",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Intro to Limits\",\r\n    \"notes\": \"Limits are cool\",\r\n    \"grade\": \"620e472e3dee2cd5b28a9bfa\",\r\n    \"questions\": [\r\n        {\r\n            \"question\": \"Which category do limits belong to?\",\r\n            \"answers\": [\r\n                \"Linear Algebra\"\r\n            ],\r\n            \"correctAnswer\": \"Calclus\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/quizzes",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"quizzes"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Tue Mar 08 2022 21:47:22 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "334"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"14e-OjWf6mZ39DGg6vvfhQF8tsDoyno\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Tue, 22 Mar 2022 19:47:21 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 08 Mar 2022 19:47:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"error\": \"Bad Request\",\n    \"message\": \"Invalid data\",\n    \"errors\": [\n        {\n            \"value\": [\n                \"Linear Algebra\"\n            ],\n            \"param\": \"questions[0].answers\",\n            \"location\": \"body\",\n            \"message\": \"Answers should be at least two\"\n        },\n        {\n            \"value\": \"Calclus\",\n            \"param\": \"questions[0].correctAnswer\",\n            \"location\": \"body\",\n            \"message\": \"Correct answer should be one of the given answers\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Intro to Limits\",\r\n    \"notes\": \"Limits are cool\",\r\n    \"grade\": \"620e472e3dee2cd5b28a9bfa\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/lessons",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"lessons"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Mon Feb 21 2022 18:09:04 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "66"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"42-eS0SCm6JaDtaCnH6CGDYa4pc8vo\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Mon, 07 Mar 2022 16:09:03 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Feb 2022 16:09:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 401,\n    \"error\": \"Unauthorized\",\n    \"message\": \"Unauthorized\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Quizzes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/quizzes?grade=620e472e3dee2cd5b28a9bfa&isPublished=false&q=limits&skip=0&limit=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"quizzes"
+							],
+							"query": [
+								{
+									"key": "grade",
+									"value": "620e472e3dee2cd5b28a9bfa"
+								},
+								{
+									"key": "isPublished",
+									"value": "false",
+									"description": "If admin only"
+								},
+								{
+									"key": "q",
+									"value": "limits"
+								},
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/quizzes?grade=620e472e3dee2cd5b28a9bfa&isPublished=false&q=limits&skip=0&limit=10",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"quizzes"
+									],
+									"query": [
+										{
+											"key": "grade",
+											"value": "620e472e3dee2cd5b28a9bfa"
+										},
+										{
+											"key": "isPublished",
+											"value": "false",
+											"description": "If admin only"
+										},
+										{
+											"key": "q",
+											"value": "limits"
+										},
+										{
+											"key": "skip",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Tue Mar 08 2022 22:35:38 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "401"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"191-0q5PQLFwCzUVG9Z0RqQJwMxUNzM\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Tue, 22 Mar 2022 20:35:37 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 08 Mar 2022 20:35:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"quizzes\": [\n        {\n            \"_id\": \"6227aa5535e464afc6388b08\",\n            \"title\": \"Intro to Limits\",\n            \"id\": \"6227aa5535e464afc6388b08\"\n        },\n        {\n            \"_id\": \"6227b4116487ccb99437d858\",\n            \"title\": \"Intro to Limits 2\",\n            \"id\": \"6227b4116487ccb99437d858\"\n        },\n        {\n            \"_id\": \"6227b51e45231c09f342dec2\",\n            \"title\": \"Intro to Limits 4\",\n            \"id\": \"6227b51e45231c09f342dec2\"\n        },\n        {\n            \"_id\": \"6227b49d7a51b97e08c9d8fb\",\n            \"title\": \"Intro to Limits 3\",\n            \"id\": \"6227b49d7a51b97e08c9d8fb\"\n        }\n    ],\n    \"total\": 4\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Quiz by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/quizzes/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"quizzes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "62281099b189f199c01b7dd8"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/quizzes/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"quizzes",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "6227aa5535e464afc6388b08"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Tue Mar 08 2022 23:30:45 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "474"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1da-R92+VNG9k9yXLrnYnMhqEidOGjE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Tue, 22 Mar 2022 21:30:45 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 08 Mar 2022 21:30:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"6227aa5535e464afc6388b08\",\n    \"grade\": {\n        \"_id\": \"620e472e3dee2cd5b28a9bfa\",\n        \"name\": \"2nd secondary\",\n        \"id\": \"620e472e3dee2cd5b28a9bfa\"\n    },\n    \"title\": \"Intro to Limits\",\n    \"questions\": [\n        {\n            \"question\": \"Which category do limits belong to?\",\n            \"answers\": [\n                \"Linear Algebra\",\n                \"Calclus\",\n                \"Dynamics\",\n                \"Geometry\"\n            ],\n            \"correctAnswer\": \"Calclus\",\n            \"_id\": \"6227aa5535e464afc6388b09\",\n            \"id\": \"6227aa5535e464afc6388b09\"\n        }\n    ],\n    \"isPublished\": false,\n    \"createdAt\": \"2022-03-08T19:10:55.959Z\",\n    \"__v\": 0,\n    \"id\": \"6227aa5535e464afc6388b08\"\n}"
+						},
+						{
+							"name": "Success (student)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/quizzes/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"quizzes",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "62281099b189f199c01b7dd8"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Wed Mar 09 2022 20:29:13 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1113"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"459-fmQ6ovLbl+m3v1vsXU+dZPDBbQY\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Wed, 23 Mar 2022 18:29:12 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Mar 2022 18:29:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"62281099b189f199c01b7dd8\",\n    \"grade\": {\n        \"_id\": \"620e472e3dee2cd5b28a9bfa\",\n        \"name\": \"2nd secondary\",\n        \"id\": \"620e472e3dee2cd5b28a9bfa\"\n    },\n    \"title\": \"Week 2\",\n    \"questions\": [\n        {\n            \"question\": \"Who is the creator of this platform?\",\n            \"answers\": [\n                \"Thomas Shelby\",\n                \"Amr Elmohamady\"\n            ],\n            \"_id\": \"62281180492b20a589199219\",\n            \"id\": \"62281180492b20a589199219\"\n        },\n        {\n            \"question\": \"What is the capital of the United States?\",\n            \"answers\": [\n                \"New York\",\n                \"Washington\",\n                \"Los Angeles\"\n            ],\n            \"_id\": \"62281180492b20a58919921a\",\n            \"id\": \"62281180492b20a58919921a\"\n        },\n        {\n            \"question\": \"What is the capital of the United Kingdom?\",\n            \"answers\": [\n                \"London\",\n                \"Paris\",\n                \"Berlin\"\n            ],\n            \"_id\": \"62281180492b20a58919921b\",\n            \"id\": \"62281180492b20a58919921b\"\n        },\n        {\n            \"question\": \"Who is the founder of the company Apple?\",\n            \"answers\": [\n                \"Steve Jobs\",\n                \"Bill Gates\",\n                \"Steve Wozniak\",\n                \"Tim Cook\",\n                \"Andrew Carnegie\"\n            ],\n            \"_id\": \"62281180492b20a58919921c\",\n            \"id\": \"62281180492b20a58919921c\"\n        },\n        {\n            \"question\": \"Is this a quiz?\",\n            \"answers\": [\n                \"Yes\",\n                \"No\"\n            ],\n            \"_id\": \"62281180492b20a58919921d\",\n            \"id\": \"62281180492b20a58919921d\"\n        }\n    ],\n    \"notes\": \"This is the second quiz\",\n    \"isPublished\": true,\n    \"createdAt\": \"2022-03-09T02:31:23.104Z\",\n    \"__v\": 0,\n    \"id\": \"62281099b189f199c01b7dd8\"\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/quizzes/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"quizzes",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "620e1d77edf87951594daeba"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Tue Mar 08 2022 23:33:39 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "65"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"41-IG9G+I81fHHNRB/i8/6gMdBWn64\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Tue, 22 Mar 2022 21:33:38 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 08 Mar 2022 21:33:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"error\": \"Not Found\",\n    \"message\": \"Quiz not found\"\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/quizzes/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"quizzes",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "620e1d77edf87951594daeb5"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Wed Mar 09 2022 05:22:21 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "91"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5b-w9fzildMI++x7MJjkdqkaF7/6jc\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Wed, 23 Mar 2022 03:22:20 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Mar 2022 03:22:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 401,\n    \"error\": \"Unauthorized\",\n    \"message\": \"You have to take this quiz to view it\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Publish Quiz",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/quizzes/:id/publish",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"quizzes",
+								":id",
+								"publish"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "622810b26332522caabbb6d5"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/quizzes/:id/publish",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"quizzes",
+										":id",
+										"publish"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "622810b26332522caabbb6d5"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Wed Mar 09 2022 07:12:59 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a-bAsFyilMr4Ra1hIU5PyoyFRunpI\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Wed, 23 Mar 2022 05:12:59 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Mar 2022 05:12:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/quizzes/:id/publish",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"quizzes",
+										":id",
+										"publish"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "622810b26332522caabbb6d5"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "0.999"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Wed Mar 09 2022 07:15:13 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "65"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"41-IG9G+I81fHHNRB/i8/6gMdBWn64\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Wed, 23 Mar 2022 05:15:12 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Mar 2022 05:15:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"error\": \"Not Found\",\n    \"message\": \"Quiz not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Unpublish Quiz",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/quizzes/:id/unpublish",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"quizzes",
+								":id",
+								"unpublish"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "622810b26332522caabbb6d5"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/quizzes/:id/unpublish",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"quizzes",
+										":id",
+										"unpublish"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "622810b26332522caabbb6d5"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Wed Mar 09 2022 07:19:02 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a-bAsFyilMr4Ra1hIU5PyoyFRunpI\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Wed, 23 Mar 2022 05:19:01 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Mar 2022 05:19:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/quizzes/:id/unpublish",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"quizzes",
+										":id",
+										"unpublish"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "622810b26332512caabbb6d5"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Wed Mar 09 2022 07:48:39 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "65"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"41-IG9G+I81fHHNRB/i8/6gMdBWn64\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Wed, 23 Mar 2022 05:48:39 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Mar 2022 05:48:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"error\": \"Not Found\",\n    \"message\": \"Quiz not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Take Quiz",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"MsrY-Oe8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/quizzes/:id/take",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"quizzes",
+								":id",
+								"take"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "622810b26332522caabbb6d5"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"MsrY-Oe8\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/quizzes/:id/take",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"quizzes",
+										":id",
+										"take"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "622810b26332522caabbb6d5"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Wed Mar 09 2022 09:10:17 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1187"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4a3-dwIEmnhzNzcYOpovfNfh7GI7+Sg\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Wed, 23 Mar 2022 07:10:16 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Mar 2022 07:10:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"622810b26332522caabbb6d5\",\n    \"grade\": \"620e473f62d74af088b0ab38\",\n    \"title\": \"Quiz 3\",\n    \"questions\": [\n        {\n            \"question\": \"Who is the creator of this platform?\",\n            \"answers\": [\n                \"Thomas Shelby\",\n                \"Amr Elmohamady\"\n            ],\n            \"correctAnswer\": \"Amr Elmohamady\",\n            \"_id\": \"62281180492b20a589199231\",\n            \"id\": \"62281180492b20a589199231\"\n        },\n        {\n            \"question\": \"What is the capital of the United States?\",\n            \"answers\": [\n                \"New York\",\n                \"Washington\",\n                \"Los Angeles\"\n            ],\n            \"correctAnswer\": \"Washington\",\n            \"_id\": \"62281180492b20a589199232\",\n            \"id\": \"62281180492b20a589199232\"\n        },\n        {\n            \"question\": \"What is the capital of the United Kingdom?\",\n            \"answers\": [\n                \"London\",\n                \"Paris\",\n                \"Berlin\"\n            ],\n            \"correctAnswer\": \"London\",\n            \"_id\": \"62281180492b20a589199233\",\n            \"id\": \"62281180492b20a589199233\"\n        },\n        {\n            \"question\": \"Who is the founder of the company Apple?\",\n            \"answers\": [\n                \"Steve Jobs\",\n                \"Bill Gates\",\n                \"Steve Wozniak\",\n                \"Tim Cook\",\n                \"Andrew Carnegie\"\n            ],\n            \"correctAnswer\": \"Steve Jobs\",\n            \"_id\": \"62281180492b20a589199234\",\n            \"id\": \"62281180492b20a589199234\"\n        },\n        {\n            \"question\": \"Is this a quiz?\",\n            \"answers\": [\n                \"Yes\",\n                \"No\"\n            ],\n            \"correctAnswer\": \"Yes\",\n            \"_id\": \"62281180492b20a589199235\",\n            \"id\": \"62281180492b20a589199235\"\n        }\n    ],\n    \"notes\": \"This is the third quiz\",\n    \"isPublished\": true,\n    \"createdAt\": \"2022-03-09T02:31:23.104Z\",\n    \"__v\": 0,\n    \"id\": \"622810b26332522caabbb6d5\"\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"MsrY-Oe8\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/quizzes/:id/take",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"quizzes",
+										":id",
+										"take"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "622810b26332522caabbb6d5"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Wed Mar 09 2022 09:09:32 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "93"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5d-jI2AGWLkCgA/IVTfTz559JvRBSE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Wed, 23 Mar 2022 07:09:31 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Mar 2022 07:09:31 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 401,\n    \"error\": \"Unauthorized\",\n    \"message\": \"You have to be a student to take a quiz\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Check Answers",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"answers\": [\r\n        {\r\n            \"id\": \"62281099b189f199c01b7dd9\",\r\n            \"answer\": \"Amr Elmohamady\"\r\n        },\r\n        {\r\n            \"id\": \"62281099b189f199c01b7dda\",\r\n            \"answer\": \"Washington\"\r\n        },\r\n        {\r\n            \"id\": \"62281099b189f199c01b7ddb\",\r\n            \"answer\": \"London\"\r\n        },\r\n        {\r\n            \"id\": \"62281099b189f199c01b7ddc\",\r\n            \"answer\": \"Margot Robbie\"\r\n        },\r\n        {\r\n            \"id\": \"62281099b189f199c01b7ddd\",\r\n            \"answer\": \"Yes\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/quizzes/:id/check-answers",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"quizzes",
+								":id",
+								"check-answers"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "62281099b189f199c01b7dd8"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"answers\": [\r\n        {\r\n            \"id\": \"62281099b189f199c01b7dd9\",\r\n            \"answer\": \"Amr Elmohamady\"\r\n        },\r\n        {\r\n            \"id\": \"62281099b189f199c01b7dda\",\r\n            \"answer\": \"Washington\"\r\n        },\r\n        {\r\n            \"id\": \"62281099b189f199c01b7ddb\",\r\n            \"answer\": \"London\"\r\n        },\r\n        {\r\n            \"id\": \"62281099b189f199c01b7ddc\",\r\n            \"answer\": \"Margot Robbie\"\r\n        },\r\n        {\r\n            \"id\": \"62281099b189f199c01b7ddd\",\r\n            \"answer\": \"Yes\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/quizzes/:id/check-answers",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"quizzes",
+										":id",
+										"check-answers"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "62281099b189f199c01b7dd8"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Thu Mar 10 2022 00:54:26 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "261"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"105-51A7mkRatoOW2xfyL/ikt4zhffI\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Wed, 23 Mar 2022 22:54:25 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Mar 2022 22:54:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"score\": 4,\n    \"wrongAnswers\": [\n        {\n            \"question\": \"Who is the founder of the company Apple?\",\n            \"answers\": [\n                \"Steve Jobs\",\n                \"Bill Gates\",\n                \"Steve Wozniak\",\n                \"Tim Cook\",\n                \"Andrew Carnegie\"\n            ],\n            \"correctAnswer\": \"Steve Jobs\",\n            \"_id\": \"62281099b189f199c01b7ddc\",\n            \"id\": \"62281099b189f199c01b7ddc\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "Access Codes",
 			"item": [
 				{
@@ -7240,7 +9334,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/access-codes/grade/:id/generate/?count=2",
+							"raw": "{{url}}/access-codes/grade/:id/generate/?count=2&type=lesson",
 							"host": [
 								"{{url}}"
 							],
@@ -7255,6 +9349,10 @@
 								{
 									"key": "count",
 									"value": "2"
+								},
+								{
+									"key": "type",
+									"value": "lesson"
 								}
 							],
 							"variable": [
@@ -7272,7 +9370,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/access-codes/grade/:id/generate/?count=2",
+									"raw": "{{url}}/access-codes/grade/:id/generate/?count=2&type=lesson",
 									"host": [
 										"{{url}}"
 									],
@@ -7287,6 +9385,10 @@
 										{
 											"key": "count",
 											"value": "2"
+										},
+										{
+											"key": "type",
+											"value": "lesson"
 										}
 									],
 									"variable": [
@@ -7518,7 +9620,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/access-codes/grade/:id/generate/?count=1001",
+									"raw": "{{url}}/access-codes/grade/:id/generate/",
 									"host": [
 										"{{url}}"
 									],
@@ -7532,7 +9634,13 @@
 									"query": [
 										{
 											"key": "count",
-											"value": "1001"
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "lesson",
+											"disabled": true
 										}
 									],
 									"variable": [
@@ -7588,8 +9696,16 @@
 									"value": "0"
 								},
 								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
 									"key": "Retry-After",
-									"value": "0.999"
+									"value": "1"
 								},
 								{
 									"key": "X-RateLimit-Limit",
@@ -7601,7 +9717,7 @@
 								},
 								{
 									"key": "X-RateLimit-Reset",
-									"value": "Tue Feb 22 2022 16:18:30 GMT+0200 (Eastern European Standard Time)"
+									"value": "Wed Mar 09 2022 08:56:45 GMT+0200 (Eastern European Standard Time)"
 								},
 								{
 									"key": "Content-Type",
@@ -7609,19 +9725,19 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "186"
+									"value": "247"
 								},
 								{
 									"key": "ETag",
-									"value": "W/\"ba-KSutUxpissoZNYB+3oQp52mxUsQ\""
+									"value": "W/\"f7-wD8BeQ5KSMdIEKtLhNF0rLT2ulE\""
 								},
 								{
 									"key": "Set-Cookie",
-									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Tue, 08 Mar 2022 14:18:29 GMT; HttpOnly"
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Wed, 23 Mar 2022 06:56:44 GMT; HttpOnly"
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 22 Feb 2022 14:18:29 GMT"
+									"value": "Wed, 09 Mar 2022 06:56:44 GMT"
 								},
 								{
 									"key": "Connection",
@@ -7633,7 +9749,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"statusCode\": 400,\n    \"error\": \"Bad Request\",\n    \"message\": \"Invalid data\",\n    \"errors\": [\n        {\n            \"value\": \"1001\",\n            \"param\": \"count\",\n            \"location\": \"query\",\n            \"message\": \"Count must be a positive integer maximum 1000\"\n        }\n    ]\n}"
+							"body": "{\n    \"statusCode\": 400,\n    \"error\": \"Bad Request\",\n    \"message\": \"Invalid data\",\n    \"errors\": [\n        {\n            \"param\": \"type\",\n            \"location\": \"query\",\n            \"message\": \"Type must be lesson or quiz\"\n        },\n        {\n            \"param\": \"count\",\n            \"location\": \"query\",\n            \"message\": \"Count must be a positive integer maximum 1000\"\n        }\n    ]\n}"
 						}
 					]
 				}

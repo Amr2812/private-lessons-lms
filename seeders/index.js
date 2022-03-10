@@ -5,6 +5,7 @@ const gradeSeeder = require("./grade.seeder");
 const studentSeeder = require("./student.seeder");
 const accessCodeSeeder = require("./accessCode.seeder");
 const lessonSeeder = require("./lesson.seeder");
+const quizSeeder = require("./quiz.seeder");
 const mongoose = require("mongoose");
 
 module.exports.run = async dropDB => {
@@ -24,14 +25,17 @@ module.exports.run = async dropDB => {
     await gradeSeeder();
     logger.info("Grades seeded");
 
-    await studentSeeder();
-    logger.info("Students seeded");
-
     await accessCodeSeeder();
     logger.info("AccessCodes seeded");
 
     await lessonSeeder();
     logger.info("Lessons seeded");
+
+    await quizSeeder();
+    logger.info("Quizzes seeded");
+
+    await studentSeeder();
+    logger.info("Students seeded");
 
     return await Promise.resolve();
   } catch (err) {

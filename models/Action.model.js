@@ -12,6 +12,10 @@ const actionSchema = mongoose.Schema({
   count: {
     type: Number
   },
+  type: {
+    type: String,
+    enum: ["lesson", "quiz"]
+  },
   createdAt: {
     type: Date,
     default: Date.now()

@@ -144,6 +144,7 @@ module.exports = passport => {
 
       if (role === constants.ROLES_ENUM.student) {
         user.lessonsAttended = user.lessonsAttended.map(e => String(e));
+        user.quizzesTaken = user.quizzesTaken.map(e => String(e));
         user.role = constants.ROLES_ENUM.student;
       }
 

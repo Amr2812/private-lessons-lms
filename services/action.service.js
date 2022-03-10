@@ -6,31 +6,38 @@ const { Action } = require("../models");
  * @param {String} admin - Admin id
  * @param {String} grade - Grade id
  * @param {Number} count - Number of access codes generated
+ * @param {String} type - Type of access codes generated
  * @returns {Promise<Object>} - The action object
  */
-module.exports.recordAction = async (admin, grade, count) =>
+module.exports.recordAction = async (admin, grade, count, type) =>
   await Action.create({
     admin,
     grade,
-    count
+    count,
+    type
   });
 
 /**
  * @async
  * @description Get all actions
- * @param {Object} query - Query object (skip, limit)
+ * @param {Object} query - Query object (type, skip, limit)
  * @returns {Promise<Object>} (actions, total)
  */
-module.exports.getActions = async query => {
-  const total = await Action.countDocuments();
+module.exports.getActions = async ({ type, skip, limit }) => {
+  let query = {};
+  if (type) {
+    query.type = type;
+  }
+
+  const total = await Action.countDocuments(query);
   if (total < 1) {
     return { actions: [], total };
   }
 
-  const actions = await Action.find({})
+  const actions = await Action.find(query)
     .sort({ createdAt: -1 })
-    .skip(query.skip || 0)
-    .limit(query.limit || 10)
+    .skip(skip || 0)
+    .limit(limit || 10)
     .populate({
       path: "admin",
       select: "name"

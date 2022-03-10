@@ -33,7 +33,7 @@ module.exports.requireAdmin = (req, res, next) => {
   if (
     req.isAuthenticated() &&
     (req.user.role === constants.ROLES_ENUM.assistant ||
-      req.user.role === "instructor")
+      req.user.role === constants.ROLES_ENUM.instructor)
   ) {
     return next();
   }
@@ -48,7 +48,10 @@ module.exports.requireAdmin = (req, res, next) => {
  * @param  {Function} next - Express next middleware
  */
 module.exports.requireInstructor = (req, res, next) => {
-  if (req.isAuthenticated() && req.user.role === "instructor") {
+  if (
+    req.isAuthenticated() &&
+    req.user.role === constants.ROLES_ENUM.instructor
+  ) {
     return next();
   }
 

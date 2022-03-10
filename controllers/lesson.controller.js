@@ -52,7 +52,7 @@ module.exports.getLesson = async (req, res, next) => {
  */
 module.exports.publishLesson = async (req, res, next) => {
   const lesson = await lessonService.publishLesson(req.params.id);
-  if (!lesson) return next(boom.notFound("Lesson not found"));
+  if (lesson instanceof Error) return next(lesson);
 
   lessonService.eventEmitter.emit("LESSON_PUBLISHED", lesson);
 
@@ -68,7 +68,7 @@ module.exports.publishLesson = async (req, res, next) => {
  */
 module.exports.unpublishLesson = async (req, res, next) => {
   const lesson = await lessonService.unpublishLesson(req.params.id);
-  if (!lesson) return next(boom.notFound("Lesson not found"));
+  if (lesson instanceof Error) return next(lesson);
 
   res.sendStatus(204);
 };

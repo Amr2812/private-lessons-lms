@@ -8,5 +8,8 @@ module.exports.generateAccessCodes = [
     .withMessage(
       `Count must be a positive integer maximum ${constants.MAX_ACCESS_CODES_PER_REQUEST}`
     )
-    .toInt()
+    .toInt(),
+  query("type")
+    .isIn(["lesson", "quiz"])
+    .withMessage("Type must be lesson or quiz")
 ];

@@ -10,7 +10,8 @@ module.exports = async () =>
       grade: "620e472e3dee2cd5b28a9bfa",
       phone: "01270279427",
       parentPhone: "01222222222",
-      lessonsAttended: ["620e6d77edf87951594deeb5"]
+      lessonsAttended: ["620e6d77edf87951594deeb5"],
+      quizzesTaken: ["62281099b189f199c01b7dd8"]
     },
     {
       _id: "620e47fa8e4b1428f90a9d0d",
@@ -56,6 +57,7 @@ module.exports = async () =>
       grade: "620e473f62d74af088b0ab38",
       phone: "0122222222",
       parentPhone: "01222222222",
-      lessonsAttended: ["620e1d77edf87951594daeb5"]
+      lessonsAttended: ["620e1d77edf87951594daeb5"],
+      quizzesTaken: ["622810b26332522caabbb6d5"]
     }
   ]);

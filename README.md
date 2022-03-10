@@ -94,15 +94,25 @@ An overview of the LMS API.
   - Create Lesson
   - Update Lesson
   - Delete Lesson
-  - Publish/Unpublish Lesson
+  - Publish/Unpublish Lesson and send notifications & emails to students
   - Attend Lesson
   - Filter/Search Lessons
   - Attend Lessons By access codes
   - Stream videos with the Node.js server to prevent file link access
 
+- **Quizes:**
+
+  - Create Quiz
+  - Update Quiz
+  - Delete Quiz
+  - Publish/Unpublish Quiz and send notifications & emails to students
+  - Filter/Search Quizes
+  - Take Quizzes By access codes
+
 - **Access codes:**
 
   - Create Access Codes for grades
+  - Access Codes Types (Lessons - Quizzes)
   - Track admin actions (generate access codes) by role 3 (Instructor)
 
 - **Realtime chat with admins**

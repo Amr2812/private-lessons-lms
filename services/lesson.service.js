@@ -25,14 +25,13 @@ module.exports.createLesson = async lesson => {
     constants.MAX_SIGNED_URL_EXPIRATION
   );
 
-  createdLesson.password = undefined;
   return createdLesson;
 };
 
 /**
  * @async
  * @description get lessons
- * @param {String} queryParams - (Grade id, q)
+ * @param {Object} queryParams - (grade, isPublished, q, skip, limit)
  * @param {String} userRole - User role
  * @returns {Promise<Object>} - (lessons, total)
  */
@@ -91,7 +90,7 @@ module.exports.getLesson = async (id, user, videoName = false) => {
     return boom.badRequest("You have to attend this lesson to view it");
   }
 
-  const lesson = await Lesson.findById(id)
+  const lesson = await Lesson.findOne({ _id: id })
     .populate({ path: "grade", select: "name" })
     .lean();
 
@@ -114,10 +113,15 @@ module.exports.getLesson = async (id, user, videoName = false) => {
  * @param {String} id - Lesson id
  * @returns {Promise<Object>} - Lesson
  */
-module.exports.publishLesson = async id =>
-  await Lesson.findByIdAndUpdate(id, { isPublished: true }, { new: true })
-    .select("-videoName")
-    .lean();
+module.exports.publishLesson = async id => {
+  const res = await Lesson.updateOne({ _id: id }, { isPublished: true });
+
+  if (res.matchedCount < 1) {
+    return boom.notFound("Quiz not found");
+  }
+
+  return res;
+};
 
 /**
  * @async
@@ -125,10 +129,15 @@ module.exports.publishLesson = async id =>
  * @param {String} id - Lesson id
  * @returns {Promise<Object>} - Lesson
  */
-module.exports.unpublishLesson = async id =>
-  await Lesson.findByIdAndUpdate(id, { isPublished: false }, { new: true })
-    .select("-videoName")
-    .lean();
+module.exports.unpublishLesson = async id => {
+  const res = await Lesson.updateOne({ _id: id }, { isPublished: true });
+
+  if (res.matchedCount < 1) {
+    return boom.notFound("Quiz not found");
+  }
+
+  return res;
+};
 
 /**
  * @async
@@ -158,8 +167,9 @@ module.exports.attendLesson = async (user, lessonId, code) => {
   });
 
   if (!accessCode) return boom.notFound("Access code not found");
-
   if (accessCode.consumed) return boom.badRequest("Access code already used");
+  if (accessCode.type !== "lesson")
+    return boom.badRequest("Access code is not for lessons");
 
   if (user.lessonsAttended.includes(lessonId)) {
     return boom.badRequest(

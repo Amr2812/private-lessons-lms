@@ -5,6 +5,10 @@ const accessCodeSchema = mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "Grade"
   },
+  type: {
+    type: String,
+    enum: ["lesson", "quiz"]
+  },
   code: {
     type: String,
     unique: true

@@ -6,16 +6,18 @@ const { nanoid } = require("nanoid/async");
  * @description Generate access codes for a grade
  * @param {String} grade - grade id
  * @param {Number} count - number of access codes to generate
+ * @param {String} type - type of access code
  * @returns {Promise<String[]>} access codes
  */
-module.exports.generateAccessCodes = async (grade, count) => {
+module.exports.generateAccessCodes = async (grade, count, type) => {
   let accessCodes;
   try {
     accessCodes = await Promise.all(
       Array.from({ length: count }, async () => {
         return {
           code: await nanoid(8),
-          grade
+          grade,
+          type
         };
       })
     );

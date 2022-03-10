@@ -40,6 +40,12 @@ const studentSchema = mongoose.Schema(
         ref: "Lesson"
       }
     ],
+    quizzesTaken: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Quiz"
+      }
+    ],
     completed: {
       type: Boolean,
       default: false
@@ -93,9 +99,7 @@ studentSchema.pre("save", async function (next) {
 });
 
 studentSchema.plugin(mongooseLeanVirtuals);
-
 studentSchema.plugin(mongooseLeanId);
-
 studentSchema.plugin(uniqueValidator, {
   message: "There is already a student with that {PATH}"
 });

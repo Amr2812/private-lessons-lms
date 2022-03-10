@@ -5,6 +5,7 @@ module.exports = {
   storageService: require("./storage.service"),
   gradeService: require("./grade.service"),
   lessonService: require("./lesson.service"),
+  quizService: require("./quiz.service"),
   accessCodeService: require("./accessCode.service"),
   actionService: require("./action.service"),
   notificationService: require("./notification.service"),
