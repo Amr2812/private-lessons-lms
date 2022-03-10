@@ -1,6 +1,8 @@
 const { Quiz, AccessCode, Student } = require("../models");
 const { sendToTopic } = require("./notification.service");
 const { sendEmail } = require("./mail.service");
+const { isStudent } = require("./student.service");
+const { isAdmin } = require("./admin.service");
 const { templates } = require("../config/sendGrid");
 const { constants, env } = require("../config/constants");
 const logger = require("../config/logger");
@@ -18,18 +20,18 @@ module.exports.createQuiz = async quiz => await Quiz.create(quiz);
 /**
  * @async
  * @description get quizzes
+ * @param {String} user - User
  * @param {Object} queryParams - (grade, isPublished, q, skip, limit)
- * @param {String} userRole - User role
  * @returns {Promise<Object>} - (quizzes, total)
  */
 module.exports.getQuizzes = async (
-  { grade, isPublished, q, skip, limit },
-  userRole
+  user,
+  { grade, isPublished, q, skip, limit }
 ) => {
   let query = {};
   let sort = { createdAt: 1 };
 
-  if (!constants.ADMINS_ROLES.includes(userRole)) {
+  if (!isAdmin(user)) {
     query = {
       grade,
       isPublished: true
@@ -64,13 +66,12 @@ module.exports.getQuizzes = async (
 /**
  * @async
  * @description Get quiz by id
- * @param {String} id - Quiz id
  * @param {Object} user - User
+ * @param {String} id - Quiz id
  * @returns {Promise<Object>} - Quiz
  */
-module.exports.getQuiz = async (id, user) => {
-  const isStudent = user.role === constants.ROLES_ENUM.student;
-  if (isStudent && !user.quizzesTaken.includes(id)) {
+module.exports.getQuiz = async (user, id) => {
+  if (this.takenQuiz(user, id)) {
     return boom.unauthorized("You have to take this quiz to view it");
   }
 
@@ -83,7 +84,7 @@ module.exports.getQuiz = async (id, user) => {
     return boom.notFound("Quiz is not published");
   }
 
-  if (isStudent) {
+  if (isStudent(user)) {
     quiz.questions = quiz.questions.map(question => {
       delete question.correctAnswer;
       return question;
@@ -134,7 +135,7 @@ module.exports.unpublishQuiz = async id => {
  * @returns {Promise<Object>} - Quiz
  */
 module.exports.takeQuiz = async (user, quizId, code) => {
-  if (user.role !== constants.ROLES_ENUM.student) {
+  if (!isStudent(user)) {
     return boom.unauthorized("You have to be a student to take a quiz");
   }
 
@@ -155,7 +156,7 @@ module.exports.takeQuiz = async (user, quizId, code) => {
   if (accessCode.type !== "quiz")
     return boom.badRequest("Access code is not for lessons");
 
-  if (user.quizzesTaken.includes(quizId)) {
+  if (this.takenQuiz(user, quizId)) {
     return boom.badRequest("You already took this quiz you can access it");
   }
 
@@ -188,8 +189,7 @@ module.exports.takeQuiz = async (user, quizId, code) => {
  * @returns {Promise<String>} - Score
  */
 module.exports.checkAnswers = async (user, quizId, answers) => {
-  const isStudent = user.role === constants.ROLES_ENUM.student;
-  if (isStudent && !user.quizzesTaken.includes(quizId)) {
+  if (!this.takenQuiz(user, quizId)) {
     return boom.unauthorized(
       "You have to take this quiz to check your answers"
     );
@@ -222,6 +222,15 @@ module.exports.checkAnswers = async (user, quizId, answers) => {
 
   return result;
 };
+
+/**
+ * @description check if student has taken quiz
+ * @param {Object} user - user object
+ * @param {String} quizId - Quiz id
+ * @returns {Boolean} - true if student has taken quiz
+ */
+module.exports.takenQuiz = (user, quizId) =>
+  isStudent(user) && user.quizzesTaken.includes(quizId);
 
 const eventEmitter = new EventEmitter();
 

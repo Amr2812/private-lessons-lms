@@ -23,7 +23,7 @@ module.exports.createLesson = async (req, res, next) => {
  * @param  {Function} next - Express next middleware
  */
 module.exports.getLessons = async (req, res, next) => {
-  const lessons = await lessonService.getLessons(req.query, req.user.role);
+  const lessons = await lessonService.getLessons(req.user, req.query);
 
   res.send(lessons);
 };
@@ -36,8 +36,7 @@ module.exports.getLessons = async (req, res, next) => {
  * @param  {Function} next - Express next middleware
  */
 module.exports.getLesson = async (req, res, next) => {
-  const lesson = await lessonService.getLesson(req.params.id, req.user);
-
+  const lesson = await lessonService.getLesson(req.user, req.params.id);
   if (lesson instanceof Error) return next(lesson);
 
   res.send(lesson);

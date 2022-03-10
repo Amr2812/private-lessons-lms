@@ -32,25 +32,3 @@ module.exports.updateGrade = async (id, grade) =>
   })
     .select("-accessCodes")
     .lean();
-
-/**
- * @async
- * @description Generate access codes for a grade
- * @param {String} id - Grade id
- * @param {Number} count - Number of access codes to generate
- * @returns {Promise<Object[]>} - The access code objects
- */
-module.exports.generateAccessCodes = async (id, count) => {
-  const accessCodes = [];
-  for (let i = 0; i < count; i++) {
-    accessCodes.push(await nanoid(8));
-  }
-
-  return await Grade.findByIdAndUpdate(
-    id,
-    { $push: { accessCodes } },
-    { runValidators: true, context: "query", new: true }
-  )
-    .select("accessCodes")
-    .lean();
-};

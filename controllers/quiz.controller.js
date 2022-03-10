@@ -24,7 +24,7 @@ module.exports.createQuiz = async (req, res, next) => {
  * @param  {Function} next - Express next middleware
  */
 module.exports.getQuizzes = async (req, res, next) => {
-  const quizzes = await quizService.getQuizzes(req.query, req.user.role);
+  const quizzes = await quizService.getQuizzes(req.user, req.query);
 
   res.send(quizzes);
 };
@@ -37,8 +37,7 @@ module.exports.getQuizzes = async (req, res, next) => {
  * @param  {Function} next - Express next middleware
  */
 module.exports.getQuiz = async (req, res, next) => {
-  const quiz = await quizService.getQuiz(req.params.id, req.user);
-
+  const quiz = await quizService.getQuiz(req.user, req.params.id);
   if (quiz instanceof Error) return next(quiz);
 
   res.send(quiz);

@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { Message } = require("../models");
 const { formatLink } = require("../utils");
 const { constants } = require("../config/constants");
+const { isStudent } = require("./student.service");
 
 /**
  * @async
@@ -33,7 +34,7 @@ module.exports.getRoomName = (studentId, lessonId) =>
  * @returns {Promise<Array>} messages
  */
 module.exports.getMessages = async (role, studentId, lessonId) => {
-  if (role !== constants.ROLES_ENUM.student) {
+  if (!isStudent(role)) {
     await Message.updateMany(
       { studentId, lessonId, seenByAdmin: false },
       { seenByAdmin: true }

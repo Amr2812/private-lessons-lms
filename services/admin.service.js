@@ -1,3 +1,4 @@
+const { constants } = require("../config/constants");
 const { Admin } = require("../models");
 
 /**
@@ -22,3 +23,27 @@ module.exports.updateProfile = async (id, body) =>
  */
 module.exports.createAssistant = async assistant =>
   await Admin.create(assistant);
+
+/**
+ * @description check if user is admin
+ * @param {Object} user - { role }
+ * @returns {Boolean}
+ */
+module.exports.isAdmin = ({ role }) =>
+  constants.ADMINS_ROLES.includes(user.role);
+
+/**
+ * @description check if user is assistant
+ * @param {Object} user - { role }
+ * @returns {Boolean}
+ */
+module.exports.isAssistant = ({ role }) =>
+  role === constants.ROLES_ENUM.assistant;
+
+/**
+ * @description check if user is instructor
+ * @param {Object} user - { role }
+ * @returns {Boolean}
+ */
+module.exports.isInstructor = ({ role }) =>
+  role === constants.ROLES_ENUM.instructor;

@@ -1,5 +1,6 @@
 const { Student } = require("../models");
 const boom = require("@hapi/boom");
+const { constants } = require("../config/constants");
 
 /**
  * @async
@@ -102,3 +103,10 @@ module.exports.getStudents = async ({
 
   return { students, total };
 };
+
+/**
+ * @description check if user is student
+ * @param {Object} user - User { role }
+ * @returns {Boolean}
+ */
+module.exports.isStudent = ({ role }) => role === constants.ROLES_ENUM.student;

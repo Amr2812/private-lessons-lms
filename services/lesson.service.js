@@ -5,9 +5,10 @@ const { sendEmail } = require("./mail.service");
 const { templates } = require("../config/sendGrid");
 const { constants, env } = require("../config/constants");
 const logger = require("../config/logger");
-
-const boom = require("@hapi/boom");
 const { EventEmitter } = require("events");
+const { isInstructor } = require("./admin.service");
+const { isStudent } = require("./student.service");
+const boom = require("@hapi/boom");
 
 /**
  * @async
@@ -31,18 +32,18 @@ module.exports.createLesson = async lesson => {
 /**
  * @async
  * @description get lessons
+ * @param {Object} user - User
  * @param {Object} queryParams - (grade, isPublished, q, skip, limit)
- * @param {String} userRole - User role
  * @returns {Promise<Object>} - (lessons, total)
  */
 module.exports.getLessons = async (
-  { grade, isPublished, q, skip, limit },
-  userRole
+  user,
+  { grade, isPublished, q, skip, limit }
 ) => {
   let query = {};
   let sort = { createdAt: 1 };
 
-  if (userRole !== constants.ROLES_ENUM.instructor) {
+  if (isInstructor(user)) {
     query = {
       grade,
       isPublished: true
@@ -77,16 +78,13 @@ module.exports.getLessons = async (
 /**
  * @async
  * @description Get lesson by id
- * @param {String} id - Lesson id
  * @param {Object} user - User
+ * @param {String} id - Lesson id
  * @param {Boolean} videoName - wether to return videoName or not
  * @returns {Promise<Object>} - Lesson
  */
-module.exports.getLesson = async (id, user, videoName = false) => {
-  if (
-    user.role === constants.ROLES_ENUM.student &&
-    !user.lessonsAttended.includes(id)
-  ) {
+module.exports.getLesson = async (user, id, videoName = false) => {
+  if (!this.attendedLesson(user, id)) {
     return boom.badRequest("You have to attend this lesson to view it");
   }
 
@@ -148,7 +146,7 @@ module.exports.unpublishLesson = async id => {
  * @returns {Promise<Object>} - Lesson
  */
 module.exports.attendLesson = async (user, lessonId, code) => {
-  if (user.role !== constants.ROLES_ENUM.student) {
+  if (!isStudent(user)) {
     return boom.unauthorized("You have to be a student to attend a lesson");
   }
 
@@ -171,7 +169,7 @@ module.exports.attendLesson = async (user, lessonId, code) => {
   if (accessCode.type !== "lesson")
     return boom.badRequest("Access code is not for lessons");
 
-  if (user.lessonsAttended.includes(lessonId)) {
+  if (this.attendedLesson(user, lessonId)) {
     return boom.badRequest(
       "You already attended this lesson you can access it"
     );
@@ -191,6 +189,15 @@ module.exports.attendLesson = async (user, lessonId, code) => {
 
   return lesson;
 };
+
+/**
+ * @description check if student has attended lesson
+ * @param {Object} user - user object
+ * @param {String} lessonId - Lesson id
+ * @returns {Boolean} - true if student has attended lesson
+ */
+module.exports.attendedLesson = (user, lessonId) =>
+  isStudent(user) && user.lessonsAttended.includes(lessonId);
 
 const eventEmitter = new EventEmitter();
 

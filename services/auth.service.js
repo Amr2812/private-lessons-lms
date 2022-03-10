@@ -3,7 +3,7 @@ const { constants, env } = require("../config/constants");
 const { sendEmail } = require("../services/mail.service");
 const { subscribeToTopic } = require("./notification.service");
 const { templates } = require("../config/sendGrid");
-
+const { isStudent } = require("./student.service");
 const { nanoid } = require("nanoid/async");
 
 /**
@@ -35,16 +35,14 @@ module.exports.signup = async student => {
  */
 module.exports.forgotPassword = async ({ email, role }) => {
   let User;
-  if (role === constants.ROLES_ENUM.student) {
+  if (isStudent({ role })) {
     User = Student;
   } else {
     User = Admin;
   }
 
   const user = await User.findOne({ email }).lean();
-
   if (!user) return;
-
   if (user.resetPasswordExpire > Date.now()) return;
 
   const resetPasswordToken = await nanoid(
@@ -70,7 +68,7 @@ module.exports.forgotPassword = async ({ email, role }) => {
  */
 module.exports.resetPassword = async (token, { role, password }) => {
   let User;
-  if (role === constants.ROLES_ENUM.student) {
+  if (isStudent({ role })) {
     User = Student;
   } else {
     User = Admin;
