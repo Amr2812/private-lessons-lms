@@ -103,6 +103,6 @@ module.exports = (io, socket) => {
   });
 
   socket.on("chats:get", getChats);
-  socket.on("messages:enter", enterRoom);
+  socket.on("chats:enter", enterRoom);
   socket.on("messages:send", sendMessage);
 };

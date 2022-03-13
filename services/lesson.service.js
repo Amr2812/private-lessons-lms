@@ -1,14 +1,10 @@
-const { EventEmitter } = require("events");
 const boom = require("@hapi/boom");
-const { constants, env } = require("../config/constants");
-const logger = require("../config/logger");
-const { templates } = require("../config/sendGrid");
+const { constants } = require("../config/constants");
 const { Lesson, AccessCode, Student } = require("../models");
 const { getSignedUrl } = require("./storage.service");
-const { sendToTopic } = require("./notification.service");
-const { sendEmail } = require("./mail.service");
 const { isInstructor } = require("./admin.service");
 const { isStudent } = require("./student.service");
+const { events, subscribers } = require("../events");
 
 /**
  * @async
@@ -112,13 +108,19 @@ module.exports.getLesson = async (user, id, videoName = false) => {
  * @returns {Promise<Object>} - Lesson
  */
 module.exports.publishLesson = async id => {
-  const res = await Lesson.updateOne({ _id: id }, { isPublished: true });
+  const lesson = await Lesson.findByIdAndUpdate(
+    id,
+    { isPublished: true },
+    { new: true }
+  );
 
-  if (res.matchedCount < 1) {
-    return boom.notFound("Quiz not found");
+  if (!lesson) {
+    return boom.notFound("Lesson not found");
   }
 
-  return res;
+  subscribers.lessonSubscriber.emit(events.LESSON_PUBLISHED, lesson);
+
+  return lesson;
 };
 
 /**
@@ -198,38 +200,3 @@ module.exports.attendLesson = async (user, lessonId, code) => {
  */
 module.exports.attendedLesson = (user, lessonId) =>
   isStudent(user) && user.lessonsAttended.includes(lessonId);
-
-const eventEmitter = new EventEmitter();
-
-eventEmitter.on("LESSON_PUBLISHED", async lesson => {
-  try {
-    await sendToTopic(String(lesson.grade), {
-      notification: {
-        title: "New Lesson Published",
-        body: `${lesson.title} is now available for students to attend.`
-      },
-      data: {
-        type: "lesson",
-        id: lesson.id
-      }
-    });
-
-    const students = await Student.find(
-      {
-        grade: lesson.grade
-      },
-      "email"
-    ).lean();
-
-    const emails = students.map(student => student.email);
-
-    await sendEmail(emails, templates.NEW_LESSON_ALERT, {
-      title: lesson.title,
-      url: `${env.FRONTEND_URL}/lessons/${lesson.id}`
-    });
-  } catch (err) {
-    logger.error(err);
-  }
-});
-
-module.exports.eventEmitter = eventEmitter;

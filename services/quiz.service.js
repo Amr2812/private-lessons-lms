@@ -1,13 +1,9 @@
-const { EventEmitter } = require("events");
 const boom = require("@hapi/boom");
 const { constants, env } = require("../config/constants");
-const logger = require("../config/logger");
-const { templates } = require("../config/sendGrid");
 const { Quiz, AccessCode, Student } = require("../models");
-const { sendToTopic } = require("./notification.service");
-const { sendEmail } = require("./mail.service");
 const { isStudent } = require("./student.service");
 const { isAdmin } = require("./admin.service");
+const { events, subscribers } = require("../events");
 
 /**
  * @async
@@ -101,13 +97,19 @@ module.exports.getQuiz = async (user, id) => {
  * @returns {Promise<Object>} - Quiz
  */
 module.exports.publishQuiz = async id => {
-  const res = await Quiz.updateOne({ _id: id }, { isPublished: true });
+  const quiz = await Quiz.findByIdAndUpdate(
+    id,
+    { isPublished: true },
+    { new: true }
+  ).lean();
 
-  if (res.matchedCount < 1) {
+  if (!quiz) {
     return boom.notFound("Quiz not found");
   }
 
-  return res;
+  subscribers.quizSubscriber.emit(events.QUIZ_PUBLISHED, quiz);
+
+  return quiz;
 };
 
 /**
@@ -231,37 +233,3 @@ module.exports.checkAnswers = async (user, quizId, answers) => {
  */
 module.exports.takenQuiz = (user, quizId) =>
   isStudent(user) && user.quizzesTaken.includes(quizId);
-
-const eventEmitter = new EventEmitter();
-
-eventEmitter.on("QUIZ_PUBLISHED", async quiz => {
-  try {
-    await sendToTopic(String(quiz.grade), {
-      notification: {
-        title: "New Quiz is Published",
-        body: `${quiz.title} is now available for students to take.`
-      },
-      data: {
-        type: "quiz",
-        id: quiz.id
-      }
-    });
-
-    const students = await Student.find(
-      {
-        grade: quiz.grade
-      },
-      "email"
-    ).lean();
-
-    const emails = students.map(student => student.email);
-    await sendEmail(emails, templates.NEW_QUIZ_ALERT, {
-      title: quiz.title,
-      url: `${env.FRONTEND_URL}/quizzes/${quiz.id}`
-    });
-  } catch (err) {
-    logger.error(err);
-  }
-});
-
-module.exports.eventEmitter = eventEmitter;

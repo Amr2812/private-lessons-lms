@@ -9,5 +9,6 @@ module.exports = {
   accessCodeService: require("./accessCode.service"),
   actionService: require("./action.service"),
   notificationService: require("./notification.service"),
+  mailService: require("./mail.service"),
   messageService: require("./message.service")
 };

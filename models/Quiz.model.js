@@ -16,31 +16,28 @@ const questionSchema = new mongoose.Schema({
   }
 });
 
-const quizSchema = mongoose.Schema(
-  {
-    grade: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Grade"
-    },
-    title: {
-      type: String,
-      unique: true
-    },
-    questions: [questionSchema],
-    notes: {
-      type: String
-    },
-    isPublished: {
-      type: Boolean,
-      default: false
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now()
-    }
+const quizSchema = mongoose.Schema({
+  grade: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Grade"
   },
-  { toJSON: { virtuals: true } }
-);
+  title: {
+    type: String,
+    unique: true
+  },
+  questions: [questionSchema],
+  notes: {
+    type: String
+  },
+  isPublished: {
+    type: Boolean,
+    default: false
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now()
+  }
+});
 
 quizSchema.index({ grade: 1, isPublished: 1, title: "text" });
 

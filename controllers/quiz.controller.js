@@ -51,8 +51,6 @@ module.exports.publishQuiz = async (req, res, next) => {
   const quiz = await quizService.publishQuiz(req.params.id);
   if (quiz instanceof Error) return next(quiz);
 
-  quizService.eventEmitter.emit("QUIZ_PUBLISHED", quiz);
-
   res.sendStatus(204);
 };
 

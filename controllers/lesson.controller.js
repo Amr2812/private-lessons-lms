@@ -53,8 +53,6 @@ module.exports.publishLesson = async (req, res, next) => {
   const lesson = await lessonService.publishLesson(req.params.id);
   if (lesson instanceof Error) return next(lesson);
 
-  lessonService.eventEmitter.emit("LESSON_PUBLISHED", lesson);
-
   res.sendStatus(204);
 };
 
