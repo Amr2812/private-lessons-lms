@@ -4,7 +4,7 @@ const { Lesson, AccessCode, Student } = require("../models");
 const { getSignedUrl } = require("./storage.service");
 const { isInstructor } = require("./admin.service");
 const { isStudent } = require("./student.service");
-const { events, subscribers } = require("../events");
+const { events, EventEmitter } = require("../events");
 
 /**
  * @async
@@ -119,7 +119,7 @@ module.exports.publishLesson = async id => {
     return boom.notFound("Lesson not found");
   }
 
-  subscribers.lessonSubscriber.emit(events.LESSON_PUBLISHED, lesson);
+  EventEmitter.emit(events.LESSON_PUBLISHED, lesson);
 
   return lesson;
 };

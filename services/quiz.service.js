@@ -3,7 +3,7 @@ const { constants, env } = require("../config/constants");
 const { Quiz, AccessCode, Student } = require("../models");
 const { isStudent } = require("./student.service");
 const { isAdmin } = require("./admin.service");
-const { events, subscribers } = require("../events");
+const { events, EventEmitter } = require("../events");
 
 /**
  * @async
@@ -108,7 +108,7 @@ module.exports.publishQuiz = async id => {
     return boom.notFound("Quiz not found");
   }
 
-  subscribers.quizSubscriber.emit(events.QUIZ_PUBLISHED, quiz);
+  EventEmitter.emit(events.QUIZ_PUBLISHED, quiz);
 
   return quiz;
 };

@@ -1,9 +1,7 @@
-const emitter = require("./emitter");
-const subscribers = require("./subscribers");
+const EventEmitter = require("./emitter");
 
 module.exports = {
-  emitter,
-  subscribers,
+  EventEmitter,
   events: {
     LESSON_PUBLISHED: "LESSON_PUBLISHED",
     QUIZ_PUBLISHED: "QUIZ_PUBLISHED"
