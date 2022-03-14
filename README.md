@@ -12,6 +12,8 @@
 - SendGrid
 - Sentry
 - Postman
+- Docker
+- Documented with JsDoc
 
 ## Application Structure:
 
@@ -21,9 +23,7 @@
 
 An overview of the LMS API.
 
-> **Note 1:** This is not all the API endpints but the most important features. A postman documentaion is available at the end of this document.
-
-> **Note 2:** This is a work in progress and more features will be added & I might convert the app to use Dependency Injection pattern or Dependency Injection Container patterns (IOC) or even service locator pattern instead of hardcoded dependency.
+> **Note:** This is not all the API endpints but the most important features. A postman documentaion is available at the end of this document.
 
 - **App Scaling:**
 
