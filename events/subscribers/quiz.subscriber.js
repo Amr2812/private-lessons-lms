@@ -3,9 +3,9 @@ const logger = require("../../config/logger");
 const { templates } = require("../../config/sendGrid");
 const { Student } = require("../../models");
 const { notificationService, mailService } = require("../../services");
-const { emitter, events } = require("../");
+const { events, EventEmitter } = require("../");
 
-emitter.on(events.QUIZ_PUBLISHED, async quiz => {
+EventEmitter.on(events.QUIZ_PUBLISHED, async quiz => {
   try {
     await notificationService.sendToTopic(String(quiz.grade), {
       notification: {
