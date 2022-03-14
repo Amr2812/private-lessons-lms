@@ -9,7 +9,7 @@ const { isStudent } = require("./student.service");
 /**
  * @async
  * @description Signup a new user
- * @param {Object} student - Student object
+ * @param {Object} student
  * @returns {Promise<Object>}
  */
 module.exports.signup = async student => {
@@ -30,7 +30,9 @@ module.exports.signup = async student => {
 /**
  * @async
  * @description Forgot password check email and send reset password link
- * @param {String} body - (email, role)
+ * @param {String} body
+ * @param {String} body.email - Email to check
+ * @param {String} body.role - Role to check
  * @returns {Promise<Object>}
  */
 module.exports.forgotPassword = async ({ email, role }) => {
@@ -63,7 +65,9 @@ module.exports.forgotPassword = async ({ email, role }) => {
  * @async
  * @description Reset password
  * @param {String} token - Reset password token
- * @param {String} body - (role, password)
+ * @param {String} body
+ * @param {String} body.role
+ * @param {String} body.password - New password
  * @returns {Promise<Object>}
  */
 module.exports.resetPassword = async (token, { role, password }) => {

@@ -10,7 +10,7 @@ const { events, subscribers } = require("../events");
  * @async
  * @description create a new lesson
  * @param {Oject} lesson
- * @returns {Promise<Object>}
+ * @returns {Promise<Object>} - Lesson
  */
 module.exports.createLesson = async lesson => {
   let createdLesson = await Lesson.create(lesson);
@@ -29,26 +29,27 @@ module.exports.createLesson = async lesson => {
  * @async
  * @description get lessons
  * @param {Object} user - User
- * @param {Object} queryParams - (grade, isPublished, q, skip, limit)
- * @returns {Promise<Object>} - (lessons, total)
+ * @param {Object} query
+ * @param {String} query.grade - grade id
+ * @param {Boolean} [query.isPublished=true]
+ * @param {String} [query.q] - search query
+ * @param {Number} [query.skip]
+ * @param {Number} [query.limit]
+ * @returns {Promise<Object>} - { lessons, total }
  */
 module.exports.getLessons = async (
   user,
   { grade, isPublished, q, skip, limit }
 ) => {
-  let query = {};
+  let query = { grade, isPublished: true };
   let sort = { createdAt: 1 };
 
   if (isInstructor(user)) {
-    query = {
-      grade,
-      isPublished: true
-    };
-  } else {
-    query = {
-      grade,
-      isPublished
-    };
+    if (isPublished !== undefined) {
+      query.isPublished = isPublished;
+    } else {
+      query.isPublished = true;
+    }
   }
 
   if (q) {
@@ -76,7 +77,7 @@ module.exports.getLessons = async (
  * @description Get lesson by id
  * @param {Object} user - User
  * @param {String} id - Lesson id
- * @param {Boolean} videoName - wether to return videoName or not
+ * @param {Boolean} [videoName=false] - wether to return videoName or not
  * @returns {Promise<Object>} - Lesson
  */
 module.exports.getLesson = async (user, id, videoName = false) => {
@@ -94,7 +95,7 @@ module.exports.getLesson = async (user, id, videoName = false) => {
     return boom.notFound("Lesson not published");
   }
 
-  if (!lesson.videoName) {
+  if (!videoName) {
     lesson.videoName = undefined;
   }
 

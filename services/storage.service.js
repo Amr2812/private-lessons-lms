@@ -85,14 +85,15 @@ module.exports.getStreamAndUpload = async (folder, name, url) => {
 };
 
 /**
- * @class
  * @description Multer Google Cloud Storage uploader
  */
 class GCStorage {
+  /**
+   * @description Multer options
+   * @param {Object} options - Multer options
+   * @throws {Error} If destination is not defined
+   */
   constructor(opts) {
-    /**
-     * @description Multer options
-     */
     if (!opts.destination) {
       throw new Error("destination is required");
     }
@@ -103,6 +104,12 @@ class GCStorage {
     }
   }
 
+  /**
+   * @description Multer uploader
+   * @param {Object} req
+   * @param {Object} file
+   * @param {Function} cb - Multer callback
+   */
   _handleFile(req, file, cb) {
     this.getDestination(req, file, (err, { name, folder }) => {
       if (err) return cb(err);
@@ -131,6 +138,12 @@ class GCStorage {
     });
   }
 
+  /**
+   * @description Multer file remover
+   * @param {Object} req
+   * @param {Object} file
+   * @param {Function} cb - Multer callback
+   */
   _removeFile(req, file, cb) {
     this.getDestination(req, file, async (err, { folder, name }) => {
       if (err) return cb(err);

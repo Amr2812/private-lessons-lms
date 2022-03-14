@@ -20,8 +20,11 @@ module.exports.recordAction = async (admin, grade, count, type) =>
 /**
  * @async
  * @description Get all actions
- * @param {Object} query - Query object (type, skip, limit)
- * @returns {Promise<Object>} (actions, total)
+ * @param {Object} query
+ * @param {String} [query.type] - type of action lesson or quiz
+ * @param {Number} [query.skip=0] - skip
+ * @param {Number} [query.limit=10] - limit
+ * @returns {Promise<Object>} { actions, total }
  */
 module.exports.getActions = async ({ type, skip, limit }) => {
   let query = {};

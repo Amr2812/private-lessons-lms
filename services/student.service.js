@@ -6,7 +6,7 @@ const { Student } = require("../models");
  * @async
  * @description get student profile
  * @param {String} id - Student id
- * @returns {Promise<Object[]>}
+ * @returns {Promise<Object>}
  */
 module.exports.getProfile = async id => {
   const profile = await Student.findById(id, "-password")
@@ -44,8 +44,10 @@ module.exports.updateProfile = async (id, body) =>
  * @async
  * @description Update student FCM token
  * @param {Object} user - Student object
- * @param {Object} body - Req object (fcmToken, oldFCMToken)
- * @returns {Promise<Object>} Updated student fcm tokens
+ * @param {Object} body - Req object
+ * @param {String} body.fcmToken - FCM Token to add
+ * @param {String} body.oldFCMToken - Old FCM Token to remove
+ * @returns {Promise<String[]>} Updated student fcm tokens
  */
 module.exports.updateFcmToken = async (user, { fcmToken, oldFcmToken }) => {
   if (oldFcmToken && user.fcmTokens.includes(oldFcmToken)) {
@@ -64,8 +66,14 @@ module.exports.updateFcmToken = async (user, { fcmToken, oldFcmToken }) => {
 /**
  * @async
  * @description get all students
- * @param {Object} query - Query object (grade, q, lessonNotAttended, lessonAttended. skip, limit)
- * @returns {Promise<Object[]>}
+ * @param {Object} query
+ * @param {String} query.grade - grade id
+ * @param {String} query.q - search query
+ * @param {String} query.lessonNotAttended - lesson not attended by students
+ * @param {String} query.lessonAttended - lesson attended by students
+ * @param {Number} [query.skip=0]
+ * @param {Number} [query.limit=10]
+ * @returns {Promise<Object[]>} { students, total }
  */
 module.exports.getStudents = async ({
   grade,
@@ -106,7 +114,8 @@ module.exports.getStudents = async ({
 
 /**
  * @description check if user is student
- * @param {Object} user - User { role }
+ * @param {Object} user
+ * @param {String} user.role
  * @returns {Boolean}
  */
 module.exports.isStudent = ({ role }) => role === constants.ROLES_ENUM.student;

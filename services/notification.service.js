@@ -2,10 +2,9 @@ const { fcm } = require("../config/firebase");
 
 /**
  * @async
- * @function sendToTopic
  * @description Send notification to a topic
- * @param {string} topic
- * @param {object} payload - Notification payload
+ * @param {String} topic
+ * @param {Object} payload - Notification payload
  * @returns {Promise<Object} - Message ID
  */
 module.exports.sendToTopic = async (topic, payload) => {
@@ -16,10 +15,9 @@ module.exports.sendToTopic = async (topic, payload) => {
 
 /**
  * @async
- * @function subscribeToTopic
  * @description Subscribe user to a topic
- * @param {string} fcmToken
- * @param {string} topic
+ * @param {String} fcmToken
+ * @param {String} topic
  * @returns {Promise<Object>} - Message ID
  */
 module.exports.subscribeToTopic = async (fcmToken, topic) =>
@@ -27,7 +25,6 @@ module.exports.subscribeToTopic = async (fcmToken, topic) =>
 
 /**
  * @async
- * @function sendNotification
  * @description Send notification
  * @param {String | Array[String]} fcmTokens
  * @param {Object} payload - Notification payload

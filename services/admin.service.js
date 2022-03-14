@@ -26,15 +26,16 @@ module.exports.createAssistant = async assistant =>
 
 /**
  * @description check if user is admin
- * @param {Object} user - { role }
+ * @param {Object} user
+ * @param {String} user.role
  * @returns {Boolean}
  */
-module.exports.isAdmin = ({ role }) =>
-  constants.ADMINS_ROLES.includes(user.role);
+module.exports.isAdmin = ({ role }) => constants.ADMINS_ROLES.includes(role);
 
 /**
  * @description check if user is assistant
- * @param {Object} user - { role }
+ * @param {Object} user
+ * @param {String} user.role
  * @returns {Boolean}
  */
 module.exports.isAssistant = ({ role }) =>
@@ -42,7 +43,8 @@ module.exports.isAssistant = ({ role }) =>
 
 /**
  * @description check if user is instructor
- * @param {Object} user - { role }
+ * @param {Object} user
+ * @param {String} user.role
  * @returns {Boolean}
  */
 module.exports.isInstructor = ({ role }) =>

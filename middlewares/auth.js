@@ -1,5 +1,6 @@
 const boom = require("@hapi/boom");
 const { constants } = require("../config/constants");
+const { studentService, adminService } = require("../services");
 
 /**
  * @description Require authentication
@@ -13,7 +14,7 @@ module.exports.requireAuth = (req, res, next) => {
   }
 
   if (
-    req.user.role === constants.ROLES_ENUM.student &&
+    studentService.isStudent(req.user) &&
     !req.user.completed &&
     req.path !== "/profile"
   ) {
@@ -30,11 +31,7 @@ module.exports.requireAuth = (req, res, next) => {
  * @param  {Function} next - Express next middleware
  */
 module.exports.requireAdmin = (req, res, next) => {
-  if (
-    req.isAuthenticated() &&
-    (req.user.role === constants.ROLES_ENUM.assistant ||
-      req.user.role === constants.ROLES_ENUM.instructor)
-  ) {
+  if (req.isAuthenticated() && adminService.isAdmin(req.user)) {
     return next();
   }
 
@@ -48,10 +45,7 @@ module.exports.requireAdmin = (req, res, next) => {
  * @param  {Function} next - Express next middleware
  */
 module.exports.requireInstructor = (req, res, next) => {
-  if (
-    req.isAuthenticated() &&
-    req.user.role === constants.ROLES_ENUM.instructor
-  ) {
+  if (req.isAuthenticated() && adminService.isInstructor(req.user)) {
     return next();
   }
 

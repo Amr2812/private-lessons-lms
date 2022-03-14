@@ -9,34 +9,35 @@ const { events, subscribers } = require("../events");
  * @async
  * @description create a new quiz
  * @param {Oject} quiz
- * @returns {Promise<Object>} - quiz
+ * @returns {Promise<Object>} - Quiz
  */
 module.exports.createQuiz = async quiz => await Quiz.create(quiz);
 
 /**
  * @async
  * @description get quizzes
- * @param {String} user - User
- * @param {Object} queryParams - (grade, isPublished, q, skip, limit)
- * @returns {Promise<Object>} - (quizzes, total)
+ * @param {Object} user
+ * @param {Object} query
+ * @param {String} query.grade - grade id
+ * @param {Boolean} [query.isPublished=false]
+ * @param {String} [query.q] - search query
+ * @param {Number} [query.skip]
+ * @param {Number} [query.limit]
+ * @returns {Promise<Object>} - { quizzes, total }
  */
 module.exports.getQuizzes = async (
   user,
   { grade, isPublished, q, skip, limit }
 ) => {
-  let query = {};
+  let query = { grade, isPublished: true };
   let sort = { createdAt: 1 };
 
-  if (!isAdmin(user)) {
-    query = {
-      grade,
-      isPublished: true
-    };
-  } else {
-    query = {
-      grade,
-      isPublished
-    };
+  if (isAdmin(user)) {
+    if (isPublished !== undefined) {
+      query.isPublished = isPublished;
+    } else {
+      query.isPublished = true;
+    }
   }
 
   if (q) {
@@ -76,7 +77,7 @@ module.exports.getQuiz = async (user, id) => {
     .lean();
 
   if (!quiz) return boom.notFound("Quiz not found");
-  if (!quiz.isPublished && !constants.ADMINS_ROLES.includes(user.role)) {
+  if (!quiz.isPublished && !isAdmin(user)) {
     return boom.notFound("Quiz is not published");
   }
 
@@ -188,7 +189,7 @@ module.exports.takeQuiz = async (user, quizId, code) => {
  * @param {Object} user - user object
  * @param {String} quizId - Quiz id
  * @param {Array[Object]} answers - (questionId, answer)
- * @returns {Promise<String>} - Score
+ * @returns {Promise<Object>} - { score, wrongAnswers }
  */
 module.exports.checkAnswers = async (user, quizId, answers) => {
   if (!this.takenQuiz(user, quizId)) {
@@ -200,7 +201,7 @@ module.exports.checkAnswers = async (user, quizId, answers) => {
   const quiz = await Quiz.findOne({ _id: quizId }).lean();
 
   if (!quiz) return boom.notFound("Quiz not found");
-  if (!quiz.isPublished && !constants.ADMINS_ROLES.includes(user.role)) {
+  if (!quiz.isPublished && !isAdmin(user)) {
     return boom.notFound("Quiz is not published");
   }
 
@@ -227,7 +228,7 @@ module.exports.checkAnswers = async (user, quizId, answers) => {
 
 /**
  * @description check if student has taken quiz
- * @param {Object} user - user object
+ * @param {Object} user
  * @param {String} quizId - Quiz id
  * @returns {Boolean} - true if student has taken quiz
  */

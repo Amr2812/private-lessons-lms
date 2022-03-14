@@ -17,6 +17,7 @@ module.exports = fn => (req, res, next) => {
       logger.error(err);
       return next(boom.badImplementation(err.message, err));
     }
+
     next(err);
   });
 };

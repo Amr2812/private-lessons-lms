@@ -1,10 +1,23 @@
 const boom = require("@hapi/boom");
-const { constants } = require("../../config/constants");
-const { messageService, notificationService } = require("../../services");
+const { messageService, adminService } = require("../../services");
 
+/**
+ * @description register messages socket events and handlers
+ * @param {Object} io - Socket.io instance
+ * @param {Object} socket - Socket.io connected socket
+ */
 module.exports = (io, socket) => {
   const user = socket.request.user;
 
+  /**
+   * @async
+   * @description Get chats
+   * @param {Object} query
+   * @param {Object} query.lessonId
+   * @param {Object} [query.skip=0]
+   * @param {Object} [query.limit=10]
+   * @param {Function} callback
+   */
   const getChats = async (query, callback) => {
     try {
       const messages = await messageService.getChats(query);
@@ -17,18 +30,19 @@ module.exports = (io, socket) => {
     }
   };
 
+  /**
+   * @async
+   * @description Enter chat room and get messages
+   * @param {Object} body
+   * @param {String} body.studentId
+   * @param {String} body.lessonId
+   * @param {Function} callback
+   */
   const enterRoom = async ({ studentId, lessonId }, callback) => {
     try {
       const roomName = messageService.getRoomName(studentId, lessonId);
-      const inRoom = await io.in(roomName).fetchSockets();
-
-      if (!inRoom.map(sock => sock.request.user.id !== user.id).length > 1) {
-        return callback(
-          boom.badRequest("An admin is already in the room").output.payload
-        );
-      }
-
       socket.join(roomName);
+
       const messages = await messageService.getMessages(
         user.role,
         studentId,
@@ -43,6 +57,16 @@ module.exports = (io, socket) => {
     }
   };
 
+  /**
+   * @async
+   * @description Send message
+   * @param {Object} body - Message body
+   * @param {String} body.studentId
+   * @param {String} body.lessonId
+   * @param {String} body.content
+   * @param {String} body.from - From student or admin
+   * @param {Function} callback
+   */
   const sendMessage = async (
     { studentId, lessonId, content, from },
     callback
@@ -66,23 +90,7 @@ module.exports = (io, socket) => {
       if (inRoom.length > 0) {
         socket.broadcast.to(roomName).emit("messages:message", message);
       } else {
-        if (user.role === constants.ROLES_ENUM.student) {
-          await notificationService.sendNotification(user.fcmTokens, {
-            notification: {
-              title: "Admin replied to your message",
-              body: message.content.slice(0, 150) + "..."
-            },
-            data: message
-          });
-        } else {
-          await notificationService.sendToTopic(constants.ADMINS_FCM_TOPIC, {
-            notification: {
-              title: user.name,
-              body: message.content.slice(0, 150) + "..."
-            },
-            data: message
-          });
-        }
+        await messageService.notifyAdminOrStudent(user, message);
       }
     } catch (err) {
       const error = boom.badImplementation(err.message).output.payload;
@@ -94,7 +102,7 @@ module.exports = (io, socket) => {
   socket.use(([event, ...args], next) => {
     if (
       user.lessonsAttended?.includes(args[0].lessonId) ||
-      user.role !== constants.ROLES_ENUM.student
+      adminService.isAdmin(user)
     ) {
       next();
     } else {
