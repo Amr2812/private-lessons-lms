@@ -132,6 +132,6 @@ An overview of the LMS API.
 ## Postman Documentaion
 
 - Postman collection for the API endpoints:
-  - [Download](.github\LMS_API.postman_collection)
+  - [View](https://github.com/Amr2812/private-lessons-lms/blob/master/.github/LMS_API.postman_collection)
 - Postman collection for the Socket.IO events:
   - Unavilable as WebSockets at postman is still in beta version and can't be exported
