@@ -135,3 +135,8 @@ An overview of the LMS API.
   - [View](https://github.com/Amr2812/private-lessons-lms/blob/master/.github/LMS_API.postman_collection)
 - Postman collection for the Socket.IO events:
   - Unavilable as WebSockets at postman is still in beta version and can't be exported
+
+## Commercial use
+
+  I restrict any individual or company to use this project commercially.
+  Its source is available for reviewing by potential recruiters or clients and developers/students who find the project       useful to learn from.
