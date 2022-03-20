@@ -49,13 +49,11 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:3000/v1/auth/signup",
+									"raw": "{{url}}/auth/signup",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "3000",
 									"path": [
-										"v1",
 										"auth",
 										"signup"
 									]
@@ -319,13 +317,11 @@
 									}
 								},
 								"url": {
-									"raw": "localhost:3000/v1/auth/login?role=student",
+									"raw": "{{url}}/auth/login?role=student",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "3000",
 									"path": [
-										"v1",
 										"auth",
 										"login"
 									],
@@ -5516,6 +5512,425 @@
 					]
 				},
 				{
+					"name": "Update a Lesson",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Intro to Limits (updated)\",\r\n    \"notes\": \"Limits are cool\",\r\n    \"grade\": \"620e472e3dee2cd5b28a9bfa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/lessons/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"lessons",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "620e6d77edf87951594deeb5"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Intro to Limits (updated)\",\r\n    \"notes\": \"Limits are cool\",\r\n    \"grade\": \"620e472e3dee2cd5b28a9bfa\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/lessons/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"lessons",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "620e6d77edf87951594deeb5"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Sun Mar 20 2022 12:36:39 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "229"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e5-1Y9F1y3xQve9miKfzryqHarpQRg\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Sun, 03 Apr 2022 10:36:39 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Mar 2022 10:36:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"620e6d77edf87951594deeb5\",\n    \"grade\": \"620e472e3dee2cd5b28a9bfa\",\n    \"title\": \"Intro to Limits (updated)\",\n    \"notes\": \"Limits are cool\",\n    \"isPublished\": true,\n    \"createdAt\": \"2022-03-09T20:58:31.747Z\",\n    \"__v\": 0,\n    \"id\": \"620e6d77edf87951594deeb5\"\n}"
+						},
+						{
+							"name": "Invalid Data (not unique title)",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Week 1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/lessons/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"lessons",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "620e6d77edf87951594deeb5"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Sun Mar 20 2022 12:37:49 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "180"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"b4-9Uqz7X6qnO2sd4MeXKbI/gqVNRs\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Sun, 03 Apr 2022 10:37:48 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Mar 2022 10:37:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"error\": \"Bad Request\",\n    \"message\": \"Invalid data\",\n    \"errors\": [\n        {\n            \"message\": \"There is already a lesson with that title\",\n            \"type\": \"unique\",\n            \"path\": \"title\",\n            \"value\": \"Week 1\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Intro to Limits\",\r\n    \"notes\": \"Limits are cool\",\r\n    \"grade\": \"620e472e3dee2cd5b28a9bfa\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/lesson/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"lesson",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "6214f20b39f70f2f0c985882"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Mon Feb 21 2022 18:09:04 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "66"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"42-eS0SCm6JaDtaCnH6CGDYa4pc8vo\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Mon, 07 Mar 2022 16:09:03 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Feb 2022 16:09:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 401,\n    \"error\": \"Unauthorized\",\n    \"message\": \"Unauthorized\"\n}"
+						}
+					]
+				},
+				{
 					"name": "Publish Lesson",
 					"request": {
 						"method": "PUT",
@@ -5533,7 +5948,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "6214f20b39f70f2f0c985882"
+									"value": "620e47ec1df2e6906cd4ca0f"
 								}
 							]
 						}
@@ -5557,7 +5972,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "6214f20b39f70f2f0c985882"
+											"value": "620e47ec1df2e6906cd4ca0f"
 										}
 									]
 								}
@@ -5664,7 +6079,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "620e1d77edf87951594deeb5"
+											"value": "620e47ec1df2e6906cd4ca0f"
 										}
 									]
 								}
@@ -5781,7 +6196,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "6214f20b39f70f2f0c985882"
+									"value": "620e6d77edf87951594deeb5"
 								}
 							]
 						}
@@ -5805,7 +6220,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "6214f20b39f70f2f0c985882"
+											"value": "620e6d77edf87951594deeb5"
 										}
 									]
 								}
@@ -9320,6 +9735,457 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"score\": 4,\n    \"wrongAnswers\": [\n        {\n            \"question\": \"Who is the founder of the company Apple?\",\n            \"answers\": [\n                \"Steve Jobs\",\n                \"Bill Gates\",\n                \"Steve Wozniak\",\n                \"Tim Cook\",\n                \"Andrew Carnegie\"\n            ],\n            \"correctAnswer\": \"Steve Jobs\",\n            \"_id\": \"62281099b189f199c01b7ddc\",\n            \"id\": \"62281099b189f199c01b7ddc\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Question",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"question\": \"Who is the founder of the company Microsoft?\",\r\n    \"answers\": [\r\n        \"Steve Jobs\",\r\n        \"Bill Gates\",\r\n        \"Steve Wozniak\",\r\n        \"Margot Robbie\",\r\n        \"Andrew Carnegie\"\r\n    ],\r\n    \"correctAnswer\": \"Bill Gates\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/quizzes/:quizId/questions/:questionId",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"quizzes",
+								":quizId",
+								"questions",
+								":questionId"
+							],
+							"variable": [
+								{
+									"key": "quizId",
+									"value": "62281099b189f199c01b7dd8"
+								},
+								{
+									"key": "questionId",
+									"value": "62281099b189f199c01b7ddc"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"question\": \"Who is the founder of the company Microsoft?\",\r\n    \"answers\": [\r\n        \"Steve Jobs\",\r\n        \"Bill Gates\",\r\n        \"Steve Wozniak\",\r\n        \"Margot Robbie\",\r\n        \"Andrew Carnegie\"\r\n    ],\r\n    \"correctAnswer\": \"Bill Gates\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/quizzes/:quizId/questions/:questionId",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"quizzes",
+										":quizId",
+										"questions",
+										":questionId"
+									],
+									"variable": [
+										{
+											"key": "quizId",
+											"value": "62281099b189f199c01b7dd8"
+										},
+										{
+											"key": "questionId",
+											"value": "62281099b189f199c01b7ddc"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Sun Mar 20 2022 16:11:34 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "322"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"142-EoMTDtGqC8Tkip1VX9Kp3G63RB8\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Sun, 03 Apr 2022 14:11:33 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Mar 2022 14:11:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"62281099b189f199c01b7dd8\",\n    \"questions\": [\n        {\n            \"question\": \"Who is the founder of the company Microsoft?\",\n            \"answers\": [\n                \"Steve Jobs\",\n                \"Bill Gates\",\n                \"Steve Wozniak\",\n                \"Margot Robbie\",\n                \"Andrew Carnegie\"\n            ],\n            \"correctAnswer\": \"Bill Gates\",\n            \"_id\": \"62281099b189f199c01b7ddc\",\n            \"id\": \"62281099b189f199c01b7ddc\"\n        }\n    ],\n    \"id\": \"62281099b189f199c01b7dd8\"\n}"
+						},
+						{
+							"name": "Invalid Data",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"question\": \"Who is the founder of the company Microsoft?\",\r\n    \"answers\": [\r\n        \"Steve Jobs\",\r\n        \"Bill Gates\",\r\n        \"Steve Wozniak\",\r\n        \"Margot Robbie\",\r\n        \"Andrew Carnegie\"\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/quizzes/:quizId/questions/:questionId",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"quizzes",
+										":quizId",
+										"questions",
+										":questionId"
+									],
+									"variable": [
+										{
+											"key": "quizId",
+											"value": "62281099b189f199c01b7dd8"
+										},
+										{
+											"key": "questionId",
+											"value": "62281099b189f199c01b7ddc"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Sun Mar 20 2022 16:12:31 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "265"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"109-yrSSoMlTC7pxLmd6yE2mRwWdY9Y\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Sun, 03 Apr 2022 14:12:30 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Mar 2022 14:12:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"error\": \"Bad Request\",\n    \"message\": \"Invalid data\",\n    \"errors\": [\n        {\n            \"param\": \"correctAnswer\",\n            \"location\": \"body\",\n            \"message\": \"Correct answer is required\"\n        },\n        {\n            \"param\": \"correctAnswer\",\n            \"location\": \"body\",\n            \"message\": \"Correct answer should be one of the given answers\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"question\": \"Who is the founder of the company Microsoft?\",\r\n    \"answers\": [\r\n        \"Steve Jobs\",\r\n        \"Bill Gates\",\r\n        \"Steve Wozniak\",\r\n        \"Margot Robbie\",\r\n        \"Andrew Carnegie\"\r\n    ],\r\n    \"correctAnswer\": \"Bill Gates\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/quizzes/:quizId/questions/:questionId",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"quizzes",
+										":quizId",
+										"questions",
+										":questionId"
+									],
+									"variable": [
+										{
+											"key": "quizId",
+											"value": "62281099b189f199c01b7dd8"
+										},
+										{
+											"key": "questionId",
+											"value": "62281099b189f199c01b7ddc"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "Expect-CT",
+									"value": "max-age=0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://localhost:3000"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Retry-After",
+									"value": "1"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "4"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "Sun Mar 20 2022 16:12:55 GMT+0200 (Eastern European Standard Time)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "66"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"42-eS0SCm6JaDtaCnH6CGDYa4pc8vo\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Aazz_EVpQRHLTg67gFSyuH_jnF40KfMr4.DNG4rLU835EdNe0jeJuC83kW5vtNshS7EWVedSRcfC0; Path=/; Expires=Sun, 03 Apr 2022 14:12:54 GMT; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Mar 2022 14:12:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 401,\n    \"error\": \"Unauthorized\",\n    \"message\": \"Unauthorized\"\n}"
 						}
 					]
 				}

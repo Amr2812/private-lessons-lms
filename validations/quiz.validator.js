@@ -51,6 +51,25 @@ module.exports.getQuiz = [
   param("id").isMongoId().withMessage("Id is required")
 ];
 
+module.exports.updateQuestion = [
+  param("quizId").isMongoId().withMessage("Quiz Id is required"),
+  param("questionId").isMongoId().withMessage("Question Id is required"),
+  body("question").notEmpty().withMessage("Question is required"),
+  body("answers")
+    .isArray({ min: 2 })
+    .withMessage("Answers should be at least two"),
+  body("correctAnswer")
+    .notEmpty()
+    .withMessage("Correct answer is required")
+    .custom((value, { req }) => {
+      if (!req.body.answers.includes(value)) {
+        throw new Error("Correct answer should be one of the given answers");
+      }
+
+      return true;
+    })
+];
+
 module.exports.publishQuiz = [
   param("id").isMongoId().withMessage("Id is required")
 ];

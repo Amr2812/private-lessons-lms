@@ -1,5 +1,5 @@
 const boom = require("@hapi/boom");
-const { constants, env } = require("../config/constants");
+const { Types } = require("mongoose");
 const { Quiz, AccessCode, Student } = require("../models");
 const { isStudent } = require("./student.service");
 const { isAdmin } = require("./admin.service");
@@ -89,6 +89,31 @@ module.exports.getQuiz = async (user, id) => {
   }
 
   return quiz;
+};
+
+/**
+ * @async
+ * @description Update a question from a quiz
+ * @param {String} quizId - Quiz id
+ * @param {String} questionId - Question id
+ * @param {Object} question - Question
+ * @returns {Promise<Object>} - Quiz
+ */
+module.exports.updateQuestion = async (quizId, questionId, question) => {
+  // Set _id to be the old id because mongoose will set it to a new id
+  question._id = Types.ObjectId(questionId);
+  const updatedQuestion = await Quiz.findOneAndUpdate(
+    { _id: quizId, "questions._id": questionId },
+    { $set: { "questions.$": question } },
+    { new: true }
+  )
+    .select({
+      questions: { $elemMatch: { _id: questionId } }
+    })
+    .lean();
+  if (!updatedQuestion) return boom.notFound("Question not found");
+
+  return updatedQuestion;
 };
 
 /**

@@ -42,6 +42,24 @@ module.exports.getQuiz = async (req, res, next) => {
 
 /**
  * @async
+ * @description Update Quiz
+ * @param  {Object} req - Express request object
+ * @param  {Object} res - Express response object
+ * @param  {Function} next - Express next middleware
+ */
+module.exports.updateQuestion = async (req, res, next) => {
+  const quiz = await quizService.updateQuestion(
+    req.params.quizId,
+    req.params.questionId,
+    req.body
+  );
+  if (quiz instanceof Error) return next(quiz);
+
+  res.send(quiz);
+};
+
+/**
+ * @async
  * @description Publish Quiz
  * @param  {Object} req - Express request object
  * @param  {Object} res - Express response object

@@ -33,6 +33,14 @@ router
   );
 
 router
+  .route("/:quizId/questions/:questionId")
+  .put(
+    requireAdmin,
+    validate(quizValidator.updateQuestion),
+    asyncMiddleware(quizController.updateQuestion)
+  );
+
+router
   .route("/:id/publish")
   .put(
     requireAdmin,

@@ -56,7 +56,6 @@ An overview of the LMS API.
 
   - Create Lesson
   - Update Lesson
-  - Delete Lesson
   - Publish/Unpublish Lesson and send notifications & emails to students
   - Attend Lesson
   - Filter/Search Lessons
@@ -66,8 +65,7 @@ An overview of the LMS API.
 - **Quizes:**
 
   - Create Quiz
-  - Update Quiz
-  - Delete Quiz
+  - Update Questions
   - Publish/Unpublish Quiz and send notifications & emails to students
   - Filter/Search Quizes
   - Take Quizzes By access codes
@@ -138,5 +136,5 @@ An overview of the LMS API.
 
 ## Commercial use
 
-  I restrict any individual or company to use this project commercially.
-  Its source is available for reviewing by potential recruiters or clients and developers/students who find the project       useful to learn from.
+I restrict any individual or company to use this project commercially.
+Its source is available for reviewing by potential recruiters or clients and developers/students who find the project useful to learn from.
