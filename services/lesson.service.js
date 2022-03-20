@@ -2,7 +2,7 @@ const boom = require("@hapi/boom");
 const { constants } = require("../config/constants");
 const { Lesson, AccessCode, Student } = require("../models");
 const { getSignedUrl } = require("./storage.service");
-const { isInstructor } = require("./admin.service");
+const { isInstructor, isAdmin } = require("./admin.service");
 const { isStudent } = require("./student.service");
 const { events, EventEmitter } = require("../events");
 
@@ -81,8 +81,10 @@ module.exports.getLessons = async (
  * @returns {Promise<Object>} - Lesson
  */
 module.exports.getLesson = async (user, id, videoName = false) => {
-  if (!this.attendedLesson(user, id)) {
-    return boom.badRequest("You have to attend this lesson to view it");
+  if (!isAdmin(user)) {
+    if (!this.attendedLesson(user, id)) {
+      return boom.badRequest("You have to attend this lesson to view it");
+    }
   }
 
   const lesson = await Lesson.findOne({ _id: id })
@@ -91,15 +93,32 @@ module.exports.getLesson = async (user, id, videoName = false) => {
 
   if (!lesson) return boom.notFound("Lesson not found");
 
-  if (!lesson.isPublished && user.role !== constants.ROLES_ENUM.instructor) {
+  if (!lesson.isPublished && !isInstructor(user)) {
     return boom.notFound("Lesson not published");
   }
 
-  if (!videoName) {
-    lesson.videoName = undefined;
-  }
-
+  if (!videoName) lesson.videoName = undefined;
   return lesson;
+};
+
+/**
+ * @async
+ * @description Update lesson
+ * @param {String} id - Lesson id
+ * @param {Object} lesson - Lesson
+ * @returns {Promise<Object>} - Updated Lesson
+ */
+module.exports.updateLesson = async (id, lesson) => {
+  const updatedLesson = await Lesson.findOneAndUpdate({ _id: id }, lesson, {
+    new: true,
+    runValidators: true,
+    context: "query"
+  })
+    .select("-videoName")
+    .lean();
+  if (!updatedLesson) return boom.notFound("Lesson not found");
+
+  return updatedLesson;
 };
 
 /**

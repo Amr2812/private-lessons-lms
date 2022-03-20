@@ -28,6 +28,19 @@ module.exports.getLesson = [
   param("id").isMongoId().withMessage("Id is required")
 ];
 
+module.exports.updateLesson = [
+  param("id").isMongoId().withMessage("Id is required"),
+  body("title")
+    .optional()
+    .isLength({ min: 1 })
+    .withMessage("Title cannot be empty"),
+  body("grade")
+    .optional()
+    .isMongoId()
+    .withMessage("Grade is not a valid ObjectID"),
+  body("notes").optional().isString().withMessage("Notes is string")
+];
+
 module.exports.publishLesson = [
   param("id").isMongoId().withMessage("Id is required")
 ];

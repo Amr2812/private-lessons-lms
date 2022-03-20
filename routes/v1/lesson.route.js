@@ -26,6 +26,11 @@ router
     requireAuth,
     validate(lessonValidator.getLesson),
     asyncMiddleware(lessonController.getLesson)
+  )
+  .patch(
+    requireInstructor,
+    validate(lessonValidator.updateLesson),
+    asyncMiddleware(lessonController.updateLesson)
   );
 
 router
