@@ -15,9 +15,9 @@
 - Docker
 - Documented with JsDoc
 
-## Application Structure:
+## Server Structure:
 
-      Router <-> Authorization <-> Validations <-> Controllers <-> Services <-> Models (ORM)
+[![Server Structure](https://github.com/Amr2812/private-lessons-lms/blob/master/.github/Structure.png)](https://github.com/Amr2812/private-lessons-lms/blob/master/.github/Structure.png)
 
 ## Features:
 
