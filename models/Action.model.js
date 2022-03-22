@@ -22,6 +22,8 @@ const actionSchema = mongoose.Schema({
   }
 });
 
+actionSchema.index({ createdAt: -1 });
+
 const Action = mongoose.model("Action", actionSchema);
 
 module.exports = Action;

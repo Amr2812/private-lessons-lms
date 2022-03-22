@@ -15,6 +15,10 @@
 - Docker
 - Documented with JsDoc
 
+## System Architecture:
+
+[![System Architecture](https://github.com/Amr2812/private-lessons-lms/blob/master/.github/Architecture.png)](https://github.com/Amr2812/private-lessons-lms/blob/master/.github/Architecture.png)
+
 ## Server Structure:
 
 [![Server Structure](https://github.com/Amr2812/private-lessons-lms/blob/master/.github/Structure.png)](https://github.com/Amr2812/private-lessons-lms/blob/master/.github/Structure.png)

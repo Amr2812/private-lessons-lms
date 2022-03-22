@@ -10,7 +10,6 @@ const gradeSchema = mongoose.Schema({
 });
 
 gradeSchema.plugin(mongooseLeanId);
-
 gradeSchema.plugin(uniqueValidator, {
   message: "There is already a grade with that {PATH}"
 });

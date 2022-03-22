@@ -33,6 +33,7 @@ const lessonSchema = mongoose.Schema(
 );
 
 lessonSchema.index({ grade: 1, isPublished: 1, title: "text" });
+lessonSchema.index({ createdAt: 1 });
 
 lessonSchema.pre("save", function (next) {
   if (this.isNew) {
