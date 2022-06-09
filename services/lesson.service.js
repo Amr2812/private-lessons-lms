@@ -181,6 +181,12 @@ module.exports.attendLesson = async (user, lessonId, code) => {
 
   if (!lesson) return boom.notFound("Lesson not found");
 
+  if (this.attendedLesson(user, lessonId)) {
+    return boom.badRequest(
+      "You already attended this lesson you can access it"
+    );
+  }
+
   const accessCode = await AccessCode.findOne({
     code,
     grade: lesson.grade
@@ -190,12 +196,6 @@ module.exports.attendLesson = async (user, lessonId, code) => {
   if (accessCode.consumed) return boom.badRequest("Access code already used");
   if (accessCode.type !== "lesson")
     return boom.badRequest("Access code is not for lessons");
-
-  if (this.attendedLesson(user, lessonId)) {
-    return boom.badRequest(
-      "You already attended this lesson you can access it"
-    );
-  }
 
   await Student.updateOne(
     { _id: user.id },
