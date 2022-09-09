@@ -45,7 +45,7 @@
     "winston-transport-sentry-node": "2.3.0"
   },
   "devDependencies": {
-    "husky": "^7.0.4",
+    "husky": "^8.0.1",
     "lint-staged": "^12.1.7",
     "nodemon": "2.0.19",
     "prettier": "2.5.1"
