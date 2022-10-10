@@ -142,3 +142,30 @@ An overview of the LMS API.
 
 I restrict any individual or company to use this project commercially.
 Its source is available for reviewing by potential recruiters or clients and developers/students who find the project useful to learn from.
+
+> Give it a star if you like it ⭐
+
+## Contact me
+
+<p align="center">
+<ul>
+  <li>
+    <a href="https://www.linkedin.com/in/amr-elmohamady" target="_blank" >LinkedIn</a>
+  </li>
+  <li>
+    <a href="mailto:amr.osama.elmohamady@gmail.com">Email</a>
+  </li>
+  <li>
+    <a href="https://amrelmohamady.hashnode.dev/" target="_blank" >Blog & Personal site (hashnode)</a>
+  </li>
+  <li>
+    <a href="https://dev.to/amrelmohamady" target="_blank" >Blog (dev.to)</a>
+  </li>
+  <li>
+    <a href="https://www.facebook.com/amr.elmohamady.1426/" target="_blank" >Facebook</a>
+  </li>
+  <li>
+    <a href="https://twitter.com/Amr__Elmohamady" target="_blank" >Twitter</a> 
+  </li>
+</ul>
+</p>
