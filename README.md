@@ -66,7 +66,7 @@ An overview of the LMS API.
   - Attend Lessons By access codes
   - Stream videos with the Node.js server to prevent file link access
 
-- **Quizes:**
+- **Quizes (Exams unrelated to lessons):**
 
   - Create Quiz
   - Update Questions
