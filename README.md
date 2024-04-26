@@ -94,9 +94,14 @@ An overview of the LMS API.
 
 ## About the APP:
 
-- **App Scaling:**
+- **Scaling:**
 
   The app is scalable horizontally and can be deployed to multiple servers and/or multiple instances as it is stateless and WebSockets servers communicate through redis to preserve state.
+
+- **Design Patterns:**
+
+  I used the Strategy deisgn pattern to implement multiple authentication strategies (Session-based and OAuth2.0 Facebook authentication).
+  I used the Observer design pattern (with Node.js EventEmitter) to asynchronously subscribe to events like published lessons and notify students.
 
 - **Database Performance:**
 
@@ -136,7 +141,7 @@ An overview of the LMS API.
 - Postman collection for the API endpoints:
   - [View](https://github.com/Amr2812/private-lessons-lms/blob/master/.github/LMS_API.postman_collection)
 - Postman collection for the Socket.IO events:
-  - Unavilable as WebSockets at postman is still in beta version and can't be exported
+  - Unavilable as WebSockets at postman was still in beta version and couldn't be exported
 
 ## Commercial use
 
